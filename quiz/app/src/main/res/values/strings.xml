@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">quiz</string>
     <string name="loginButtonString">Login</string>
-    <string name="createButtonString">Login</string>
+    <string name="createButtonString">New User</string>
 
 
 
