@@ -1,8 +1,29 @@
 <resources>
     <string name="app_name">quiz</string>
     <string name="loginButtonString">Login</string>
-    <string name="createButtonString">Login</string>
+    <string name="createButtonString">Create user</string>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="infoNamn">Awesome quiz</string>
+    <string name="infoText">This is an awesome and exiting quiz.</string>
+    <string name="intVote">32</string>
+    <string name="textVote">have voted</string>
+    <string name="intGames">84</string>
+    <string name="textGames">have played</string>
 
 
 </resources>
