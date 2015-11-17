@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">quiz</string>
     <string name="loginButtonString">Login</string>
-<<<<<<< HEAD
+
     <string name="createButtonString">Create user</string>
-=======
-    <string name="createButtonString">New User</string>
->>>>>>> 9e0127d88eab7cfc4d039ca93996cf8335cb4163
+
 
 
 

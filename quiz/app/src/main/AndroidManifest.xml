@@ -17,11 +17,14 @@
         </activity>
         <activity android:name=".hub" >
         </activity>
-<<<<<<< HEAD
+
+
         <activity android:name=".quizInfo" >
-=======
+        </activity>
+
+
         <activity android:name=".quizMain" >
->>>>>>> 9e0127d88eab7cfc4d039ca93996cf8335cb4163
+
         </activity>
     </application>
 
