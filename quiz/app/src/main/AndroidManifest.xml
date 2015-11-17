@@ -17,14 +17,11 @@
         </activity>
         <activity android:name=".hub" >
         </activity>
-
-
         <activity android:name=".quizInfo" >
         </activity>
-
-
         <activity android:name=".quizMain" >
-
+        </activity>
+        <activity android:name=".results" >
         </activity>
     </application>
 
