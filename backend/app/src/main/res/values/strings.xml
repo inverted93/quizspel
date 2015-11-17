@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">backend</string>
+    <string name="createQuizNameLabel">Name</string>
+    <string name="createQuizDescriptionLabel">Description</string>
+    <string name="createQuizNextButton">Next</string>
+    <string name="doneQuestionButton">Done! Create Quiz</string>
+    <string name="createNewQuestionButton">New Question</string>
 </resources>

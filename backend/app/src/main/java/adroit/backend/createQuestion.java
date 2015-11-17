@@ -4,29 +4,30 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 
-public class MainActivity extends AppCompatActivity {
+public class createQuestion extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_create_question);
     }
 
 
-
-    public void changePage(View view){
-
+    public void changePage(View v){
 
 
-       Intent myIntent = new Intent(this, hub.class);
+        Intent myIntent = new Intent(this, hub.class);
 
 
         startActivity(myIntent);
 
+
+
+
+
     }
+
 
 
 
