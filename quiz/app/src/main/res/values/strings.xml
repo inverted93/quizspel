@@ -29,4 +29,7 @@
     <string name="textGames">have played</string>
 
 
+    <string name="Game_1">Star Wars</string>
+    <string name="Game_2">Potato</string>
+
 </resources>

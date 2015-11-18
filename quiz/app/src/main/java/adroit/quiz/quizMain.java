@@ -11,11 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class quizMain extends AppCompatActivity {
-
-    EditText inputSearch;
-    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +21,7 @@ public class quizMain extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_main);
 
 
-        String[] games = {"Star Wars", "Potato-quiz", "Stromstad", "Horses", "Dogs", "WW2", "Trump"};
+        String[] games = {"Star Wars", "Potato", "Stromstad", "Horses", "Dogs", "WW2", "Trump"};
         ListAdapter gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         ListView gameList = (ListView) findViewById(R.id.gameList);
         gameList.setAdapter(gameAdapter);
@@ -36,23 +34,17 @@ public class quizMain extends AppCompatActivity {
 
                 String s = String.valueOf(parent.getItemAtPosition(position));
 
-                    if(s.equals("Star Wars")) changePage(view);
+                Bundle b = new Bundle();
+                b.putString("Some Key", s);
 
-
-
+                Intent myIntent = new Intent(this, quizInfo.class);
+                myIntent.putExtras(b);
+                startActivity(myIntent);
             }
         });
     }
 
 
-    public void changePage(View view){
-
-        Intent myIntent = new Intent(this, quizInfo.class);
-
-        startActivity(myIntent);
-
-
-    }
 
 
 }
