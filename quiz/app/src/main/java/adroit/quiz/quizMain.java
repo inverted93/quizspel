@@ -37,11 +37,19 @@ public class quizMain extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putString("Some Key", s);
 
-                Intent myIntent = new Intent(this, quizInfo.class);
+                Intent myIntent = new Intent(view.getContext(), quizInfo.class);
                 myIntent.putExtras(b);
                 startActivity(myIntent);
             }
         });
+
+
+
+
+
+
+
+
     }
 
 
