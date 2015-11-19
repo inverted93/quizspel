@@ -35,10 +35,23 @@ public class jsonConnection {
 
 
     public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException{
-        InputStream input = new URL(url).openStream();
+        //InputStream input = new URL(url).openStream();
+        URL website = new URL(url);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(website.openStream()));
+
+        String inputLine;
 
 
-        try{
+        while((inputLine = reader.readLine())!= null){
+            System.out.println("1: " + inputLine);
+        }
+        reader.close();
+
+
+
+        JSONObject jTemp = new JSONObject();
+
+       /* try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-8")));
             String jsonText = readAll(reader);
             JSONObject json = new JSONObject(jsonText);
@@ -47,28 +60,21 @@ public class jsonConnection {
 
         }finally{
             input.close();
-        }
+        }*/
 
 
 
-
-
-
-    }
-
-
-
-
-
-
-
-    public static void testMetod(){
-
-        System.out.println("Vi kom in i metoden");
-
+        return jTemp;
 
 
     }
+
+
+
+
+
+
+
 
 
 

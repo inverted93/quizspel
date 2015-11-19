@@ -30,26 +30,33 @@ public class hub extends AppCompatActivity{
 
     }
 
-    public void changePageMyQuiz(View v) throws IOException, JSONException{
+    public void changePageMyQuiz(View v) {
 
-        //Intent myIntent = new Intent(this, myQuiz.class);     DETTA SKA TILLBAKA SEN
-        //startActivity(myIntent);
+        Intent myIntent = new Intent(this, myQuiz.class);
+        startActivity(myIntent);
+
+
+
+    }
+
+
+
+    public void changePageNetwork(View v) throws IOException, JSONException{
+
+
 
         System.out.println("Vi kom till hubben");
 
-        JSONObject json = jsonConnection.readJsonFromUrl("https://www.dropbox.com/s/834wejq3i3w302v/test.json?dl=0");
+        //JSONObject json = jsonConnection.readJsonFromUrl("https://api.myjson.com/bins/1o5l9");
 
-        System.out.println("Rad:   " + json.toString());
-        System.out.println("ID:    " + json.get("id"));
-
-        jsonConnection.testMetod();
-
-
+        //System.out.println("Rad:   " + json.toString());
+        //System.out.println("ID:    " + json.get("id"));
 
 
 
 
     }
+
 
 
 

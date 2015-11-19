@@ -23,10 +23,19 @@
         android:layout_height="wrap_content"
         android:text="My quiz"
         android:id="@+id/button2"
-        android:layout_below="@+id/button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="131dp"
         android:minHeight="70dp"
         android:minWidth="140dp"
-        android:onClick="changePageMyQuiz"/>
+        android:onClick="changePageMyQuiz"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Network test"
+        android:id="@+id/button6"
+        android:layout_below="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp" />
 </RelativeLayout>
