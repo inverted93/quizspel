@@ -1,7 +1,9 @@
 package adroit.quiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class quizInfo extends AppCompatActivity {
@@ -27,6 +29,17 @@ public class quizInfo extends AppCompatActivity {
 
     }
 
+    public void changePage(View view){
+
+
+
+        Intent myIntent = new Intent(this, play.class);
+
+
+        startActivity(myIntent);
+
+
+    }
 
 
 }
