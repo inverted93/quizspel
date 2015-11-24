@@ -35,9 +35,9 @@ public class jsonConnection {
 
 
     public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException{
-        //InputStream input = new URL(url).openStream();
-        URL website = new URL(url);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(website.openStream()));
+
+
+       /* BufferedReader reader = new BufferedReader(new InputStreamReader(website.openStream()));
 
         String inputLine;
 
@@ -51,7 +51,16 @@ public class jsonConnection {
 
         JSONObject jTemp = new JSONObject();
 
-       /* try{
+
+        return jTemp;*/
+
+
+        URL website = new URL(url);
+
+        InputStream input = new URL(url).openStream();
+
+
+        try{
             BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-8")));
             String jsonText = readAll(reader);
             JSONObject json = new JSONObject(jsonText);
@@ -60,11 +69,11 @@ public class jsonConnection {
 
         }finally{
             input.close();
-        }*/
+        }
 
 
 
-        return jTemp;
+
 
 
     }

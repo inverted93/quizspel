@@ -47,10 +47,10 @@ public class hub extends AppCompatActivity{
 
         System.out.println("Vi kom till hubben");
 
-        //JSONObject json = jsonConnection.readJsonFromUrl("https://api.myjson.com/bins/1o5l9");
+        JSONObject json = jsonConnection.readJsonFromUrl("https://api.myjson.com/bins/1o5l9");
 
-        //System.out.println("Rad:   " + json.toString());
-        //System.out.println("ID:    " + json.get("id"));
+        System.out.println("Rad:   " + json.toString());
+        System.out.println("ID:    " + json.get("id"));
 
 
 

@@ -36,5 +36,6 @@
         android:text="Network test"
         android:id="@+id/button6"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="changePageNetwork"/>
 </RelativeLayout>
