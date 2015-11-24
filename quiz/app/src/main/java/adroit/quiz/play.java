@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -22,13 +23,21 @@ public class play extends AppCompatActivity {
     int secondsLeft = 0;
     TextView countDownText;
     ArrayList<String> userAnswers = new ArrayList<>();
-    List<String> answers = Arrays.asList("Ett jävla pack", "Rimliga", "Höger", "Kompetenta", "Häftiga", "Snygga", "Intellektuella");
-
+    //List<String> answers = Arrays.asList("Ett jävla pack", "Rimliga", "Höger", "Kompetenta", "Häftiga", "Snygga", "Intellektuella");
+    List<String> answers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        answers.add("Ett jävla pack");
+        answers.add("Rimliga");
+        answers.add("Höger");
+        answers.add("Kompetenta");
+        answers.add("Häftiga");
+        answers.add("Snygga");
+        answers.add("Intellektuella");
 
         countDownText=(TextView)findViewById(R.id.editText4);
 
@@ -47,10 +56,8 @@ public class play extends AppCompatActivity {
             }
         }.start();
 
-
-        //String[] answers = {"Ett jävla pack", "Rimliga", "Höger", "Kompetenta", "Häftiga", "Snygga", "Intellektuella"};
-        ListAdapter answersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, answers);
-        ListView answersList = (ListView) findViewById(R.id.answersList);
+        final ListAdapter answersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, answers);
+        final ListView answersList = (ListView) findViewById(R.id.answersList);
         answersList.setAdapter(answersAdapter);
 
         answersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,13 +71,20 @@ public class play extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                //Kanske if (QuiestionNr < numberOfQuestions) {}. även i countdownen såklart- Else gå till ny aktivitet med resultat.
                 String choosenAnswer = String.valueOf(parent.getItemAtPosition(position));
                 userAnswers.add(choosenAnswer);
-                answers = null; // repainta för att se om det funerar va?
+                answers.clear();
+                answers.add("Jonas Mamma");
+                ((TextView) findViewById(R.id.editText3)).setText("Bytt sida");
+                answersList.setAdapter(null);
+                answersList.setAdapter(answersAdapter);
+                //((BaseAdapter) answersList.getAdapter()).notifyDataSetChanged();
                 CountDown.cancel();
                 CountDown.start();
-                //answersAdapter.notifyDataSetChanged
-                ((TextView)findViewById(R.id.editText3)).setText("Bytt sida");
+                //answers = null; // repainta för att se om det funerar va?
+                //answersAdapter.notifyDataSetChanged();
+
 
             }
         });
