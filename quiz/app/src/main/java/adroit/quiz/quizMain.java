@@ -13,7 +13,12 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Comparator;
+
 public class quizMain extends AppCompatActivity {
+
+
+    ArrayAdapter<String> gameAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +27,31 @@ public class quizMain extends AppCompatActivity {
 
 
         String[] games = {"Star Wars", "Potato", "Stromstad", "Horses", "Dogs", "WW2", "Trump"};
-        ListAdapter gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+        gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         ListView gameList = (ListView) findViewById(R.id.gameList);
         gameList.setAdapter(gameAdapter);
+
+        EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                quizMain.this.gameAdapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
 
 
         gameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -42,13 +69,6 @@ public class quizMain extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
-
-
-
-
-
-
 
     }
 

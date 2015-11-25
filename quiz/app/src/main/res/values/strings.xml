@@ -27,12 +27,13 @@
     <string name="infoNamn">Awesome quiz</string>
     <string name="infoText">This is an awesome and exiting quiz.</string>
     <string name="intVote">32</string>
-    <string name="textVote">have voted</string>
+    <string name="textVote">has voted</string>
     <string name="intGames">84</string>
-    <string name="textGames">have played</string>
+    <string name="textGames">has played</string>
 
 
-    <string name="Game_1">Star Wars</string>
-    <string name="Game_2">Potato</string>
+    <string name="startQuizButton">Play</string>
+    <string name="ratingText">Average Rating</string>
+    <string name="sortListButton">By Name</string>
 
 </resources>
