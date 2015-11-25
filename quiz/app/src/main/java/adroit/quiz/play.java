@@ -20,6 +20,9 @@ import java.util.concurrent.TimeUnit;
 
 public class play extends AppCompatActivity {
 
+    double correctAnswers = 3;
+    double numberOfQuestions = 8;
+    int questionNr = 0;
     int secondsLeft = 0;
     TextView countDownText;
     ArrayList<String> userAnswers = new ArrayList<>();
@@ -39,55 +42,93 @@ public class play extends AppCompatActivity {
         answers.add("Snygga");
         answers.add("Intellektuella");
 
-        countDownText=(TextView)findViewById(R.id.editText4);
-
-        final CountDownTimer CountDown = new CountDownTimer(10000, 100) {
-
-            public void onTick(long ms) {
-                if (Math.round((float)ms / 1000.0f) != secondsLeft) {
-                    secondsLeft = Math.round((float) ms / 1000.0f);
-                    countDownText.setText("Time left: " + secondsLeft);
-                }
-            }
-
-            public void onFinish() {
-                countDownText.setText("Time left: 0");
-                ((TextView)findViewById(R.id.editText3)).setText("Bytt sida");
-            }
-        }.start();
+        countDownText = (TextView) findViewById(R.id.editText4);
 
         final ListAdapter answersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, answers);
-        final ListView answersList = (ListView) findViewById(R.id.answersList);
+        final  ListView answersList = (ListView) findViewById(R.id.answersList);
         answersList.setAdapter(answersAdapter);
 
-        answersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            // GLÖM EJ att if elsa, om tiden går ut skall svaaret i arrayen vara null
-            //adapter.clear(), and adapter.addAll(Array<T>) before calling notifyDataSetChanged()
-            // ((TextView)findViewById(R.id.editText3)).setText(choosenAnswer);
-            //Arrays.asList(yourArray).contains(yourValue)
+            final CountDownTimer CountDown = new CountDownTimer(8000, 100) {
 
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                public void onTick(long ms) {
+                    if (Math.round((float) ms / 1000.0f) != secondsLeft) {
+                        secondsLeft = Math.round((float) ms / 1000.0f);
+                        countDownText.setText("Time left: " + secondsLeft);
 
-                //Kanske if (QuiestionNr < numberOfQuestions) {}. även i countdownen såklart- Else gå till ny aktivitet med resultat.
-                String choosenAnswer = String.valueOf(parent.getItemAtPosition(position));
-                userAnswers.add(choosenAnswer);
-                answers.clear();
-                answers.add("Jonas Mamma");
-                ((TextView) findViewById(R.id.editText3)).setText("Bytt sida");
-                answersList.setAdapter(null);
-                answersList.setAdapter(answersAdapter);
-                //((BaseAdapter) answersList.getAdapter()).notifyDataSetChanged();
-                CountDown.cancel();
-                CountDown.start();
-                //answers = null; // repainta för att se om det funerar va?
-                //answersAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                public void onFinish() {
+                    countDownText.setText("Time left: 0");
+                    nextQuestion("apa");
+                    answersList.setAdapter(null);
+                    answersList.setAdapter(answersAdapter);
+                    if (questionNr >= numberOfQuestions){
+                        this.cancel();
+                        changePage();
+                    }
+                    else {
+                        this.start();
+                    }
+                }
+
+            }.start();
+
+            answersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    if (questionNr < (numberOfQuestions - 1)) {
+
+                        String choosenAnswer = String.valueOf(parent.getItemAtPosition(position));
+
+                        nextQuestion(choosenAnswer);
+
+                        answersList.setAdapter(null);
+                        answersList.setAdapter(answersAdapter);
+
+                        CountDown.cancel();
+                        CountDown.start();
+
+                        //questionNr++;
+                    } else {
+                        CountDown.cancel();
+                        changePage();
+                    }
 
 
-            }
-        });
+                }
+            });
+
+    }
+
+    public void nextQuestion(String questionAnswer){
+
+        userAnswers.add(questionAnswer);
+
+        answers.clear();
+        answers.add("Jonas Mamma");
+
+        ((TextView) findViewById(R.id.editText3)).setText("Bytt fråga");
+
+        questionNr++;
+
+    }
+
+    public void changePage(){
+
+        double scorePercentage = correctAnswers / numberOfQuestions;
+
+        Bundle b = new Bundle();
+        b.putDouble("The Key", scorePercentage);
+
+        Intent myIntent = new Intent(this, results.class);
+        myIntent.putExtras(b);
+
+        startActivity(myIntent);
+
 
     }
 
