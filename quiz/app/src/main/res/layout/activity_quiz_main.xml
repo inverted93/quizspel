@@ -32,6 +32,7 @@
         android:id="@+id/sortList"
         android:layout_below="@+id/inputSearch"
         android:layout_toRightOf="@+id/gameList"
-        android:layout_toEndOf="@+id/gameList" />
+        android:layout_toEndOf="@+id/gameList"
+        android:onClick="sortList"/>
 
 </RelativeLayout>

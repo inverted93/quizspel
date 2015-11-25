@@ -13,11 +13,14 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class quizMain extends AppCompatActivity {
 
-
+    boolean switcher = true;
+    ArrayList<String> games = new ArrayList<String>();
     ArrayAdapter<String> gameAdapter;
 
     @Override
@@ -25,8 +28,18 @@ public class quizMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_main);
 
+        //String[] games = {"Star Wars", "Potato", "Stromstad", "Horses", "Dogs", "WW2", "Trump"};
 
-        String[] games = {"Star Wars", "Potato", "Stromstad", "Horses", "Dogs", "WW2", "Trump"};
+
+        //läs in från databasen med en for-loop
+        games.add("Star Wars");
+        games.add("Potato");
+        games.add("Stromstad");
+        games.add("Horses");
+        games.add("Dogs");
+        games.add("WW2");
+        games.add("Trump");
+
         gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         ListView gameList = (ListView) findViewById(R.id.gameList);
         gameList.setAdapter(gameAdapter);
@@ -72,7 +85,42 @@ public class quizMain extends AppCompatActivity {
 
     }
 
+    public void sortList (View view) {
 
+      /*  ListView gameList = (ListView) findViewById(R.id.gameList);
 
+        if (switcher == true) {
+            Collections.sort(games, new SortingComparatorAsc());
+            gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+            gameList.setAdapter(gameAdapter);
+            switcher = false;
+        } else {
+            Collections.sort(games, new SortingComparatorDsc());
+            gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+            gameList.setAdapter(gameAdapter);
+            switcher = true;
+        }*/
 
+        Collections.sort(games, new SortingComparatorDsc());
+        gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+        ListView gameList = (ListView) findViewById(R.id.gameList);
+        gameList.setAdapter(gameAdapter);
+
+    }
 }
+
+    class SortingComparatorAsc implements Comparator<String> {
+
+        @Override
+        public int compare(String s1, String s2) {
+            return s1.compareTo(s2);
+        }
+    }
+
+    class SortingComparatorDsc implements Comparator<String> {
+
+        @Override
+        public int compare(String s1, String s2) {
+            return -s1.compareTo(s2);
+        }
+    }
