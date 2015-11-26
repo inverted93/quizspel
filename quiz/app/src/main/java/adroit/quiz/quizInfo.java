@@ -20,6 +20,7 @@ public class quizInfo extends AppCompatActivity {
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         TextView infoText = (TextView) findViewById(R.id.infoText);
+        //endast temporära, skapa inte strings
         if (s.equals("Star Wars")) {
             ratingBar.setRating(Float.parseFloat("5.0"));
             infoText.setText("It's a trap!");

@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -15,24 +18,52 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    jsonConnection jsonClass = new jsonConnection();
-    TextView tv;
-    String ab;
-    JSONObject jobj = null;
 
+    boolean switcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new retrievedata().execute();
+
+    }
+
+    public void userCreate(View view) {
+
+        EditText userName = (EditText) findViewById(R.id.usernameInput);
+        Button newUser = (Button) findViewById(R.id.newUserButton);
+        Button login = (Button) findViewById(R.id.loginButton);
+        if (switcher == false) {
+            userName.setVisibility(View.VISIBLE);
+            newUser.setText(R.string.loginButtonString);
+            login.setText(R.string.userCreate);
+            switcher = true;
+        }else{
+            userName.setVisibility(View.INVISIBLE);
+            newUser.setText(R.string.createButtonString);
+            login.setText(R.string.loginButtonString);
+            switcher = false;
+        }
     }
 
 
+    public void changePage(View view){
 
+        Intent myIntent = new Intent(this, hub.class);
+
+        startActivity(myIntent);
+
+    }
+}
 
 
     class retrievedata extends AsyncTask<String, String, String> {
+
+        jsonConnection jsonClass = new jsonConnection();
+        TextView tv;
+        String ab;
+        JSONObject jobj = null;
 
         @Override
         protected String doInBackground(String... arg0){
@@ -87,17 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void changePage(View view){
-
-
-
-        Intent myIntent = new Intent(this, hub.class);
-
-
-        startActivity(myIntent);
-
-
-    }
 
 
 
@@ -105,4 +125,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-}
+
+

@@ -26,39 +26,41 @@
         android:hint="Password"
         android:id="@+id/password"
         android:layout_marginBottom="53dp"
-        android:layout_above="@+id/username"
+        android:layout_above="@+id/usernameInput"
         android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/username"
+        android:id="@+id/usernameInput"
         android:hint="Username"
         android:layout_marginBottom="53dp"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password"
         android:layout_alignRight="@+id/password"
-        android:layout_alignEnd="@+id/password" />
+        android:layout_alignEnd="@+id/password"
+        android:visibility="invisible"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/createButtonString"
-        android:id="@+id/button"
+        android:id="@+id/newUserButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="userCreate"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/loginButtonString"
-        android:id="@+id/button2"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:id="@+id/loginButton"
         android:onClick="changePage"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

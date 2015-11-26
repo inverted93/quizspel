@@ -100,13 +100,8 @@ public class quizMain extends AppCompatActivity {
             gameList.setAdapter(gameAdapter);
             switcher = false;
         }
-
-        /*Collections.sort(games, new SortingComparatorDsc());
-        gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
-        ListView gameList = (ListView) findViewById(R.id.gameList);
-        gameList.setAdapter(gameAdapter);*/
-
     }
+
 }
 
     class SortingComparatorAsc implements Comparator<String> {
