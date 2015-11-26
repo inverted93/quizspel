@@ -19,7 +19,7 @@ import java.util.Comparator;
 
 public class quizMain extends AppCompatActivity {
 
-    boolean switcher = true;
+    boolean switcher;
     ArrayList<String> games = new ArrayList<String>();
     ArrayAdapter<String> gameAdapter;
 
@@ -87,24 +87,24 @@ public class quizMain extends AppCompatActivity {
 
     public void sortList (View view) {
 
-      /*  ListView gameList = (ListView) findViewById(R.id.gameList);
+        ListView gameList = (ListView) findViewById(R.id.gameList);
 
-        if (switcher == true) {
+        if (switcher == false) {
             Collections.sort(games, new SortingComparatorAsc());
             gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
             gameList.setAdapter(gameAdapter);
-            switcher = false;
+            switcher = true;
         } else {
             Collections.sort(games, new SortingComparatorDsc());
             gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
             gameList.setAdapter(gameAdapter);
-            switcher = true;
-        }*/
+            switcher = false;
+        }
 
-        Collections.sort(games, new SortingComparatorDsc());
+        /*Collections.sort(games, new SortingComparatorDsc());
         gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         ListView gameList = (ListView) findViewById(R.id.gameList);
-        gameList.setAdapter(gameAdapter);
+        gameList.setAdapter(gameAdapter);*/
 
     }
 }

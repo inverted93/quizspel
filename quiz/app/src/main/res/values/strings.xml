@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">quiz</string>
+    <string name="app_name">QUIZ</string>
     <string name="loginButtonString">Login</string>
 
     <string name="createButtonString">Create user</string>

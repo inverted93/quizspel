@@ -82,10 +82,10 @@
         android:layout_height="wrap_content"
         android:text="@string/startQuizButton"
         android:id="@+id/startQuiz"
+        android:onClick="changePage"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2"
-        android:onClick="changePage"/>
+        android:layout_toRightOf="@+id/quizTitel"
+        android:layout_toEndOf="@+id/quizTitel" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv= (TextView) findViewById(R.id.textView);
+       // tv= (TextView) findViewById(R.id.textView);
         new retrievedata().execute();
 
     }
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
             try{
 
-                ab=jobj.getString("employees");
+                ab=jobj.getString("employee");
                 Log.d("GOOOOOOOAL" , ab);
             }catch (JSONException e){
                 e.printStackTrace();
