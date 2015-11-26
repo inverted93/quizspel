@@ -46,5 +46,20 @@
         android:background="#20B2AA"
         />
 
+    <ProgressBar
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:id="@+id/progressBar"
+        android:layout_marginTop="75dp"
+        android:indeterminate="false"
+        android:max="@integer/maxQuestions"
+        android:progress="@integer/quizProgress"
+        android:background="#3CB371"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_below="@+id/editText4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>
+

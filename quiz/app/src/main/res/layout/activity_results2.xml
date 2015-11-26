@@ -37,20 +37,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
-        android:text="@string/time_text"
-        android:background="#00000000"
-        android:textSize="20sp"
-        android:gravity="center"
-        />
 
     <EditText
         android:layout_width="wrap_content"
@@ -58,15 +44,12 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
         android:text="@string/Score_text"
         android:background="#00000000"
         android:textSize="20sp"
         android:gravity="center"
-        />
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
-
-
