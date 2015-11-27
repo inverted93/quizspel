@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             newUser.setText(R.string.loginButtonString);
             login.setText(R.string.userCreate);
             switcher = true;
-        }else{
+        } else {
             userName.setVisibility(View.INVISIBLE);
             newUser.setText(R.string.createButtonString);
             login.setText(R.string.loginButtonString);
@@ -48,16 +49,80 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void changePage(View view){
+    public void changePage(View view) {
 
         Intent myIntent = new Intent(this, hub.class);
 
         startActivity(myIntent);
 
     }
+
+
+    public void login(View view) {
+
+
+        fillList();
+
+
+        EditText anvText = (EditText) findViewById(R.id.email);
+        EditText passText = (EditText) findViewById(R.id.password);
+        TextView felMed = (TextView) findViewById(R.id.textView5);
+
+        //String anv2Tmp = ((EditText) findViewById(R.id.editText)).getText().toString();
+
+        String anvTmp = anvText.getText().toString();
+        String passTmp = passText.getText().toString();
+
+        felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
+
+        Log.d("Texxxt", ":" + anvTmp + passTmp);
+
+        for (int i = 0; i < userList.size(); i++) {    //For-loop som gar ingenom arrayen
+
+            if (anvTmp.equals(userList.get(i)) && passTmp.equals(passList.get(i))) {    //Jamfor ett namn och lösenord i listan med
+
+                Intent myIntent = new Intent(this, hub.class);
+                startActivity(myIntent);
+                break;
+
+            } else {
+                Log.d("Misslyckad ", "inloggning");
+
+                felMed.setVisibility(View.VISIBLE);
+                felMed.setText("Incorrect username or password");
+            }
+        }
+        //mEdit   = (EditText)findViewById(R.id.edittext);
+
+
+    }
+
+
+    ArrayList<String> userList = new ArrayList<String>();
+    ArrayList<String> passList = new ArrayList<String>();
+
+    public void fillList() {
+
+        userList.add("");
+        userList.add("admin");
+        userList.add("axel");
+        userList.add("jonas");
+        userList.add("samuel");
+        userList.add("alex");
+
+
+        passList.add("");
+        passList.add("password");
+        passList.add("password");
+        passList.add("password");
+        passList.add("password");
+        passList.add("password");
+
+
+
+    }
+
 }
-
-
     class retrievedata extends AsyncTask<String, String, String> {
 
         jsonConnection jsonClass = new jsonConnection();

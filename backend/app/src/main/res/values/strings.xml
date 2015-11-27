@@ -5,4 +5,17 @@
     <string name="createQuizNextButton">Next</string>
     <string name="doneQuestionButton">Done! Create Quiz</string>
     <string name="createNewQuestionButton">New Question</string>
+
+
+
+
+    <!-- Main activity -->
+    <string name="loginButtonString">Login</string>
+    <string name="createButtonString">New User</string>
+    <string name="userCreate">Create User</string>
+
+
+
+
+
 </resources>

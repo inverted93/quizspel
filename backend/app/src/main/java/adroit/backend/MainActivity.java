@@ -19,10 +19,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    jsonConnection jsonClass = new jsonConnection();
-    TextView tv;
-    String ab;
-    JSONObject jobj = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,55 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    class retrievedata extends AsyncTask<String, String, String> {
-
-        @Override
-        protected String doInBackground(String... arg0){
-
-            Log.d("Hej vi kom hit", "1");
-
-            try{
-                jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1o5l9");
-                Log.d("Hej vi kom hit", "2");
-
-            }catch(JSONException e){
-                e.printStackTrace();
-                Log.d("Catch", "1");
-
-            }catch (IOException e){
-                e.printStackTrace();
-                Log.d("Catch", "2");
-            }
-
-            Log.d("Network test: ", /*jobj.toString()*/ "10");
-
-
-            try{
-
-                ab=jobj.getString("employees");
-                Log.d("GOOOOOOOAL" , ab);
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-
-            return ab;
-
-        }
-
-        /*protected void onPostExecute(String ab){
-           tv.setText(ab);
-        }
-*/
-
-
-
-    }
 
     EditText anvText;
     EditText passText;
     TextView felMed;
     EditText extraText;
     Button loginButton;
+
+    boolean switcher;
 
 
     ArrayList<String> userList = new ArrayList<String>();
@@ -105,9 +60,29 @@ public class MainActivity extends AppCompatActivity {
         passList.add("password");
         passList.add("password");
 
-
     }
 
+
+
+
+    public void userCreate(View view) {
+
+        EditText userName = (EditText) findViewById(R.id.usernameInput);
+        Button newUser = (Button) findViewById(R.id.newUserButton);
+        Button login = (Button) findViewById(R.id.loginButton);
+        if (switcher == false) {
+            userName.setVisibility(View.VISIBLE);
+            newUser.setText(R.string.loginButtonString);
+            login.setText(R.string.userCreate);
+            switcher = true;
+        }else{
+            userName.setVisibility(View.INVISIBLE);
+            newUser.setText(R.string.createButtonString);
+            login.setText(R.string.loginButtonString);
+            switcher = false;
+        }
+        Log.d("Heeeej", "1");
+    }
 
 
 
@@ -116,38 +91,26 @@ public class MainActivity extends AppCompatActivity {
 
         fillList();
 
-
-        anvText = (EditText)findViewById(R.id.editText);
-        passText = (EditText)findViewById(R.id.editText2);
+        anvText = (EditText)findViewById(R.id.email);
+        passText = (EditText)findViewById(R.id.password);
         felMed = (TextView)findViewById(R.id.textView5);
-
-
 
         //String anv2Tmp = ((EditText) findViewById(R.id.editText)).getText().toString();
 
-
         String anvTmp = anvText.getText().toString();
         String passTmp = passText.getText().toString();
-
 
         felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
 
         Log.d("Texxxt", ":" + anvTmp + passTmp );
 
-
-
         for(int i=0;i<userList.size();i++){    //For-loop som gar ingenom arrayen
 
-
-            if(anvTmp.equals(userList.get(i)) && passTmp.equals(passList.get(i))){    //Jamfor ett namn och lösenord i listan med 
+            if(anvTmp.equals(userList.get(i)) && passTmp.equals(passList.get(i))){    //Jamfor ett namn och lösenord i listan med
 
                 Intent myIntent = new Intent(this, hub.class);
 
-
                 startActivity(myIntent);
-
-
-
 
 
             }else{
@@ -181,32 +144,64 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void createUser(View v){
 
 
 
-
-        Log.d("Hej vi kom hit iaf","trevligt ");
-
-
-
-        felMed.setText("Fill out all the forms");
-
-        extraText = (EditText)findViewById(R.id.editText10);
-
-        extraText.setVisibility(View.VISIBLE);
-        loginButton = (Button)findViewById(R.id.loginButton);
-        loginButton.setVisibility(View.INVISIBLE);
+}
 
 
 
 
 
+class retrievedata extends AsyncTask<String, String, String> {
 
+
+    jsonConnection jsonClass = new jsonConnection();
+    TextView tv;
+    String ab;
+    JSONObject jobj = null;
+
+
+
+    @Override
+    protected String doInBackground(String... arg0){
+
+        Log.d("Hej vi kom hit", "1");
+
+        try{
+            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1o5l9");
+            Log.d("Hej vi kom hit", "2");
+
+        }catch(JSONException e){
+            e.printStackTrace();
+            Log.d("Catch", "1");
+
+        }catch (IOException e){
+            e.printStackTrace();
+            Log.d("Catch", "2");
+        }
+
+        Log.d("Network test: ", /*jobj.toString()*/ "10");
+
+
+        try{
+
+            ab=jobj.getString("employees");
+            Log.d("GOOOOOOOAL" , ab);
+
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return ab;
 
     }
 
-
+        /*protected void onPostExecute(String ab){
+           tv.setText(ab);
+        }
+*/
 
 
 
