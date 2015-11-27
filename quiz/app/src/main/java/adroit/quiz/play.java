@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class play extends AppCompatActivity {
 
+    private CountDownTimer CountDown;
     double correctAnswers = 3;
     int numberOfQuestions = 8;
     int questionNr = 0;
@@ -51,7 +52,7 @@ public class play extends AppCompatActivity {
         final  ListView answersList = (ListView) findViewById(R.id.answersList);
         answersList.setAdapter(answersAdapter);
 
-        final CountDownTimer CountDown = new CountDownTimer(8000, 100) {
+        CountDown = new CountDownTimer(8000, 100) {
 
 
             public void onTick(long ms) {
@@ -104,7 +105,7 @@ public class play extends AppCompatActivity {
 
     }
 
-    public void nextQuestion(String questionAnswer){
+    public void nextQuestion(String questionAnswer) {
 
         userAnswers.add(questionAnswer);
 
@@ -115,6 +116,7 @@ public class play extends AppCompatActivity {
 
         questionNr++;
         ((ProgressBar)findViewById(R.id.progressBar)).setProgress(questionNr);
+
 
 
     }
@@ -138,7 +140,7 @@ public class play extends AppCompatActivity {
     public void onBackPressed()
     {
         super.onBackPressed();
-        //onDestroy();
+        CountDown.cancel();
         finish();
 
     }
