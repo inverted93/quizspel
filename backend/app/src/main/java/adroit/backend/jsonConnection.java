@@ -30,6 +30,9 @@ static InputStream stream = null;
     }
 
 
+
+
+
     public static JSONObject requestJson(String url)throws IOException, JSONException{
 
         stream = new URL(url).openStream();
@@ -37,8 +40,8 @@ static InputStream stream = null;
 
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-8")));
-            json = readAll(reader);
-            jobj = new JSONObject(json);
+            json = readAll(reader);   //anropar metoden neranför som bugger en string av BufferedReadern
+            jobj = new JSONObject(json); //skapar ett nytt JSON-objekt av stringen.
 
 
 

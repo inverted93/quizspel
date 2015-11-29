@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    
+
 
 
     EditText anvText;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Button loginButton;
 
     boolean switcher;
+    boolean checkErrorMsg; //Används för att fel meddelandet inte ska skrivas ut för tidigt.
 
 
     ArrayList<String> userList = new ArrayList<String>();
@@ -53,12 +56,14 @@ public class MainActivity extends AppCompatActivity {
         userList.add("jonas");
         userList.add("samuel");
         userList.add("alex");
+        userList.add("");
 
         passList.add("password");
         passList.add("password");
         passList.add("password");
         passList.add("password");
         passList.add("password");
+        passList.add("");
 
     }
 
@@ -66,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void userCreate(View view) {
+
 
         EditText userName = (EditText) findViewById(R.id.usernameInput);
         Button newUser = (Button) findViewById(R.id.newUserButton);
@@ -90,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         fillList();
+        checkErrorMsg = false; //!!!!
 
         anvText = (EditText)findViewById(R.id.email);
         passText = (EditText)findViewById(R.id.password);
@@ -109,30 +116,23 @@ public class MainActivity extends AppCompatActivity {
             if(anvTmp.equals(userList.get(i)) && passTmp.equals(passList.get(i))){    //Jamfor ett namn och lösenord i listan med
 
                 Intent myIntent = new Intent(this, hub.class);
-
                 startActivity(myIntent);
-
+                checkErrorMsg = true; //!!!
+                break;
 
             }else{
                 Log.d("Misslyckad ", "inloggning");
 
-
-
-                felMed.setVisibility(View.VISIBLE);
-                felMed.setText("Incorrect username or password");
-
-
-
-
-
+                checkErrorMsg = false;
             }
-
-
-
-
 
         }
 
+        if(checkErrorMsg==false){ //!!!!!!
+            felMed.setVisibility(View.VISIBLE);
+            felMed.setText("Incorrect username or password");
+
+        }
 
 
 
@@ -159,7 +159,16 @@ class retrievedata extends AsyncTask<String, String, String> {
     jsonConnection jsonClass = new jsonConnection();
     TextView tv;
     String ab;
-    JSONObject jobj = null;
+    static JSONObject jobj = null;
+
+
+
+    public static JSONObject getJson(){
+
+
+        return jobj;
+
+    }
 
 
 

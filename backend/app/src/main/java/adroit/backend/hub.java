@@ -41,24 +41,7 @@ public class hub extends AppCompatActivity{
 
 
 
-    public void changePageNetwork(View v) throws IOException, JSONException{
 
-
-
-        System.out.println("Vi kom till hubben");
-
-       // JSONObject json = jsonConnection.readJsonFromUrl("https://api.myjson.com/bins/1o5l9");
-
-        JSONObject json = jsonConnection.requestJson("hej");
-
-
-        System.out.println("Rad:   " + json.toString());
-        System.out.println("ID:    " + json.get("id"));
-
-
-
-
-    }
 
 
 
