@@ -92,7 +92,8 @@
         android:id="@+id/button5"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="readLines"/>
 
 
 
@@ -105,7 +106,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:singleLine="false"
-        android:onClick="changePage"/>
+        android:onClick="readLines"/>
 
     <Button
         android:layout_width="wrap_content"

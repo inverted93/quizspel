@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -19,9 +20,7 @@ public class createQuiz extends AppCompatActivity {
 
     public void changePage(View v){ //SKA BORT
 
-        Intent myIntent = new Intent(this, createQuestion.class);
 
-        startActivity(myIntent);
 
     }
 
@@ -31,20 +30,38 @@ public class createQuiz extends AppCompatActivity {
     String nameLineString;
     String descLineString;
     JSONObject jobj = retrievedata.getJson();
+    TextView felMed;
 
     public void readLines(View v){
 
+        felMed = (TextView)findViewById(R.id.textView6);
 
         nameLine = (EditText) findViewById(R.id.editText3);
         descLine = (EditText) findViewById(R.id.editText4);
 
-        nameLineString = nameLine.getText().toString();
-        descLineString = descLine.getText().toString();
+        nameLineString = nameLine.getText().toString();  //Here´s the string
+        descLineString = descLine.getText().toString();  //Here´s the string
 
         Log.d( nameLineString,  descLineString);
 
+        felMed.setVisibility(View.INVISIBLE);
+
+
 
         // firstName    lastName
+
+        if(nameLineString.equals("")||descLineString.equals("")){
+
+            Log.d("De har gick inte sa bra", " eller hur ");
+            felMed.setVisibility(View.VISIBLE);
+
+
+        }else{
+
+            Intent myIntent = new Intent(this, createQuestion.class);
+            startActivity(myIntent);
+        }
+
 
 
 

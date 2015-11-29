@@ -61,4 +61,15 @@
         android:layout_alignParentEnd="true"
         android:onClick="readLines" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Fill in the blanks"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/editText4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
+
 </RelativeLayout>
