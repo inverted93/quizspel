@@ -9,23 +9,25 @@ import android.widget.TextView;
 
 public class quizInfo extends AppCompatActivity {
 
+    String quizTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_info);
 
-        String s = getIntent().getExtras().getString("Some Key");
+        quizTitle = getIntent().getExtras().getString("QuizTitle");
         TextView quizTitel = (TextView) findViewById(R.id.quizTitel);
-        quizTitel.setText(s);
+        quizTitel.setText(quizTitle);
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         TextView infoText = (TextView) findViewById(R.id.infoText);
         //endast temporära, skapa inte strings
-        if (s.equals("Star Wars")) {
+        if (quizTitle.equals("Star Wars")) {
             ratingBar.setRating(Float.parseFloat("5.0"));
             infoText.setText("It's a trap!");
 
-        } else if (s.equals("Potato")) {
+        } else if (quizTitle.equals("Potato")) {
             ratingBar.setRating(Float.parseFloat("1.5"));
             infoText.setText("My life is potato");
 
@@ -37,13 +39,25 @@ public class quizInfo extends AppCompatActivity {
 
     public void changePage(View view){
 
-
+        Bundle b = new Bundle();
+        b.putString("QuizTitle", quizTitle);
 
         Intent myIntent = new Intent(this, play.class);
+        myIntent.putExtras(b);
 
 
         startActivity(myIntent);
 
+
+    }
+
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+
+        Intent i = new Intent(this, quizMain.class);
+        startActivity(i);
+        finish();
 
     }
 

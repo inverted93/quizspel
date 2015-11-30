@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class play extends AppCompatActivity {
 
+    String quizTitle;
     private CountDownTimer CountDown;
     double correctAnswers = 3;
     int numberOfQuestions = 8;
@@ -35,6 +36,8 @@ public class play extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        quizTitle = getIntent().getExtras().getString("QuizTitle");
 
         answers.add("Ett jävla pack");
         answers.add("Rimliga");
@@ -126,7 +129,8 @@ public class play extends AppCompatActivity {
         double scorePercentage = correctAnswers / (double)numberOfQuestions;
 
         Bundle b = new Bundle();
-        b.putDouble("The Key", scorePercentage);
+        b.putDouble("Score", scorePercentage);
+        b.putString("QuizTitle", quizTitle);
 
         Intent myIntent = new Intent(this, results.class);
         myIntent.putExtras(b);

@@ -75,7 +75,7 @@ public class quizMain extends AppCompatActivity {
                 String s = String.valueOf(parent.getItemAtPosition(position));
 
                 Bundle b = new Bundle();
-                b.putString("Some Key", s);
+                b.putString("QuizTitle", s);
 
                 Intent myIntent = new Intent(view.getContext(), quizInfo.class);
                 myIntent.putExtras(b);

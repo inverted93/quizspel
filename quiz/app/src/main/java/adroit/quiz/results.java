@@ -9,12 +9,16 @@ import java.text.NumberFormat;
 
 public class results extends AppCompatActivity {
 
+    String quizTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results2);
 
-        double score = getIntent().getExtras().getDouble("The Key");
+        quizTitle = getIntent().getExtras().getString("QuizTitle");
+
+        double score = getIntent().getExtras().getDouble("Score");
 
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMinimumFractionDigits(1);
@@ -29,7 +33,14 @@ public class results extends AppCompatActivity {
     public void onBackPressed()
     {
         super.onBackPressed();
-        startActivity(new Intent(results.this, quizMain.class));
+
+        Bundle b = new Bundle();
+        b.putString("QuizTitle", quizTitle);
+
+        Intent i = new Intent(this, quizInfo.class);
+        i.putExtras(b);
+
+        startActivity(i);
         finish();
 
     }
