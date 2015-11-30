@@ -18,22 +18,28 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.concurrent.ExecutionException;
 
 
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity{
+
+    JSONObject jobj;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        // tv= (TextView) findViewById(R.id.textView);
         new retrievedata().execute();  // VIktig rad
+        //AsyncTask at = new retrievedata();
+
+       // JSONObject a = at.getJson();
+
+
 
     }
-
-
 
 
 
@@ -96,7 +102,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void login(View view){
+    public void login(View view)throws JSONException{
+
+
+        /*JSONArray quizArr = jobj.getJSONArray("Quiz");
+            JSONObject test = quizArr.getJSONObject(1);
+            String stringen = test.getString("Name");*/
+
+
+        Log.d("Heeeeeej", "1 ");
+
+        //JSONArray memberArr = jobj.getJSONArray("Members");// ARRAYEN
+
+
 
 
         fillList();
@@ -106,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         passText = (EditText)findViewById(R.id.password);
         felMed = (TextView)findViewById(R.id.textView5);
 
-        //String anv2Tmp = ((EditText) findViewById(R.id.editText)).getText().toString();
+
 
         String anvTmp = anvText.getText().toString();
         String passTmp = passText.getText().toString();
@@ -116,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Texxxt", ":" + anvTmp + passTmp );
 
         for(int i=0;i<userList.size();i++){    //For-loop som gar ingenom arrayen
+
+            /*JSONObject memberObj = memberArr.getJSONObject(i);
+            String userName = memberObj.getString("UserName");*/
 
             if(anvTmp.equals(userList.get(i)) && passTmp.equals(passList.get(i))){    //Jamfor ett namn och lösenord i listan med
 
@@ -163,11 +184,13 @@ class retrievedata extends AsyncTask<String, String, String> {
     jsonConnection jsonClass = new jsonConnection();
     TextView tv;
     String ab;
-    static JSONObject jobj = null;
+    JSONObject jobj;
+
+    JSONArray memberArr;
 
 
+    public JSONObject getJson(){
 
-    public static JSONObject getJson(){
 
 
         return jobj;
@@ -182,6 +205,7 @@ class retrievedata extends AsyncTask<String, String, String> {
         Log.d("Hej vi kom hit", "1");
 
         try{
+        //
             jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1p8pv");
             Log.d("Hej vi kom hit", "2");
 
@@ -197,28 +221,18 @@ class retrievedata extends AsyncTask<String, String, String> {
         Log.d("Network test: ", /*jobj.toString()*/ "10");
 
 
+
         try{
-
-            //JSONArray arr = new JSONArray(jobj);
-
-            //JSONObject obj3 = jobj.getJSONObject("Quiz");
-
-            //String stringTest = obj3.toString();'
+            memberArr = jobj.getJSONArray("Members");
+            //ej klart try
 
 
-            //JSONObject mainObject = new JSONObject();
+        }catch(JSONException e){
 
-
-
-            String a = (String) jobj.get("Name");
-            Log.d("GOOOOOOOAL2", "1: " + a);
-
-           // Log.d("GOOOOOOOAL", test);
-
-
-        }catch (JSONException e){
             e.printStackTrace();
         }
+
+
 
         return ab;
 

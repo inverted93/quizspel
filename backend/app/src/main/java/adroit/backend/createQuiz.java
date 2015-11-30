@@ -29,7 +29,7 @@ public class createQuiz extends AppCompatActivity {
 
     String nameLineString;
     String descLineString;
-    JSONObject jobj = retrievedata.getJson();
+    //JSONObject jobj = retrievedata.getJson();
     TextView felMed;
 
     public void readLines(View v){
