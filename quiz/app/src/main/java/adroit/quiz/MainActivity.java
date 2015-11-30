@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Hej vi kom hit", "1");
 
             try{
-                jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1o5l9");
+                jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1p8pv");
                 Log.d("Hej vi kom hit", "2");
 
             }catch(JSONException e){

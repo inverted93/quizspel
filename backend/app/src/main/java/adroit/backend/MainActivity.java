@@ -11,11 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        // tv= (TextView) findViewById(R.id.textView);
-        new retrievedata().execute();
+        new retrievedata().execute();  // VIktig rad
 
     }
 
@@ -178,7 +182,7 @@ class retrievedata extends AsyncTask<String, String, String> {
         Log.d("Hej vi kom hit", "1");
 
         try{
-            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1o5l9");
+            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1p8pv");
             Log.d("Hej vi kom hit", "2");
 
         }catch(JSONException e){
@@ -195,8 +199,21 @@ class retrievedata extends AsyncTask<String, String, String> {
 
         try{
 
-            ab=jobj.getString("employees");
-            Log.d("GOOOOOOOAL" , ab);
+            //JSONArray arr = new JSONArray(jobj);
+
+            //JSONObject obj3 = jobj.getJSONObject("Quiz");
+
+            //String stringTest = obj3.toString();'
+
+
+            //JSONObject mainObject = new JSONObject();
+
+
+
+            String a = (String) jobj.get("Name");
+            Log.d("GOOOOOOOAL2", "1: " + a);
+
+           // Log.d("GOOOOOOOAL", test);
 
 
         }catch (JSONException e){
