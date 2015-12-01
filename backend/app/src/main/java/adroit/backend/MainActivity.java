@@ -25,21 +25,38 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity{
 
-    JSONObject jobj;
+    static JSONObject jobj;
+
+
+    public static void setJson(JSONObject j){
+
+        jobj =j;
+
+    }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //rd.delegate = this;
+        //rd.execute();
+
+
        // tv= (TextView) findViewById(R.id.textView);
-        new retrievedata().execute();  // VIktig rad
-        //AsyncTask at = new retrievedata();
+        new retrieveData().execute();  // VIktig rad
+        //retrievedata at = new retrievedata();
+        //jobj= at.getJson();
 
-       // JSONObject a = at.getJson();
-
+        //JSONObject jTest = new retrievedata().execute().get;
 
 
     }
+
+
 
 
 
@@ -110,9 +127,11 @@ public class MainActivity extends AppCompatActivity{
             String stringen = test.getString("Name");*/
 
 
-        Log.d("Heeeeeej", "1 ");
+        Log.d("Heeeeeej", "1 vi ar i login " + jobj.toString());
 
-        //JSONArray memberArr = jobj.getJSONArray("Members");// ARRAYEN
+        JSONArray memberArr = jobj.getJSONArray("Members");// ARRAYEN
+        //Log.d("Heeeeeej", "1 " + memberArr.getString(1));
+
 
 
 
@@ -172,77 +191,20 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-}
 
 
 
 
 
-class retrievedata extends AsyncTask<String, String, String> {
-
-
-    jsonConnection jsonClass = new jsonConnection();
-    TextView tv;
-    String ab;
-    JSONObject jobj;
-
-    JSONArray memberArr;
-
-
-    public JSONObject getJson(){
-
-
-
-        return jobj;
-
-    }
-
-
-
-    @Override
-    protected String doInBackground(String... arg0){
-
-        Log.d("Hej vi kom hit", "1");
-
-        try{
-        //
-            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1p8pv");
-            Log.d("Hej vi kom hit", "2");
-
-        }catch(JSONException e){
-            e.printStackTrace();
-            Log.d("Catch", "1");
-
-        }catch (IOException e){
-            e.printStackTrace();
-            Log.d("Catch", "2");
-        }
-
-        Log.d("Network test: ", /*jobj.toString()*/ "10");
-
-
-
-        try{
-            memberArr = jobj.getJSONArray("Members");
-            //ej klart try
-
-
-        }catch(JSONException e){
-
-            e.printStackTrace();
-        }
-
-
-
-        return ab;
-
-    }
-
-        /*protected void onPostExecute(String ab){
-           tv.setText(ab);
-        }
-*/
 
 
 
 }
+
+
+
+
+
+
+
+
