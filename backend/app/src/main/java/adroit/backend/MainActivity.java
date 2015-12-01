@@ -127,37 +127,35 @@ public class MainActivity extends AppCompatActivity{
             String stringen = test.getString("Name");*/
 
 
-        Log.d("Heeeeeej", "1 vi ar i login " + jobj.toString());
-
-        JSONArray memberArr = jobj.getJSONArray("Members");// ARRAYEN
-        //Log.d("Heeeeeej", "1 " + memberArr.getString(1));
+        Log.d("Heeeeeej", "1 vi ar i login ");
 
 
-
-
+        //Log.d("Heeeeeej", "2" + memberArr.getString(1));
 
         fillList();
         checkErrorMsg = false; //!!!!
-
         anvText = (EditText)findViewById(R.id.email);
         passText = (EditText)findViewById(R.id.password);
         felMed = (TextView)findViewById(R.id.textView5);
-
-
-
         String anvTmp = anvText.getText().toString();
         String passTmp = passText.getText().toString();
 
         felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
 
-        Log.d("Texxxt", ":" + anvTmp + passTmp );
+        JSONArray memberArr = jobj.getJSONArray("Members");
+        String uName;
+        String password;
 
-        for(int i=0;i<userList.size();i++){    //For-loop som gar ingenom arrayen
+        Log.d("1. ", "2" + memberArr.length());
 
-            /*JSONObject memberObj = memberArr.getJSONObject(i);
-            String userName = memberObj.getString("UserName");*/
+        for(int i=0;i<memberArr.length();i++){    //For-loop som gar ingenom arrayen
 
-            if(anvTmp.equals(userList.get(i)) && passTmp.equals(passList.get(i))){    //Jamfor ett namn och lösenord i listan med
+
+            JSONObject tmpJ = memberArr.getJSONObject(i);
+            uName = tmpJ.getString("UserName");
+            password = tmpJ.getString("Password");
+
+            if(anvTmp.equals(uName) && passTmp.equals(password)){    //Jamfor ett namn och lösenord i listan med
 
                 Intent myIntent = new Intent(this, hub.class);
                 startActivity(myIntent);
@@ -165,8 +163,6 @@ public class MainActivity extends AppCompatActivity{
                 break;
 
             }else{
-                Log.d("Misslyckad ", "inloggning");
-
                 checkErrorMsg = false;
             }
 
@@ -181,7 +177,6 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-        //mEdit   = (EditText)findViewById(R.id.edittext);
 
 
     }
