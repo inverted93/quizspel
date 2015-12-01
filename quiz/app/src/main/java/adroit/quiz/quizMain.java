@@ -27,6 +27,16 @@ public class quizMain extends AppCompatActivity {
     ArrayList<String> games = new ArrayList<String>();
     ArrayAdapter<String> gameAdapter;
 
+    static JSONObject jsonResponse = new JSONObject();
+
+    public static void setJson(JSONObject json){
+
+
+        jsonResponse = json;
+
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +48,16 @@ public class quizMain extends AppCompatActivity {
         JSONObject test = quizArr.getJSONObject(0);
         String stringen = test.getString("Name");*/
 
+
+
+
+
+
+
+
         try {
 
-            JSONObject jsonResponse = new JSONObject();
+
 
             JSONArray cast = jsonResponse.getJSONArray("Quiz");
             for (int i = 0; i < cast.length(); i++) {

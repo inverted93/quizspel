@@ -168,6 +168,14 @@ public class MainActivity extends AppCompatActivity {
         }
 */
 
+        protected void onPostExecute(String ab){
+
+
+            quizMain.setJson(jobj);
+
+
+        }
+
 
 
     }
