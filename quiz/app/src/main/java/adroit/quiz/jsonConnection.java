@@ -26,14 +26,11 @@ static InputStream stream = null;
 
     jsonConnection(){
 
-
     }
-
 
     public static JSONObject requestJson(String url)throws IOException, JSONException{
 
         stream = new URL(url).openStream();
-
 
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-8")));
@@ -41,17 +38,11 @@ static InputStream stream = null;
             jobj = new JSONObject(json);
 
 
-
-
         Log.d("Vi kom in i metoden", "1" + json.toString());
 
         return jobj;
 
     }
-
-
-
-
 
 
         private static String readAll(Reader rd)throws IOException{
@@ -65,17 +56,6 @@ static InputStream stream = null;
 
 
         }
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
