@@ -1,20 +1,17 @@
 package adroit.backend;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -76,23 +73,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-    public void fillList(){
 
-        userList.add("admin");
-        userList.add("axel");
-        userList.add("jonas");
-        userList.add("samuel");
-        userList.add("alex");
-        userList.add("");
-
-        passList.add("password");
-        passList.add("password");
-        passList.add("password");
-        passList.add("password");
-        passList.add("password");
-        passList.add("");
-
-    }
 
 
 
@@ -122,17 +103,10 @@ public class MainActivity extends AppCompatActivity{
     public void login(View view)throws JSONException{
 
 
-        /*JSONArray quizArr = jobj.getJSONArray("Quiz");
-            JSONObject test = quizArr.getJSONObject(1);
-            String stringen = test.getString("Name");*/
-
-
         Log.d("Heeeeeej", "1 vi ar i login ");
 
 
-        //Log.d("Heeeeeej", "2" + memberArr.getString(1));
 
-        fillList();
         checkErrorMsg = false; //!!!!
         anvText = (EditText)findViewById(R.id.email);
         passText = (EditText)findViewById(R.id.password);
