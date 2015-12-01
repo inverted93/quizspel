@@ -1,5 +1,7 @@
 package adroit.quiz;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 public class play extends AppCompatActivity {
 
+    String quizTitle;
     private CountDownTimer CountDown;
     double correctAnswers = 3;
     int numberOfQuestions = 8;
@@ -36,13 +39,15 @@ public class play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        quizTitle = getIntent().getExtras().getString("QuizTitle");
+
         answers.add("Ett jävla pack");
         answers.add("Rimliga");
         answers.add("Höger");
         answers.add("Kompetenta");
-        answers.add("Häftiga");
-        answers.add("Snygga");
-        answers.add("Intellektuella");
+        //answers.add("Häftiga");
+        //answers.add("Snygga");
+        //answers.add("Intellektuella");
 
         ((ProgressBar)findViewById(R.id.progressBar)).setMax(numberOfQuestions);
 
@@ -126,7 +131,8 @@ public class play extends AppCompatActivity {
         double scorePercentage = correctAnswers / (double)numberOfQuestions;
 
         Bundle b = new Bundle();
-        b.putDouble("The Key", scorePercentage);
+        b.putDouble("Score", scorePercentage);
+        b.putString("QuizTitle", quizTitle);
 
         Intent myIntent = new Intent(this, results.class);
         myIntent.putExtras(b);
@@ -139,10 +145,29 @@ public class play extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        super.onBackPressed();
-        CountDown.cancel();
-        finish();
+        AlertDialog.Builder abuilder = new AlertDialog.Builder(play.this);
+        abuilder.setMessage("Do you want to end this quiz?");
+        abuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
+            public void onClick(DialogInterface dialog, int which) {
+                CountDown.cancel();
+                Bundle b = new Bundle();
+                b.putString("QuizTitle", quizTitle);
+                Intent i = new Intent(play.this, quizInfo.class);
+                i.putExtras(b);
+                startActivity(i);
+                finish();
+            }
+        });
+        abuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = abuilder.create();
+        alert.show();
+        
     }
 
-}
+   }

@@ -13,6 +13,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,15 +34,33 @@ public class quizMain extends AppCompatActivity {
 
         //String[] games = {"Star Wars", "Potato", "Stromstad", "Horses", "Dogs", "WW2", "Trump"};
 
+        /*JSONArray quizArr = jobj.getJSONArray("Quiz");
+        JSONObject test = quizArr.getJSONObject(0);
+        String stringen = test.getString("Name");*/
+
+        try {
+
+            JSONObject jsonResponse = new JSONObject();
+
+            JSONArray cast = jsonResponse.getJSONArray("Quiz");
+            for (int i = 0; i < cast.length(); i++) {
+                JSONObject actor = cast.getJSONObject(i);
+                String name = actor.getString("Name");
+                games.add(name);
+            }
+        }catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         //läs in från databasen med en for-loop
-        games.add("Star Wars");
+        /*games.add("Star Wars");
         games.add("Potato");
         games.add("Stromstad");
         games.add("Horses");
         games.add("Dogs");
         games.add("WW2");
-        games.add("Trump");
+        games.add("Trump");*/
 
         gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         ListView gameList = (ListView) findViewById(R.id.gameList);
@@ -75,7 +97,7 @@ public class quizMain extends AppCompatActivity {
                 String s = String.valueOf(parent.getItemAtPosition(position));
 
                 Bundle b = new Bundle();
-                b.putString("Some Key", s);
+                b.putString("QuizTitle", s);
 
                 Intent myIntent = new Intent(view.getContext(), quizInfo.class);
                 myIntent.putExtras(b);
