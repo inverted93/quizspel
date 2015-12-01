@@ -43,9 +43,9 @@ public class play extends AppCompatActivity {
         answers.add("Rimliga");
         answers.add("Höger");
         answers.add("Kompetenta");
-        answers.add("Häftiga");
-        answers.add("Snygga");
-        answers.add("Intellektuella");
+        //answers.add("Häftiga");
+        //answers.add("Snygga");
+        //answers.add("Intellektuella");
 
         ((ProgressBar)findViewById(R.id.progressBar)).setMax(numberOfQuestions);
 
@@ -148,5 +148,9 @@ public class play extends AppCompatActivity {
         finish();
 
     }
+    
+
+
+
 
 }
