@@ -10,46 +10,56 @@ import android.widget.TextView;
 public class quizInfo extends AppCompatActivity {
 
     String quizTitle;
+    String quizDesc;
+    String quizRating;
+    String quizRated;
+    String quizPlayed;
+    String quizID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_info);
-
-        quizTitle = getIntent().getExtras().getString("QuizTitle");
-        TextView quizTitel = (TextView) findViewById(R.id.quizTitel);
-        quizTitel.setText(quizTitle);
-
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        TextView infoText = (TextView) findViewById(R.id.infoText);
-        //endast temporära, skapa inte strings
-        if (quizTitle.equals("Star Wars")) {
-            ratingBar.setRating(Float.parseFloat("5.0"));
-            infoText.setText("It's a trap!");
-
-        } else if (quizTitle.equals("Potato")) {
-            ratingBar.setRating(Float.parseFloat("1.5"));
-            infoText.setText("My life is potato");
-
-        } else {}
+        setInfo();
     }
 
 
+    public void setInfo(){
+
+        TextView quizTitel = (TextView) findViewById(R.id.quizTitel);
+        TextView desc = (TextView) findViewById(R.id.quizDesc);
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        TextView playedNumber = (TextView) findViewById(R.id.playedNumber);
+        TextView votedNumber = (TextView) findViewById(R.id.votedNumber);
+
+        quizTitle = getIntent().getExtras().getString("QuizTitle");
+        quizDesc = getIntent().getExtras().getString("QuizDesc");
+        quizRating = getIntent().getExtras().getString("QuizRating");
+        quizRated = getIntent().getExtras().getString("QuizRated");
+        quizPlayed = getIntent().getExtras().getString("QuizPlayed");
+        quizID = getIntent().getExtras().getString("QuizID");
+
+        quizTitel.setText(quizTitle);
+        desc.setText(quizDesc);
+        ratingBar.setRating(Float.parseFloat(quizRating));
+        playedNumber.setText(quizPlayed);
+        votedNumber.setText(quizRated);
+
+    }
 
 
     public void changePage(View view){
 
         Bundle b = new Bundle();
-        b.putString("QuizTitle", quizTitle);
+        b.putString("QuizID", quizID);
 
         Intent myIntent = new Intent(this, play.class);
         myIntent.putExtras(b);
 
-
         startActivity(myIntent);
 
-
     }
+
 
     public void onBackPressed()
     {

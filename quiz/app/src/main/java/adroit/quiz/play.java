@@ -39,7 +39,7 @@ public class play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-        quizTitle = getIntent().getExtras().getString("QuizTitle");
+        quizTitle = getIntent().getExtras().getString("QuizID");
 
         answers.add("Ett jävla pack");
         answers.add("Rimliga");

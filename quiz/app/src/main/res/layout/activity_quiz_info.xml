@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/infoText"
-        android:id="@+id/infoText"
+        android:id="@+id/quizDesc"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="66dp" />
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/intGames"
-        android:id="@+id/textView3"
+        android:id="@+id/playedNumber"
         android:textStyle="bold"
         android:layout_alignTop="@+id/textView4"
         android:layout_alignParentLeft="true"
@@ -62,7 +62,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/textVote"
         android:id="@+id/textView5"
-        android:layout_alignTop="@+id/textView6"
+        android:layout_alignBaseline="@+id/votedNumber"
+        android:layout_alignBottom="@+id/votedNumber"
         android:layout_alignLeft="@+id/ratingBar"
         android:layout_alignStart="@+id/ratingBar" />
 
@@ -71,7 +72,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/intVote"
-        android:id="@+id/textView6"
+        android:id="@+id/votedNumber"
         android:textStyle="bold"
         android:layout_above="@+id/startQuiz"
         android:layout_alignParentLeft="true"

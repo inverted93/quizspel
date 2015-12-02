@@ -31,7 +31,6 @@ public class quizMain extends AppCompatActivity {
 
     public static void setJson(JSONObject json){
 
-
         jsonResponse = json;
 
     }
@@ -42,23 +41,13 @@ public class quizMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_main);
 
-        //String[] games = {"Star Wars", "Potato", "Stromstad", "Horses", "Dogs", "WW2", "Trump"};
 
         /*JSONArray quizArr = jsonResponse.getJSONArray("Quiz");
         JSONObject test = quizArr.getJSONObject(0);
         String stringen = test.getString("Name");*/
 
 
-
-
-
-
-
-
         try {
-
-
-
             JSONArray cast = jsonResponse.getJSONArray("Quiz");
             for (int i = 0; i < cast.length(); i++) {
                 JSONObject actor = cast.getJSONObject(i);
@@ -70,14 +59,6 @@ public class quizMain extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //läs in från databasen med en for-loop
-        /*games.add("Star Wars");
-        games.add("Potato");
-        games.add("Stromstad");
-        games.add("Horses");
-        games.add("Dogs");
-        games.add("WW2");
-        games.add("Trump");*/
 
         gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         ListView gameList = (ListView) findViewById(R.id.gameList);
@@ -96,7 +77,6 @@ public class quizMain extends AppCompatActivity {
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
                                           int arg3) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
@@ -112,9 +92,39 @@ public class quizMain extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String s = String.valueOf(parent.getItemAtPosition(position));
+                String str = "";
+                String rating = "";
+                String rated = "";
+                String played = "";
+                String key = "";
+
+                try {
+                    JSONArray quiz = jsonResponse.getJSONArray("Quiz");
+                    for (int i = 0; i < quiz.length(); i++) {
+                        JSONObject info = quiz.getJSONObject(i);
+                        String check = info.getString("Name");
+                        if (check.equals(s)) {
+                            //JSONObject desc = quiz.getJSONObject(i);
+                            str = info.getString("Description");
+                            rating = info.getString("Rating");
+                            rated = info.getString("Rated");
+                            played = info.getString("Played");
+                            key = info.getString("QID");
+                        }else{}
+                    }
+                }catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
 
                 Bundle b = new Bundle();
                 b.putString("QuizTitle", s);
+                b.putString("QuizDesc", str);
+                b.putString("QuizRating", rating);
+                b.putString("QuizRated", rated);
+                b.putString("QuizPlayed", played);
+                b.putString("QuizID", key);
 
                 Intent myIntent = new Intent(view.getContext(), quizInfo.class);
                 myIntent.putExtras(b);
