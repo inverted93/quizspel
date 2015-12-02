@@ -151,13 +151,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Network test: ", /*jobj.toString()*/ "10");
 
 
-            try{
-
-                ab=jobj.getString("Name");
-                Log.d("GOOOOOOOAL" , ab);
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
 
             return ab;
 

@@ -44,7 +44,7 @@ public class quizMain extends AppCompatActivity {
 
         //String[] games = {"Star Wars", "Potato", "Stromstad", "Horses", "Dogs", "WW2", "Trump"};
 
-        /*JSONArray quizArr = jobj.getJSONArray("Quiz");
+        /*JSONArray quizArr = jsonResponse.getJSONArray("Quiz");
         JSONObject test = quizArr.getJSONObject(0);
         String stringen = test.getString("Name");*/
 
