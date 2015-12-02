@@ -52,6 +52,7 @@ public class quizInfo extends AppCompatActivity {
 
         Bundle b = new Bundle();
         b.putString("QuizID", quizID);
+        b.putString("QuizTitle", quizTitle);
 
         Intent myIntent = new Intent(this, play.class);
         myIntent.putExtras(b);
