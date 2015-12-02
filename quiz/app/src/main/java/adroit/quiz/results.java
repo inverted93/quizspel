@@ -49,11 +49,11 @@ public class results extends AppCompatActivity {
     {
         super.onBackPressed();
 
-        Bundle b = new Bundle();
-        b.putString("QuizTitle", quizTitle);
+       // Bundle b = new Bundle();
+       // b.putString("QuizTitle", quizTitle);
 
         Intent i = new Intent(this, quizInfo.class);
-        i.putExtras(b);
+       // i.putExtras(b);
 
         startActivity(i);
         finish();

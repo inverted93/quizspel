@@ -16,6 +16,10 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 public class play extends AppCompatActivity {
 
     String quizTitle;
+    String quizID;
     private CountDownTimer CountDown;
     double correctAnswers = 3;
     int numberOfQuestions = 8;
@@ -32,19 +37,69 @@ public class play extends AppCompatActivity {
     TextView countDownText;
     ArrayList<String> userAnswers = new ArrayList<>();
     //List<String> answers = Arrays.asList("Ett jävla pack", "Rimliga", "Höger", "Kompetenta", "Häftiga", "Snygga", "Intellektuella");
+    List<String> questionsArr = new ArrayList<>();
     List<String> answers = new ArrayList<>();
+    List<String> rightAnswers = new ArrayList<>();
+
+    static JSONObject jsonResponse = new JSONObject();
+
+    public static void setJson(JSONObject json){
+
+        jsonResponse = json;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        quizID = getIntent().getExtras().getString("QuizID");
         quizTitle = getIntent().getExtras().getString("QuizTitle");
 
-        answers.add("Ett jävla pack");
-        answers.add("Rimliga");
-        answers.add("Höger");
-        answers.add("Kompetenta");
+        //(NY JSONArray "Question")if(QID == "1") getString("qText") questions.add; getString("QueID") QueIDArr.add;
+        //(NY JSONArray "Answers") getString("QueID") tempAnswers.add; if(tempAnswers == QueIdArr) AnswersID.add;
+        // if(AnswersID == QueID) Answers.add(); MÅSTE ÄVEN KOLL VILKEN SOM ÄR RÄTT!!! //lagra rätt var i annan array för jämförelse
+        // lägg in try/catch
+
+        try {
+            JSONArray jQuestions = jsonResponse.getJSONArray("Question");
+            JSONArray jAnswers = jsonResponse.getJSONArray("Answer");
+            for (int i = 0; i < jQuestions.length(); i++) {
+                JSONObject info = jQuestions.getJSONObject(i);
+                String check = info.getString("QID");
+                if (check.equals(quizID)) {
+                    String question = info.getString("qText");
+                    String QueID = info.getString("QueID");
+                    questionsArr.add(question);
+                    for (int i2 = 0; i2 < jAnswers.length(); i2++) {
+                        JSONObject info2 = jAnswers.getJSONObject(i2);
+                        String check2 = info2.getString("QueID");
+                        if (QueID.equals(check2)) {
+                            String answer = info2.getString("aText");
+                            answers.add(answer);
+                            String rAnswer = info2.getString("rightAnswer");
+                            if (rAnswer.equals("true")) {
+                                rightAnswers.add(answer);
+                            }
+                        }
+                    }
+
+                    //questionsArr.add(question);
+                }
+            }
+        }catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        String firstQuestion = questionsArr.get(0);
+        ((TextView) findViewById(R.id.editText3)).setText(firstQuestion);
+        //answers.add("Ett jävla pack");
+        //answers.add("Rimliga");
+        //answers.add("Höger");
+        //answers.add("Kompetenta");
         //answers.add("Häftiga");
         //answers.add("Snygga");
         //answers.add("Intellektuella");
@@ -114,8 +169,8 @@ public class play extends AppCompatActivity {
 
         userAnswers.add(questionAnswer);
 
-        answers.clear();
-        answers.add("Jonas Mamma");
+        //answers.clear();
+        //answers.add("Jonas Mamma");
 
         ((TextView) findViewById(R.id.editText3)).setText("Bytt fråga");
 
@@ -151,10 +206,10 @@ public class play extends AppCompatActivity {
 
             public void onClick(DialogInterface dialog, int which) {
                 CountDown.cancel();
-                Bundle b = new Bundle();
-                b.putString("QuizTitle", quizTitle);
+                //Bundle b = new Bundle();
+                //b.putString("QuizTitle", quizTitle);
                 Intent i = new Intent(play.this, quizInfo.class);
-                i.putExtras(b);
+                //i.putExtras(b);
                 startActivity(i);
                 finish();
             }
