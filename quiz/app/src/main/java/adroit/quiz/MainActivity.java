@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Hej vi kom hit", "1");
 
             try{
-                jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1p8pv");
+                jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1vp4j");
                 Log.d("Hej vi kom hit", "2");
 
             }catch(JSONException e){
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(String ab){
 
-
+            play.setJson(jobj);
             quizMain.setJson(jobj);
 
 
