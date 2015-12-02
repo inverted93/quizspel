@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity{
 
     static JSONObject jobj;
+    static String id;
 
 
     public static void setJson(JSONObject j){
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    public static String getId(){
+        return id;
+    }
 
 
 
@@ -39,16 +43,9 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //rd.delegate = this;
-        //rd.execute();
 
-
-       // tv= (TextView) findViewById(R.id.textView);
         new retrieveData().execute();  // VIktig rad
-        //retrievedata at = new retrievedata();
-        //jobj= at.getJson();
 
-        //JSONObject jTest = new retrievedata().execute().get;
 
 
     }
@@ -131,6 +128,7 @@ public class MainActivity extends AppCompatActivity{
 
             if(anvTmp.equals(uName) && passTmp.equals(password)){    //Jamfor ett namn och lösenord i listan med
 
+                id = tmpJ.getString("UserID");
                 Intent myIntent = new Intent(this, hub.class);
                 startActivity(myIntent);
                 checkErrorMsg = true; //!!!

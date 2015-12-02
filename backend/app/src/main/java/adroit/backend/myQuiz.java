@@ -1,9 +1,13 @@
 package adroit.backend;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,10 +22,18 @@ public class myQuiz extends AppCompatActivity {
     ArrayAdapter <String> gameAdapter;
 
     static JSONObject json;
+    String idInt = MainActivity.getId();
 
     public static void setJson(JSONObject j){
         json = j;
     }
+
+
+
+
+
+
+
 
 
 
@@ -37,8 +49,12 @@ public class myQuiz extends AppCompatActivity {
             for(int i = 0; i<quizArray.length();i++){
                 JSONObject quizObj = quizArray.getJSONObject(i);
                 String name = quizObj.getString("Name");
-                games.add(name);
-                Log.d("1. ", "a" + name);
+                String id = quizObj.getString("UserID");
+                if(idInt.equals(id)){
+
+                    games.add(name);
+
+                }
 
             }
 
@@ -47,6 +63,30 @@ public class myQuiz extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+        gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+        ListView gameList = (ListView) findViewById(R.id.gameList);
+        gameList.setAdapter(gameAdapter);
+
+
+        gameList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+
+                String s = String.valueOf(parent.getItemAtPosition(position));
+
+                Bundle b = new Bundle();
+                b.putString("QuizTitle", s);
+                Intent myIntent = new Intent(view.getContext(), hub.class);
+                myIntent.putExtras(b);
+                startActivity(myIntent);
+            }
+
+
+
+
+        });
 
 
 
