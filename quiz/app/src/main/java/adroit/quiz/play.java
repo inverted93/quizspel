@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +31,9 @@ public class play extends AppCompatActivity {
     String quizTitle;
     String quizID;
     private CountDownTimer CountDown;
-    double correctAnswers = 3;
+    double correctAnswers = 0;
+    //int questionNr = 0;
+    int answerNumber = 0;
     int numberOfQuestions = 8;
     int questionNr = 0;
     int secondsLeft = 0;
@@ -94,16 +97,9 @@ public class play extends AppCompatActivity {
         }
 
 
-        String firstQuestion = questionsArr.get(0);
+        String firstQuestion = questionsArr.get(questionNr);
         ((TextView) findViewById(R.id.editText3)).setText(firstQuestion);
-        //answers.add("Ett jävla pack");
-        //answers.add("Rimliga");
-        //answers.add("Höger");
-        //answers.add("Kompetenta");
-        //answers.add("Häftiga");
-        //answers.add("Snygga");
-        //answers.add("Intellektuella");
-
+        numberOfQuestions = questionsArr.size();
         ((ProgressBar)findViewById(R.id.progressBar)).setMax(numberOfQuestions);
 
         countDownText = (TextView) findViewById(R.id.editText4);
@@ -125,7 +121,7 @@ public class play extends AppCompatActivity {
 
             public void onFinish() {
                 countDownText.setText("Time left: 0");
-                nextQuestion("apa");
+                nextQuestion("");
                 answersList.setAdapter(null);
                 answersList.setAdapter(answersAdapter);
                 if (questionNr >= numberOfQuestions){
@@ -171,10 +167,12 @@ public class play extends AppCompatActivity {
 
         //answers.clear();
         //answers.add("Jonas Mamma");
-
-        ((TextView) findViewById(R.id.editText3)).setText("Bytt fråga");
-
         questionNr++;
+        if(questionNr < numberOfQuestions) {
+            String questionText = questionsArr.get(questionNr);
+            ((TextView) findViewById(R.id.editText3)).setText(questionText);
+        }
+        //questionNr++;
         ((ProgressBar)findViewById(R.id.progressBar)).setProgress(questionNr);
 
 
@@ -182,6 +180,14 @@ public class play extends AppCompatActivity {
     }
 
     public void changePage(){
+
+        //String firstQuestion = questionsArr.get(questionNr);
+
+        for(int q1 = 0; q1 < numberOfQuestions; q1++) {
+           if((userAnswers.get(q1)).equals(rightAnswers.get(q1))){
+               correctAnswers++;
+           }
+        }
 
         double scorePercentage = correctAnswers / (double)numberOfQuestions;
 
