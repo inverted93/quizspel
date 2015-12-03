@@ -39,6 +39,13 @@ public class hub extends AppCompatActivity{
 
     }
 
+    public void changePageInfo(View v){
+
+        Intent myIntent = new Intent(this, backendQuizInfo.class);
+        startActivity(myIntent);
+
+    }
+
 
 
 

@@ -27,6 +27,8 @@
         </activity>
         <activity android:name=".Main2Activity" >
         </activity>
+        <activity android:name=".backendQuizInfo" >
+        </activity>
     </application>
 
 </manifest>
