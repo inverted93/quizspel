@@ -13,6 +13,7 @@
     <string name="loginButtonString">Login</string>
     <string name="createButtonString">New User</string>
     <string name="userCreate">Create User</string>
+    <string name="title_activity_quiz_info">quizInfo</string>
 
 
 

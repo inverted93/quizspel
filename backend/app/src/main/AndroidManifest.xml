@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,6 +24,8 @@
         <activity android:name=".createQuestion" >
         </activity>
         <activity android:name=".myQuiz" >
+        </activity>
+        <activity android:name=".Main2Activity" >
         </activity>
     </application>
 
