@@ -48,20 +48,20 @@ public class myQuiz extends AppCompatActivity {
             JSONArray quizArray = json.getJSONArray("Quiz");
             for(int i = 0; i<quizArray.length();i++){
                 JSONObject quizObj = quizArray.getJSONObject(i);
-                String name = quizObj.getString("Name");
-                String id = quizObj.getString("UserID");
-                if(idInt.equals(id)){
+                String name = quizObj.getString("Name"); //Hittar namnet
+                String id = quizObj.getString("UserID"); //Hittar id
 
+                if(idInt.equals(id)){ //Lagger bara till de som har samma id
                     games.add(name);
-
                 }
-
             }
-
-
         }catch(JSONException e){
             e.printStackTrace();
         }
+
+
+
+
 
 
         gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
@@ -75,10 +75,49 @@ public class myQuiz extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
                 String s = String.valueOf(parent.getItemAtPosition(position));
+                String str ="";
+                String rating="";
+                String rated="";
+                String played="";
+                String key="";
+
+                try{
+                    JSONArray quiz = json.getJSONArray("Quiz");
+                    for(int i=0; i<quiz.length(); i++){
+                        JSONObject info = quiz.getJSONObject(i);
+                        String cmpr = info.getString("Name");
+                        //Log.d("101", ": " + cmpr);                     //BORT
+                        if(cmpr.equals(s)){
+                            str = info.getString("Description");
+                            rating = info.getString("Rating");
+                            rated = info.getString("Rated");
+                            played = info.getString("Played");
+                            key = info.getString("QID");
+
+                            //Log.d("101", "hej");
+                            //Log.d("101", ":" + str + rating + rated + played + key);
+                        }else{
+
+                        }
+                    }
+                }catch(JSONException e){
+
+                    e.printStackTrace();
+
+                }
+
+
+
 
                 Bundle b = new Bundle();
                 b.putString("QuizTitle", s);
-                Intent myIntent = new Intent(view.getContext(), hub.class);
+                b.putString("QuizDesc", str);
+                b.putString("QuizRating", rating);
+                b.putString("QuizRated", rated);
+                b.putString("QuizPlayed", played);
+                b.putString("QuizID", key);
+
+                Intent myIntent = new Intent(view.getContext(), backendQuizInfo.class);
                 myIntent.putExtras(b);
                 startActivity(myIntent);
             }
