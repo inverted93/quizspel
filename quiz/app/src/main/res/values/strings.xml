@@ -6,10 +6,11 @@
     <string name="createButtonString">New User</string>
     <string name="userCreate">Create User</string>
 
-
     <!-- Play activity -->
-    <string name="Question_text">Vad tycker vi om sossar?</string>
+    <string name="Question_text">QuestionText</string>
     <string name="Timer_text">Time left: 10</string>
+
+    <!-- results activity -->
     <string name="playAgainButton_text">Play this quiz again</string>
     <string name="rateQuizButton_text">Rate this quiz</string>
     <string name="results_text">Results</string>
@@ -24,7 +25,6 @@
     <string name="textGames">has played</string>
     <string name="startQuizButton">Play</string>
     <string name="ratingText">Average Rating</string>
-
 
     <!-- quizMain activity -->
     <string name="sortListButton">By Name</string>

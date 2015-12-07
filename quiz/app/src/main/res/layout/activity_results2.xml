@@ -36,7 +36,9 @@
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_marginTop="44dp"
+        android:focusable="false"
+        android:clickable="false"/>
 
 
     <EditText
@@ -51,6 +53,8 @@
         android:gravity="center"
         android:layout_marginTop="50dp"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:clickable="false"/>
 
 </RelativeLayout>
