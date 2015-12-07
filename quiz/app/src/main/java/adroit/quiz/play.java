@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,16 +33,15 @@ public class play extends AppCompatActivity {
     String quizID;
     private CountDownTimer CountDown;
     double correctAnswers = 0;
-    //int questionNr = 0;
-    int answerNumber = 0;
-    int numberOfQuestions = 8;
+    int answerNumber = 3;
+    int numberOfQuestions = 0;
     int questionNr = 0;
     int secondsLeft = 0;
     TextView countDownText;
     ArrayList<String> userAnswers = new ArrayList<>();
-    //List<String> answers = Arrays.asList("Ett jävla pack", "Rimliga", "Höger", "Kompetenta", "Häftiga", "Snygga", "Intellektuella");
     List<String> questionsArr = new ArrayList<>();
     List<String> answers = new ArrayList<>();
+    List<String> guiAnswers = new ArrayList<>();
     List<String> rightAnswers = new ArrayList<>();
 
     static JSONObject jsonResponse = new JSONObject();
@@ -59,11 +59,6 @@ public class play extends AppCompatActivity {
 
         quizID = getIntent().getExtras().getString("QuizID");
         quizTitle = getIntent().getExtras().getString("QuizTitle");
-
-        //(NY JSONArray "Question")if(QID == "1") getString("qText") questions.add; getString("QueID") QueIDArr.add;
-        //(NY JSONArray "Answers") getString("QueID") tempAnswers.add; if(tempAnswers == QueIdArr) AnswersID.add;
-        // if(AnswersID == QueID) Answers.add(); MÅSTE ÄVEN KOLL VILKEN SOM ÄR RÄTT!!! //lagra rätt var i annan array för jämförelse
-        // lägg in try/catch
 
         try {
             JSONArray jQuestions = jsonResponse.getJSONArray("Question");
@@ -87,8 +82,6 @@ public class play extends AppCompatActivity {
                             }
                         }
                     }
-
-                    //questionsArr.add(question);
                 }
             }
         }catch (JSONException e) {
@@ -96,15 +89,19 @@ public class play extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         String firstQuestion = questionsArr.get(questionNr);
         ((TextView) findViewById(R.id.editText3)).setText(firstQuestion);
         numberOfQuestions = questionsArr.size();
         ((ProgressBar)findViewById(R.id.progressBar)).setMax(numberOfQuestions);
 
+        for(int i = 0 ; i <4 ; i++) {
+            String itemAnswer = answers.get(i);
+            guiAnswers.add(itemAnswer);
+        }
+
         countDownText = (TextView) findViewById(R.id.editText4);
 
-        final ListAdapter answersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, answers);
+        final ListAdapter answersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, guiAnswers);
         final  ListView answersList = (ListView) findViewById(R.id.answersList);
         answersList.setAdapter(answersAdapter);
 
@@ -120,15 +117,15 @@ public class play extends AppCompatActivity {
             }
 
             public void onFinish() {
-                countDownText.setText("Time left: 0");
-                nextQuestion("");
-                answersList.setAdapter(null);
-                answersList.setAdapter(answersAdapter);
-                if (questionNr >= numberOfQuestions){
+                if (questionNr >= (numberOfQuestions -1)){
                     this.cancel();
                     changePage();
                 }
                 else {
+                    countDownText.setText("Time left: 0");
+                    nextQuestion("");
+                    answersList.setAdapter(null);
+                    answersList.setAdapter(answersAdapter);
                     this.start();
                 }
             }
@@ -140,19 +137,18 @@ public class play extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String choosenAnswer = String.valueOf(parent.getItemAtPosition(position));
-
-                nextQuestion(choosenAnswer);
-
-                answersList.setAdapter(null);
-                answersList.setAdapter(answersAdapter);
-
-                CountDown.cancel();
-
-                if(questionNr >= numberOfQuestions) {
+                if(questionNr >= (numberOfQuestions-1)) {
+                    CountDown.cancel();
                     changePage();
-                }
-                else {
+                } else {
+                    String choosenAnswer = String.valueOf(parent.getItemAtPosition(position));
+
+                    nextQuestion(choosenAnswer);
+
+                    answersList.setAdapter(null);
+                    answersList.setAdapter(answersAdapter);
+
+                    CountDown.cancel();
                     CountDown.start();
                 }
 
@@ -162,31 +158,36 @@ public class play extends AppCompatActivity {
     }
 
     public void nextQuestion(String questionAnswer) {
-
+        Log.d("nextQueston", "10");
         userAnswers.add(questionAnswer);
 
-        //answers.clear();
-        //answers.add("Jonas Mamma");
-        questionNr++;
-        if(questionNr < numberOfQuestions) {
-            String questionText = questionsArr.get(questionNr);
-            ((TextView) findViewById(R.id.editText3)).setText(questionText);
+        int nrOfAnswers = answerNumber + 4; // gör 4 till class variabel typ nrOfQuestionsVisible eller guiAnswers.size();
+        guiAnswers.clear();
+        for(int i = answerNumber ; i < nrOfAnswers ; i++) {
+            Log.d("innan get", "1");
+            String guiAnswer = answers.get(i);
+            Log.d("Efter get", "2");
+            guiAnswers.add(guiAnswer);
+            Log.d("efter add", "3");
         }
-        //questionNr++;
+        answerNumber = answerNumber + 4;
+
+        questionNr++;
+
+        String questionText = questionsArr.get(questionNr);
+        ((TextView) findViewById(R.id.editText3)).setText(questionText);
         ((ProgressBar)findViewById(R.id.progressBar)).setProgress(questionNr);
-
-
 
     }
 
-    public void changePage(){
+    public void changePage() {
+        Log.d("changePage", "1");
+        userAnswers.add("");
 
-        //String firstQuestion = questionsArr.get(questionNr);
-
-        for(int q1 = 0; q1 < numberOfQuestions; q1++) {
-           if((userAnswers.get(q1)).equals(rightAnswers.get(q1))){
-               correctAnswers++;
-           }
+        for(int i = 0; i < numberOfQuestions; i++) {
+            if ((userAnswers.get(i)).equals(rightAnswers.get(i))){
+                correctAnswers++;
+            }
         }
 
         double scorePercentage = correctAnswers / (double)numberOfQuestions;
@@ -200,35 +201,34 @@ public class play extends AppCompatActivity {
 
         startActivity(myIntent);
 
-
     }
+   /*
+   @Override
+   public void onBackPressed()
+   {
+       AlertDialog.Builder abuilder = new AlertDialog.Builder(play.this);
+       abuilder.setMessage("Do you want to end this quiz?");
+       abuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
-    @Override
-    public void onBackPressed()
-    {
-        AlertDialog.Builder abuilder = new AlertDialog.Builder(play.this);
-        abuilder.setMessage("Do you want to end this quiz?");
-        abuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+           public void onClick(DialogInterface dialog, int which) {
+               CountDown.cancel();
+               //Bundle b = new Bundle();
+               //b.putString("QuizTitle", quizTitle);
+               Intent i = new Intent(play.this, quizInfo.class);
+               //i.putExtras(b);
+               startActivity(i);
+               finish();
+           }
+       });
+       abuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int which) {
-                CountDown.cancel();
-                //Bundle b = new Bundle();
-                //b.putString("QuizTitle", quizTitle);
-                Intent i = new Intent(play.this, quizInfo.class);
-                //i.putExtras(b);
-                startActivity(i);
-                finish();
-            }
-        });
-        abuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = abuilder.create();
-        alert.show();
-        
-    }
-
+           public void onClick(DialogInterface dialog, int which) {
+               dialog.cancel();
+           }
+       });
+       AlertDialog alert = abuilder.create();
+       alert.show();
+      
    }
+   */
+}
