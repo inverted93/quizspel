@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity{
         new retrieveData().execute();  // VIktig rad
 
 
-        createQuestion.fillList();
 
 
     }
