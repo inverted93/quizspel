@@ -7,6 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class createQuestion extends AppCompatActivity {
 
     @Override
@@ -16,18 +20,68 @@ public class createQuestion extends AppCompatActivity {
     }
 
 
-    public void changePage(View v){
+
+    static JSONObject questTmp = new JSONObject();
+    static JSONObject ansTmp = new JSONObject();
+
+    static JSONArray questArr = new JSONArray();
+    static JSONArray ansArr = new JSONArray();
+
+
+    public static void fillList(){
+
+        try{
+
+
+
+
+
+            questTmp.put("id", "1 ");
+            questTmp.put("name", "Axel");
+
+            questArr.put(0, questTmp);
+
+            questTmp.put("id", "2 ");
+            questTmp.put("name", "Mattis");
+
+            questArr.put(1, questTmp);
+
+
+            questTmp.put("id", "3 ");
+            questTmp.put("name", "Holm");
+
+            questArr.put(2, questTmp);
+
+            //for(int i=0;i<6;i++){}
+
+
+            JSONObject tmp;
+            for(int j=0;j<questArr.length();j++){
+
+                tmp = questArr.getJSONObject(j);
+                String s = tmp.getString("id");
+                String s2 = tmp.getString("name");
+                Log.d("Vi kom helt fram:" + s2, ":909:" + s + j);
+
+            }
+
+
+
+        }catch(JSONException e){
+
+        }
+
+
+    }
+
+
+    public void changePage(View v){ //Ska bort sen
 
 
         Intent myIntent = new Intent(this, hub.class);
 
 
         startActivity(myIntent);
-
-
-
-
-
     }
 
     EditText question;

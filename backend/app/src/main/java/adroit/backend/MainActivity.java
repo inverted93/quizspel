@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity{
         new retrieveData().execute();  // VIktig rad
 
 
+        createQuestion.fillList();
+
 
     }
 
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity{
         Log.d("Heeeeeej", "1 vi ar i login ");
 
 
+        try {
 
         checkErrorMsg = false; //!!!!
         anvText = (EditText)findViewById(R.id.email);
@@ -119,24 +122,30 @@ public class MainActivity extends AppCompatActivity{
 
         Log.d("1. ", "2" + memberArr.length());
 
-        for(int i=0;i<memberArr.length();i++){    //For-loop som gar ingenom arrayen
 
 
-            JSONObject tmpJ = memberArr.getJSONObject(i);
-            uName = tmpJ.getString("UserName");
-            password = tmpJ.getString("Password");
 
-            if(anvTmp.equals(uName) && passTmp.equals(password)){    //Jamfor ett namn och lösenord i listan med
+            for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
 
-                id = tmpJ.getString("UserID");
-                Intent myIntent = new Intent(this, hub.class);
-                startActivity(myIntent);
-                checkErrorMsg = true; //!!!
-                break;
 
-            }else{
-                checkErrorMsg = false;
+                JSONObject tmpJ = memberArr.getJSONObject(i);
+                uName = tmpJ.getString("UserName");
+                password = tmpJ.getString("Password");
+
+                if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
+
+                    id = tmpJ.getString("UserID");
+                    Intent myIntent = new Intent(this, hub.class);
+                    startActivity(myIntent);
+                    checkErrorMsg = true; //!!!
+                    break;
+
+                } else {
+                    checkErrorMsg = false;
+                }
+
             }
+        }catch(NullPointerException e){
 
         }
 
