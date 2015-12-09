@@ -21,6 +21,18 @@ public class quizInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_info);
         setInfo();
+        /*
+        // Check whether we're recreating a previously destroyed instance
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            mCurrentScore = savedInstanceState.getString(STATE_SCORE);
+            mCurrentLevel = savedInstanceState.getInt(STATE_LEVEL);
+        } else {
+            // Probably initialize members with default values for a new instance
+
+        }
+        */
+
     }
 
 
@@ -32,18 +44,25 @@ public class quizInfo extends AppCompatActivity {
         TextView playedNumber = (TextView) findViewById(R.id.playedNumber);
         TextView votedNumber = (TextView) findViewById(R.id.votedNumber);
 
-        quizTitle = getIntent().getExtras().getString("QuizTitle");
-        quizDesc = getIntent().getExtras().getString("QuizDesc");
-        quizRating = getIntent().getExtras().getString("QuizRating");
-        quizRated = getIntent().getExtras().getString("QuizRated");
-        quizPlayed = getIntent().getExtras().getString("QuizPlayed");
-        quizID = getIntent().getExtras().getString("QuizID");
 
-        quizTitel.setText(quizTitle);
-        desc.setText(quizDesc);
-        ratingBar.setRating(Float.parseFloat(quizRating));
-        playedNumber.setText(quizPlayed);
-        votedNumber.setText(quizRated);
+        //Bundle extras = getIntent().getExtras();
+        //if (extras != null) {
+
+            quizTitle = getIntent().getExtras().getString("QuizTitle");
+            quizDesc = getIntent().getExtras().getString("QuizDesc");
+            quizRating = getIntent().getExtras().getString("QuizRating");
+            quizRated = getIntent().getExtras().getString("QuizRated");
+            quizPlayed = getIntent().getExtras().getString("QuizPlayed");
+            quizID = getIntent().getExtras().getString("QuizID");
+
+       // }
+            quizTitel.setText(quizTitle);
+            desc.setText(quizDesc);
+            ratingBar.setRating(Float.parseFloat(quizRating));
+            playedNumber.setText(quizPlayed);
+            votedNumber.setText(quizRated);
+
+
 
     }
 
@@ -51,13 +70,18 @@ public class quizInfo extends AppCompatActivity {
     public void changePage(View view){
 
         Bundle b = new Bundle();
-        b.putString("QuizID", quizID);
         b.putString("QuizTitle", quizTitle);
+        b.putString("QuizDesc", quizDesc);
+        b.putString("QuizRating", quizRating);
+        b.putString("QuizRated", quizRated);
+        b.putString("QuizPlayed", quizPlayed);
+        b.putString("QuizID", quizID);
 
         Intent myIntent = new Intent(this, play.class);
         myIntent.putExtras(b);
-
         startActivity(myIntent);
+        finish();
+        overridePendingTransition(0, 0);
 
     }
 
@@ -69,6 +93,7 @@ public class quizInfo extends AppCompatActivity {
         Intent i = new Intent(this, quizMain.class);
         startActivity(i);
         finish();
+        overridePendingTransition(0, 0);
 
     }
 

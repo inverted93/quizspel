@@ -11,13 +11,17 @@ import java.text.NumberFormat;
 public class results extends AppCompatActivity {
 
     String quizTitle;
+    String quizDesc;
+    String quizRating;
+    String quizRated;
+    String quizPlayed;
+    String quizID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //moveTaskToBack(true);
         setContentView(R.layout.activity_results2);
-
-        quizTitle = getIntent().getExtras().getString("QuizTitle");
 
         double score = getIntent().getExtras().getDouble("Score");
 
@@ -38,25 +42,38 @@ public class results extends AppCompatActivity {
 
         Intent i = new Intent(this, quizInfo.class);
         i.putExtras(b);
-
         startActivity(i);
         finish();
+        overridePendingTransition(0, 0);
 
     }
+
 
     @Override
     public void onBackPressed()
     {
-        super.onBackPressed();
 
-       // Bundle b = new Bundle();
-       // b.putString("QuizTitle", quizTitle);
+        quizTitle = getIntent().getExtras().getString("QuizTitle");
+        quizDesc = getIntent().getExtras().getString("QuizDesc");
+        quizRating = getIntent().getExtras().getString("QuizRating");
+        quizRated = getIntent().getExtras().getString("QuizRated");
+        quizPlayed = getIntent().getExtras().getString("QuizPlayed");
+        quizID = getIntent().getExtras().getString("QuizID");
+
+        super.onBackPressed();
+        Bundle b = new Bundle();
+        b.putString("QuizTitle", quizTitle);
+        b.putString("QuizDesc", quizDesc);
+        b.putString("QuizRating", quizRating);
+        b.putString("QuizRated", quizRated);
+        b.putString("QuizPlayed", quizPlayed);
+        b.putString("QuizID", quizID);
 
         Intent i = new Intent(this, quizInfo.class);
-       // i.putExtras(b);
-
+        i.putExtras(b);
         startActivity(i);
         finish();
+        overridePendingTransition(0, 0);
 
     }
 
