@@ -29,8 +29,15 @@ import java.util.concurrent.TimeUnit;
 
 public class play extends AppCompatActivity {
 
+    // Quiz information som skickas med bundle till resultat som
+    // bla skickar dessa till quizinfo igen om OnBacknuttonpressed
     String quizTitle;
+    String quizDesc;
+    String quizRating;
+    String quizRated;
+    String quizPlayed;
     String quizID;
+
     private CountDownTimer CountDown;
     double correctAnswers = 0;
     int answerNumber = 3;
@@ -57,6 +64,10 @@ public class play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        quizDesc = getIntent().getExtras().getString("QuizDesc");
+        quizRating = getIntent().getExtras().getString("QuizRating");
+        quizRated = getIntent().getExtras().getString("QuizRated");
+        quizPlayed = getIntent().getExtras().getString("QuizPlayed");
         quizID = getIntent().getExtras().getString("QuizID");
         quizTitle = getIntent().getExtras().getString("QuizTitle");
 
@@ -97,6 +108,7 @@ public class play extends AppCompatActivity {
         for(int i = 0 ; i <4 ; i++) {
             String itemAnswer = answers.get(i);
             guiAnswers.add(itemAnswer);
+
         }
 
         countDownText = (TextView) findViewById(R.id.editText4);
@@ -195,14 +207,20 @@ public class play extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putDouble("Score", scorePercentage);
         b.putString("QuizTitle", quizTitle);
+        b.putString("QuizDesc", quizDesc);
+        b.putString("QuizRating", quizRating);
+        b.putString("QuizRated", quizRated);
+        b.putString("QuizPlayed", quizPlayed);
+        b.putString("QuizID", quizID);
 
         Intent myIntent = new Intent(this, results.class);
         myIntent.putExtras(b);
-
         startActivity(myIntent);
+        finish();
+        overridePendingTransition(0, 0);
 
     }
-   /*
+
    @Override
    public void onBackPressed()
    {
@@ -212,12 +230,18 @@ public class play extends AppCompatActivity {
 
            public void onClick(DialogInterface dialog, int which) {
                CountDown.cancel();
-               //Bundle b = new Bundle();
-               //b.putString("QuizTitle", quizTitle);
+               Bundle b = new Bundle();
+               b.putString("QuizTitle", quizTitle);
+               b.putString("QuizDesc", quizDesc);
+               b.putString("QuizRating", quizRating);
+               b.putString("QuizRated", quizRated);
+               b.putString("QuizPlayed", quizPlayed);
+               b.putString("QuizID", quizID);
                Intent i = new Intent(play.this, quizInfo.class);
-               //i.putExtras(b);
+               i.putExtras(b);
                startActivity(i);
                finish();
+               overridePendingTransition(0, 0);
            }
        });
        abuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -230,5 +254,5 @@ public class play extends AppCompatActivity {
        alert.show();
       
    }
-   */
+
 }

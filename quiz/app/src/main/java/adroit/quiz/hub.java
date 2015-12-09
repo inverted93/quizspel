@@ -16,18 +16,24 @@ public class hub extends AppCompatActivity {
 
     public void changePage(View view){
 
-
-
         Intent myIntent = new Intent(this, quizMain.class);
-
-
         startActivity(myIntent);
-
+        finish();
+        overridePendingTransition(0, 0);
 
     }
 
 
+    public void onBackPressed()
+    {
+        super.onBackPressed();
 
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+        overridePendingTransition(0, 0);
+
+    }
 
 
 

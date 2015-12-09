@@ -52,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
     public void changePage(View view) {
 
         Intent myIntent = new Intent(this, hub.class);
-
         startActivity(myIntent);
+        finish();
+        overridePendingTransition(0, 0);
 
     }
 
@@ -83,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent myIntent = new Intent(this, hub.class);
                 startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
                 break;
 
             } else {
@@ -121,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 }
     class retrievedata extends AsyncTask<String, String, String> {

@@ -129,6 +129,8 @@ public class quizMain extends AppCompatActivity {
                 Intent myIntent = new Intent(view.getContext(), quizInfo.class);
                 myIntent.putExtras(b);
                 startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
             }
         });
 
@@ -151,6 +153,17 @@ public class quizMain extends AppCompatActivity {
         }
     }
 
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+
+        Intent i = new Intent(this, hub.class);
+        startActivity(i);
+        finish();
+        overridePendingTransition(0, 0);
+
+    }
+
 }
 
     class SortingComparatorAsc implements Comparator<String> {
@@ -168,3 +181,4 @@ public class quizMain extends AppCompatActivity {
             return -s1.compareTo(s2);
         }
     }
+
