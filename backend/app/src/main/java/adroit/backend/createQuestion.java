@@ -43,12 +43,11 @@ public class createQuestion extends AppCompatActivity {
 
         try{
 
-
-        String questionString = question.getText().toString();
-        String ans1String = ans1.getText().toString();
-        String ans2String = ans2.getText().toString();
-        String ans3String = ans3.getText().toString();
-        String ans4String = ans4.getText().toString();
+            String questionString = question.getText().toString();
+            String ans1String = ans1.getText().toString();
+            String ans2String = ans2.getText().toString();
+            String ans3String = ans3.getText().toString();
+            String ans4String = ans4.getText().toString();
 
             Log.d("1:" +questionString, ":2:" + ans1String + ans2String + ans3String + ans4String);
 
@@ -59,30 +58,30 @@ public class createQuestion extends AppCompatActivity {
             JSONObject questTmp = new JSONObject();
             JSONObject ansTmp = new JSONObject();
 
-            questTmp.put("question", "" + questionString);
-            questArr.put(pc, questTmp);
-
-
-
-               ansTmp.put("ans1", "" + ans1String);
-               ansTmp.put("ans2", "" + ans2String);
-               ansTmp.put("ans3", "" + ans3String);
-               ansTmp.put("ans4", "" + ans4String);
-               ansArr.put(pc, ansTmp);
-
-
-
-
-
-            Log.d("1", "909");
-
-
 
             question.getText().clear();
             ans1.getText().clear();
             ans2.getText().clear();
             ans3.getText().clear();
             ans4.getText().clear();
+
+            //if(questArr.length()<pc){
+
+              //  fillFields();
+
+            //}
+
+
+            questTmp.put("question", "" + questionString);
+            questArr.put(pc, questTmp);
+
+
+
+            ansTmp.put("ans1", "" + ans1String);
+            ansTmp.put("ans2", "" + ans2String);
+            ansTmp.put("ans3", "" + ans3String);
+            ansTmp.put("ans4", "" + ans4String);
+            ansArr.put(pc, ansTmp);
 
 
 
