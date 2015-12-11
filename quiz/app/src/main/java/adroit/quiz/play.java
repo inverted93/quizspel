@@ -1,6 +1,7 @@
 package adroit.quiz;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -37,6 +38,8 @@ public class play extends AppCompatActivity {
     String quizRated;
     String quizPlayed;
     String quizID;
+
+    static boolean isVisible = false;
 
     private CountDownTimer CountDown;
     double correctAnswers = 0;
@@ -194,7 +197,8 @@ public class play extends AppCompatActivity {
 
     public void changePage() {
         Log.d("changePage", "1");
-        userAnswers.add("");
+        if(isVisible){
+            userAnswers.add("");
 
         for(int i = 0; i < numberOfQuestions; i++) {
             if ((userAnswers.get(i)).equals(rightAnswers.get(i))){
@@ -202,23 +206,26 @@ public class play extends AppCompatActivity {
             }
         }
 
-        double scorePercentage = correctAnswers / (double)numberOfQuestions;
 
-        Bundle b = new Bundle();
-        b.putDouble("Score", scorePercentage);
-        b.putString("QuizTitle", quizTitle);
-        b.putString("QuizDesc", quizDesc);
-        b.putString("QuizRating", quizRating);
-        b.putString("QuizRated", quizRated);
-        b.putString("QuizPlayed", quizPlayed);
-        b.putString("QuizID", quizID);
+            Log.d("changePage", "2");
+            double scorePercentage = correctAnswers / (double) numberOfQuestions;
 
-        Intent myIntent = new Intent(this, results.class);
-        myIntent.putExtras(b);
-        startActivity(myIntent);
-        finish();
-        overridePendingTransition(0, 0);
+            Bundle b = new Bundle();
+            b.putDouble("Score", scorePercentage);
+            b.putString("QuizTitle", quizTitle);
+            b.putString("QuizDesc", quizDesc);
+            b.putString("QuizRating", quizRating);
+            b.putString("QuizRated", quizRated);
+            b.putString("QuizPlayed", quizPlayed);
+            b.putString("QuizID", quizID);
 
+            Intent myIntent = new Intent(this, results.class);
+            myIntent.putExtras(b);
+            startActivity(myIntent);
+            finish();
+            overridePendingTransition(0, 0);
+            Log.d("changePage", "3");
+        }
     }
 
    @Override
@@ -255,4 +262,26 @@ public class play extends AppCompatActivity {
       
    }
 
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        isVisible = true;
+
+        if(questionNr >= (numberOfQuestions-1)) {
+            changePage();
+        }
+    }
+
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        isVisible = false;
+    }
+
+
 }
+
