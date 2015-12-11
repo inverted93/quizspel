@@ -206,7 +206,6 @@ public class play extends AppCompatActivity {
             }
         }
 
-
             Log.d("changePage", "2");
             double scorePercentage = correctAnswers / (double) numberOfQuestions;
 

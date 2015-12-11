@@ -1,36 +1,77 @@
 package adroit.quiz;
 
 import android.content.Intent;
+
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
+import java.util.ArrayList;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Jonas 130-131, 188-190. Plus import på alla paket från Mainactivity och retrievedata klasserna i backend.
 
-    boolean switcher;
+    static JSONObject jobj;
+    static String id;
+
+
+    public static void setJson(JSONObject j){
+
+        jobj =j;
+
+    }
+
+    public static String getId(){
+        return id;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new retrievedata().execute();
+        new retrieveData().execute();
 
     }
 
+    EditText anvText;
+    EditText passText;
+    TextView felMed;
+    EditText extraText;
+    Button loginButton;
+
+    boolean switcher;
+    boolean checkErrorMsg; //Används för att fel meddelandet inte ska skrivas ut för tidigt.
+
+
+    ArrayList<String> userList = new ArrayList<String>();
+    ArrayList<String> passList = new ArrayList<String>();
+
+
+
     public void userCreate(View view) {
+
 
         EditText userName = (EditText) findViewById(R.id.usernameInput);
         Button newUser = (Button) findViewById(R.id.newUserButton);
@@ -40,160 +81,113 @@ public class MainActivity extends AppCompatActivity {
             newUser.setText(R.string.loginButtonString);
             login.setText(R.string.userCreate);
             switcher = true;
-        } else {
+        }else{
             userName.setVisibility(View.INVISIBLE);
             newUser.setText(R.string.createButtonString);
             login.setText(R.string.loginButtonString);
             switcher = false;
         }
+        Log.d("Heeeej", "1");
     }
 
 
-    public void changePage(View view) {
-
-        Intent myIntent = new Intent(this, hub.class);
-        startActivity(myIntent);
-        finish();
-        overridePendingTransition(0, 0);
-
-    }
+    public void login(View view)throws JSONException{
 
 
-    public void login(View view) {
+        Log.d("Heeeeeej", "1 vi ar i login ");
 
 
-        fillList();
+        try {
+
+            checkErrorMsg = false; //!!!!
+            anvText = (EditText)findViewById(R.id.email);
+            passText = (EditText)findViewById(R.id.password);
+            felMed = (TextView)findViewById(R.id.textView5);
+            String anvTmp = anvText.getText().toString();
+            String passTmp = passText.getText().toString();
+
+            felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
+
+            JSONArray memberArr = jobj.getJSONArray("Members");
+            String uName;
+            String password;
+
+            Log.d("1. ", "2" + memberArr.length());
 
 
-        EditText anvText = (EditText) findViewById(R.id.email);
-        EditText passText = (EditText) findViewById(R.id.password);
-        TextView felMed = (TextView) findViewById(R.id.textView5);
 
-        //String anv2Tmp = ((EditText) findViewById(R.id.editText)).getText().toString();
 
-        String anvTmp = anvText.getText().toString();
-        String passTmp = passText.getText().toString();
+            for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
 
-        felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
 
-        Log.d("Texxxt", ":" + anvTmp + passTmp);
+                JSONObject tmpJ = memberArr.getJSONObject(i);
+                uName = tmpJ.getString("UserName");
+                password = tmpJ.getString("Password");
 
-        for (int i = 0; i < userList.size(); i++) {    //For-loop som gar ingenom arrayen
+                if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
 
-            if (anvTmp.equals(userList.get(i)) && passTmp.equals(passList.get(i))) {    //Jamfor ett namn och lösenord i listan med
+                    id = tmpJ.getString("UserID");
+                    Intent myIntent = new Intent(this, hub.class);
+                    startActivity(myIntent);
+                    finish(); //Jonas
+                    overridePendingTransition(0, 0); //Jonas
+                    checkErrorMsg = true; //!!!
+                    break;
 
-                Intent myIntent = new Intent(this, hub.class);
-                startActivity(myIntent);
-                finish();
-                overridePendingTransition(0, 0);
-                break;
+                } else {
+                    checkErrorMsg = false;
+                }
 
-            } else {
-                Log.d("Misslyckad ", "inloggning");
-
-                felMed.setVisibility(View.VISIBLE);
-                felMed.setText("Incorrect username or password");
             }
+        }catch(NullPointerException e){
+
         }
-        //mEdit   = (EditText)findViewById(R.id.edittext);
+
+        if(checkErrorMsg==false){ //!!!!!!
+            felMed.setVisibility(View.VISIBLE);
+            felMed.setText("Incorrect username or password");
+
+        }
 
 
     }
-
-
-    ArrayList<String> userList = new ArrayList<String>();
-    ArrayList<String> passList = new ArrayList<String>();
-
-    public void fillList() {
-
-        userList.add("");
-        userList.add("admin");
-        userList.add("axel");
-        userList.add("jonas");
-        userList.add("samuel");
-        userList.add("alex");
-
-
-        passList.add("");
-        passList.add("password");
-        passList.add("password");
-        passList.add("password");
-        passList.add("password");
-        passList.add("password");
-
-
-
-    }
-
 
 }
-    class retrievedata extends AsyncTask<String, String, String> {
-
-        jsonConnection jsonClass = new jsonConnection();
-        TextView tv;
-        String ab;
-        JSONObject jobj = null;
-
-        @Override
-        protected String doInBackground(String... arg0){
-
-            Log.d("Hej vi kom hit", "1");
-
-            try{
-                jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1vp4j");
-                Log.d("Hej vi kom hit", "2");
-
-            }catch(JSONException e){
-                e.printStackTrace();
-                Log.d("Catch", "1");
-
-            }catch (IOException e){
-                e.printStackTrace();
-                Log.d("Catch", "2");
-            }
-
-            Log.d("Network test: ", /*jobj.toString()*/ "10");
+class retrieveData extends AsyncTask<String, String, String> {
 
 
+    jsonConnection jsonClass = new jsonConnection();
+    TextView tv;
+    String ab;
+    JSONObject jobj;
 
-            return ab;
+    JSONArray memberArr;
 
+
+    @Override
+    protected String doInBackground(String... arg0){
+
+        try{
+            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1vp4j");
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
         }
 
-        /*protected void onPostExecute(String ab){
-           tv.setText(ab);
+        try{
+            memberArr = jobj.getJSONArray("Members");
+        }catch(JSONException e){
+            e.printStackTrace();
         }
-*/
-
-        protected void onPostExecute(String ab){
-
-            play.setJson(jobj);
-            quizMain.setJson(jobj);
-
-
-        }
-
-
-
+        return ab;
     }
 
+    protected void onPostExecute(String ab){
+        quizMain.setJson(jobj);//Jonas
+        play.setJson(jobj);//Jonas
+        MainActivity.setJson(jobj); //Jonas
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+}
