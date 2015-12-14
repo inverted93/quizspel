@@ -1,16 +1,22 @@
 package adroit.quiz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -40,14 +46,15 @@ public class quizMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_main);
-
+        ListView gameList = (ListView) findViewById(R.id.gameList);
+        gameList.setAdapter(new GameAdapter(this));
 
         /*JSONArray quizArr = jsonResponse.getJSONArray("Quiz");
         JSONObject test = quizArr.getJSONObject(0);
         String stringen = test.getString("Name");*/
 
 
-        try {
+        /*try {
             JSONArray cast = jsonResponse.getJSONArray("Quiz");
             for (int i = 0; i < cast.length(); i++) {
                 JSONObject actor = cast.getJSONObject(i);
@@ -57,12 +64,12 @@ public class quizMain extends AppCompatActivity {
         }catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+        }*/
 
 
-        gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+        /*gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         ListView gameList = (ListView) findViewById(R.id.gameList);
-        gameList.setAdapter(gameAdapter);
+        gameList.setAdapter(gameAdapter);*/
 
         EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
         inputSearch.addTextChangedListener(new TextWatcher() {
@@ -182,3 +189,104 @@ public class quizMain extends AppCompatActivity {
         }
     }
 
+
+
+    class SingleRow{
+        String title;
+        String rating;
+        SingleRow(String title, String rating){
+            this.title=title;
+            this.rating=rating;
+        }
+    }
+
+
+    class GameAdapter extends BaseAdapter{
+
+        static JSONObject jsonResponse = new JSONObject();
+        public static void setJson(JSONObject json){
+            jsonResponse = json;
+        }
+
+        ArrayList<SingleRow> list;
+        Context context;
+        GameAdapter(Context c){
+            context = c;
+            list = new ArrayList<SingleRow>();
+
+            //Här ska värdena för listan laddas in
+            ArrayList<String> games = new ArrayList<String>();
+            ArrayList<String> ratings = new ArrayList<String>();
+
+            try {
+                JSONArray cast = jsonResponse.getJSONArray("Quiz");
+                for (int i = 0; i < cast.length(); i++) {
+                    JSONObject actor = cast.getJSONObject(i);
+                    String name = actor.getString("Name");
+                    games.add(name);
+                }
+            }catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            Log.d("Här har spelen laddats", ";");
+            int listSize = games.size();
+            for (int i = 0; i < listSize; i++) {
+                Log.d("1", games.get(i));
+            }
+
+            String[] title = new String[games.size()];
+            title = games.toArray(title);
+
+            try {
+                JSONArray cast = jsonResponse.getJSONArray("Quiz");
+                for (int i = 0; i < cast.length(); i++) {
+                    JSONObject actor = cast.getJSONObject(i);
+                    String rating = actor.getString("Rating");
+                    ratings.add(rating);
+                }
+            }catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            String[] rating = new String[ratings.size()];
+            rating = games.toArray(rating);
+            //till hit
+
+            for(int i=0; i<games.size(); i++){
+                list.add(new SingleRow(title[i], rating[i]));
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = inflater.inflate(R.layout.single_row, parent, false);
+
+            TextView title = (TextView) row.findViewById(R.id.textView2);
+            RatingBar rating = (RatingBar) row.findViewById(R.id.ratingBar2);
+
+            SingleRow temp = list.get(position);
+
+            title.setText(temp.title);
+            rating.setRating(Float.parseFloat(temp.rating));
+
+            return row;
+        }
+    }
