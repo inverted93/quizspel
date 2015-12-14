@@ -39,6 +39,7 @@ static InputStream stream = null;
 
 
 
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-8")));
             json = readAll(reader);   //anropar metoden neranför som bugger en string av BufferedReadern
             jobj = new JSONObject(json); //skapar ett nytt JSON-objekt av stringen.

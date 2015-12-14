@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import org.json.JSONArray;
@@ -34,61 +35,55 @@ public class createQuestion extends AppCompatActivity {
 
     public void getText(){
 
-        EditText question = (EditText) findViewById(R.id.editText5);
+            try {
 
-        EditText ans1 = (EditText) findViewById(R.id.editText6);
-        EditText ans2 = (EditText) findViewById(R.id.editText7);
-        EditText ans3 = (EditText) findViewById(R.id.editText8);
-        EditText ans4 = (EditText) findViewById(R.id.editText9);
+                EditText question = (EditText) findViewById(R.id.editText5);
 
-        try{
+                EditText ans1 = (EditText) findViewById(R.id.editText6);
+                EditText ans2 = (EditText) findViewById(R.id.editText7);
+                EditText ans3 = (EditText) findViewById(R.id.editText8);
+                EditText ans4 = (EditText) findViewById(R.id.editText9);
 
-            String questionString = question.getText().toString();
-            String ans1String = ans1.getText().toString();
-            String ans2String = ans2.getText().toString();
-            String ans3String = ans3.getText().toString();
-            String ans4String = ans4.getText().toString();
-
-            Log.d("1:" +questionString, ":2:" + ans1String + ans2String + ans3String + ans4String);
+                String questionString = question.getText().toString();
+                String ans1String = ans1.getText().toString();
+                String ans2String = ans2.getText().toString();
+                String ans3String = ans3.getText().toString();
+                String ans4String = ans4.getText().toString();
 
 
+                Log.d("1:" + questionString, ":2:" + ans1String + ans2String + ans3String + ans4String);
+
+                JSONObject questTmp = new JSONObject();
+                JSONObject ansTmp = new JSONObject();
+
+                question.getText().clear();
+                ans1.getText().clear();
+                ans2.getText().clear();
+                ans3.getText().clear();
+                ans4.getText().clear();
+
+                questTmp.put("question", "" + questionString);
+                questArr.put(pc, questTmp);
+
+                ansTmp.put("ans1", "" + ans1String);
+                ansTmp.put("ans2", "" + ans2String);
+                ansTmp.put("ans3", "" + ans3String);
+                ansTmp.put("ans4", "" + ans4String);
+                ansArr.put(pc, ansTmp);
 
 
+            } catch (JSONException e) {
 
-            JSONObject questTmp = new JSONObject();
-            JSONObject ansTmp = new JSONObject();
-
-
-            question.getText().clear();
-            ans1.getText().clear();
-            ans2.getText().clear();
-            ans3.getText().clear();
-            ans4.getText().clear();
-
-            //if(questArr.length()<pc){
-
-              //  fillFields();
-
-            //}
-
-
-            questTmp.put("question", "" + questionString);
-            questArr.put(pc, questTmp);
-
-
-
-            ansTmp.put("ans1", "" + ans1String);
-            ansTmp.put("ans2", "" + ans2String);
-            ansTmp.put("ans3", "" + ans3String);
-            ansTmp.put("ans4", "" + ans4String);
-            ansArr.put(pc, ansTmp);
+                e.printStackTrace();
+            }
 
 
 
-        }catch(JSONException e){
 
-            e.printStackTrace();
-        }
+
+
+
+
 
 
     }
@@ -131,7 +126,7 @@ public class createQuestion extends AppCompatActivity {
 
 
 
-            Log.d("909" ,  " 808" + a1 + a2 + a3 + a4);
+            Log.d("909", " 808" + a1 + a2 + a3 + a4);
 
         }catch(JSONException e){
             e.printStackTrace();
@@ -151,31 +146,83 @@ public class createQuestion extends AppCompatActivity {
     }
 
 
+    String questionString;
+    String ans1String;
+    String ans2String;
+    String ans3String;
+    String ans4String;
 
 
+    public void getStrings(){
+
+        EditText question = (EditText) findViewById(R.id.editText5);
+        EditText ans1 = (EditText) findViewById(R.id.editText6);
+        EditText ans2 = (EditText) findViewById(R.id.editText7);
+        EditText ans3 = (EditText) findViewById(R.id.editText8);
+        EditText ans4 = (EditText) findViewById(R.id.editText9);
+
+        questionString = question.getText().toString();
+        ans1String = ans1.getText().toString();
+        ans2String = ans2.getText().toString();
+        ans3String = ans3.getText().toString();
+        ans4String = ans4.getText().toString();
+
+
+    }
 
 
 
     public void next(View v){
 
-        //if(questArr.length()==pc){
 
+
+
+
+
+        getStrings();
+
+        if(questionString.equals("")||ans1String.equals("")||ans2String.equals("")||ans3String.equals("")||ans4String.equals("")){
+
+            Log.d("Fyll i alla ", "falt");
+        }else {
             getText();
+            Button prevButton = (Button) findViewById(R.id.button8);
+            prevButton.setVisibility(View.VISIBLE);
 
+            pc=pc+1; //Addar 1 till pagecount
+        }
 
-
-        //}else{}
-
-        pc=pc+1; //Addar 1 till pagecount
 
     }
 
 
     public void prev(View v){
 
-        getText();
-        pc= pc-1; //tar bort 1 fran pagecount
-        fillFields();
+        if(pc==1){
+
+            Button prevButton = (Button) findViewById(R.id.button8);
+            prevButton.setVisibility(View.INVISIBLE);
+
+        }else{
+
+        }
+
+
+
+
+        getStrings();
+
+        if(questionString.equals("")||ans1String.equals("")||ans2String.equals("")||ans3String.equals("")||ans4String.equals("")) {
+
+
+        Log.d("Fyll i alla ", "falt");
+
+        }else{
+            getText();
+            pc = pc - 1; //tar bort 1 fran pagecount
+            fillFields();
+        }
+
 
     }
 
