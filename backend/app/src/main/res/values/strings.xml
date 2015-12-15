@@ -15,6 +15,15 @@
     <string name="userCreate">Create User</string>
     <string name="title_activity_quiz_info">quizInfo</string>
 
+    <!--Quiz Info-->
+    <string name="quizInfoText">This is an awesome and exiting quiz.</string>
+    <string name="quizInfoQuizName">Awesome Quiz</string>
+    <string name="quizVoteText">has voted</string>
+    <string name="quizVoteNumber">32</string>
+    <string name="quizPlayedText">has played</string>
+    <string name="quizPlayedNumber">84</string>
+
+
 
 
 
