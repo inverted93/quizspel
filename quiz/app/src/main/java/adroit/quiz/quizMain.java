@@ -223,22 +223,26 @@ public class quizMain extends AppCompatActivity {
                 for (int i = 0; i < cast.length(); i++) {
                     JSONObject actor = cast.getJSONObject(i);
                     String name = actor.getString("Name");
+                    String rating = actor.getString("Rating");
                     games.add(name);
+                    ratings.add(rating);
+
+
                 }
             }catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             Log.d("Här har spelen laddats", ";");
-            int listSize = games.size();
+            int listSize = ratings.size();
             for (int i = 0; i < listSize; i++) {
-                Log.d("1", games.get(i));
+                Log.d("1", ratings.get(i));
             }
 
             String[] title = new String[games.size()];
             title = games.toArray(title);
 
-            try {
+            /*try {
                 JSONArray cast = jsonResponse.getJSONArray("Quiz");
                 for (int i = 0; i < cast.length(); i++) {
                     JSONObject actor = cast.getJSONObject(i);
@@ -248,9 +252,9 @@ public class quizMain extends AppCompatActivity {
             }catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }
+            }*/
             String[] rating = new String[ratings.size()];
-            rating = games.toArray(rating);
+            rating = ratings.toArray(rating);
             //till hit
 
             for(int i=0; i<games.size(); i++){
@@ -283,6 +287,8 @@ public class quizMain extends AppCompatActivity {
             RatingBar rating = (RatingBar) row.findViewById(R.id.ratingBar2);
 
             SingleRow temp = list.get(position);
+
+            Log.d("111111111", "2" + temp.rating);
 
             title.setText(temp.title);
             rating.setRating(Float.parseFloat(temp.rating));
