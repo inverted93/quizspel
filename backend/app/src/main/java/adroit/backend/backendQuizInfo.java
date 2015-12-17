@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 public class backendQuizInfo extends Activity {
 
-    @Override
+   // @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_backend_quiz_info);
-        setQuizInfo();
+     setQuizInfo();
     }
 
 
@@ -24,7 +24,7 @@ public class backendQuizInfo extends Activity {
     String quizID;
 
 
-    public void setQuizInfo(){
+    public void setQuizInfo() {
 
         TextView quizTitle = (TextView) findViewById(R.id.textView5);
         TextView description = (TextView) findViewById(R.id.textView7);
@@ -46,12 +46,6 @@ public class backendQuizInfo extends Activity {
         ratingBar.setRating(Float.parseFloat(quizRating));
         playedNumber.setText(quizPlayed);
         votedNumber.setText(quizRated);
-
-
-
-
-
-
 
 
     }
