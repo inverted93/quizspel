@@ -54,18 +54,6 @@ public class quizMain extends AppCompatActivity {
         String stringen = test.getString("Name");*/
 
 
-        /*try {
-            JSONArray cast = jsonResponse.getJSONArray("Quiz");
-            for (int i = 0; i < cast.length(); i++) {
-                JSONObject actor = cast.getJSONObject(i);
-                String name = actor.getString("Name");
-                games.add(name);
-            }
-        }catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }*/
-
 
         /*gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
         ListView gameList = (ListView) findViewById(R.id.gameList);
@@ -194,9 +182,11 @@ public class quizMain extends AppCompatActivity {
     class SingleRow{
         String title;
         String rating;
-        SingleRow(String title, String rating){
+        String creator;
+        SingleRow(String title, String rating, String creator){
             this.title=title;
             this.rating=rating;
+            this.creator=creator;
         }
     }
 
@@ -217,22 +207,34 @@ public class quizMain extends AppCompatActivity {
             //Här ska värdena för listan laddas in
             ArrayList<String> games = new ArrayList<String>();
             ArrayList<String> ratings = new ArrayList<String>();
+            ArrayList<String> creators = new ArrayList<String>();
 
             try {
-                JSONArray cast = jsonResponse.getJSONArray("Quiz");
-                for (int i = 0; i < cast.length(); i++) {
-                    JSONObject actor = cast.getJSONObject(i);
-                    String name = actor.getString("Name");
-                    String rating = actor.getString("Rating");
+                JSONArray quiz = jsonResponse.getJSONArray("Quiz");
+                JSONArray member = jsonResponse.getJSONArray("Members");
+                for (int i = 0; i < quiz.length(); i++) {
+                    JSONObject qInfo = quiz.getJSONObject(i);
+                    String name = qInfo.getString("Name");
+                    String rating = qInfo.getString("Rating");
+                    String userID = qInfo.getString("UserID");
                     games.add(name);
                     ratings.add(rating);
+                    creators.add(userID);
+                        for (int x = 0; x < member.length(); x++){
 
-
+                            JSONObject mInfo = quiz.getJSONObject(x);
+                            String userID2 = mInfo.getString("UserID");
+                            if (userID2.equals(userID)){
+                                String userName = mInfo.getString("UserName");
+                                creators.add(userName);
+                            }
+                        }
                 }
             }catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
             Log.d("Här har spelen laddats", ";");
             int listSize = ratings.size();
             for (int i = 0; i < listSize; i++) {
@@ -242,23 +244,15 @@ public class quizMain extends AppCompatActivity {
             String[] title = new String[games.size()];
             title = games.toArray(title);
 
-            /*try {
-                JSONArray cast = jsonResponse.getJSONArray("Quiz");
-                for (int i = 0; i < cast.length(); i++) {
-                    JSONObject actor = cast.getJSONObject(i);
-                    String rating = actor.getString("Rating");
-                    ratings.add(rating);
-                }
-            }catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }*/
             String[] rating = new String[ratings.size()];
             rating = ratings.toArray(rating);
-            //till hit
+
+            String[] creator = new String[creators.size()];
+            creator = creators.toArray(creator);
+
 
             for(int i=0; i<games.size(); i++){
-                list.add(new SingleRow(title[i], rating[i]));
+                list.add(new SingleRow(title[i], rating[i], creator[i]));
             }
         }
 
@@ -283,15 +277,17 @@ public class quizMain extends AppCompatActivity {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row = inflater.inflate(R.layout.single_row, parent, false);
 
-            TextView title = (TextView) row.findViewById(R.id.textView2);
-            RatingBar rating = (RatingBar) row.findViewById(R.id.ratingBar2);
+            TextView title = (TextView) row.findViewById(R.id.listTitle);
+            TextView rating = (TextView) row.findViewById(R.id.listRating);
+            TextView creator = (TextView) row.findViewById(R.id.listCreator);
 
             SingleRow temp = list.get(position);
 
             Log.d("111111111", "2" + temp.rating);
 
             title.setText(temp.title);
-            rating.setRating(Float.parseFloat(temp.rating));
+            rating.setText(temp.rating + "/5");
+            creator.setText("Created By " + temp.creator);
 
             return row;
         }
