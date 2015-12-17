@@ -4,11 +4,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
+import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class retrieveData extends AsyncTask<String, String, String> {
 
@@ -25,9 +27,24 @@ public class retrieveData extends AsyncTask<String, String, String> {
     protected String doInBackground(String... arg0){
 
         try{
-            //updateData.updateShit("https://api.myjson.com/bins/3lyn9"); // temp json
+
+
+            //HashMap<String, String> params = new HashMap<>();
+           //params.put("firstName", "Axel");
+            //params.put("lastName", "Holm");
+
+
+            //ftp.getFtp();
+
+
+
+
+            //urlConnect.changeData();
+
+            HttpResponse e = updateData.updateShit("https://api.myjson.com/bins/3lyn9"); // temp json
 
             jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1vp4j");
+
 
 
 
