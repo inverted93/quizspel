@@ -219,7 +219,9 @@ public class quizMain extends AppCompatActivity {
                     String userID = qInfo.getString("UserID");
                     games.add(name);
                     ratings.add(rating);
+                    creators.add(userID);
                         for (int x = 0; x < member.length(); x++){
+
                             JSONObject mInfo = quiz.getJSONObject(x);
                             String userID2 = mInfo.getString("UserID");
                             if (userID2.equals(userID)){

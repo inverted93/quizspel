@@ -37,8 +37,6 @@ public class retrieveData extends AsyncTask<String, String, String> {
             //ftp.getFtp();
 
 
-
-
             //urlConnect.changeData();
 
             HttpResponse e = updateData.updateShit("https://api.myjson.com/bins/3lyn9"); // temp json
