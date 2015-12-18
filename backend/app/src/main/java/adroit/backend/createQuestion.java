@@ -18,13 +18,23 @@ public class createQuestion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_question);
+        getStrings();
     }
 
 
 
+    EditText question;
+    EditText ans1;
+    EditText ans2;
+    EditText ans3;
+    EditText ans4;
 
 
-
+    String questionString;
+    String ans1String;
+    String ans2String;
+    String ans3String;
+    String ans4String;
 
 
     JSONArray questArr = new JSONArray();
@@ -37,18 +47,7 @@ public class createQuestion extends AppCompatActivity {
 
             try {
 
-                EditText question = (EditText) findViewById(R.id.editText5);
-
-                EditText ans1 = (EditText) findViewById(R.id.editText6);
-                EditText ans2 = (EditText) findViewById(R.id.editText7);
-                EditText ans3 = (EditText) findViewById(R.id.editText8);
-                EditText ans4 = (EditText) findViewById(R.id.editText9);
-
-                String questionString = question.getText().toString();
-                String ans1String = ans1.getText().toString();
-                String ans2String = ans2.getText().toString();
-                String ans3String = ans3.getText().toString();
-                String ans4String = ans4.getText().toString();
+                getStrings();
 
 
                 Log.d("1:" + questionString, ":2:" + ans1String + ans2String + ans3String + ans4String);
@@ -71,33 +70,20 @@ public class createQuestion extends AppCompatActivity {
                 ansTmp.put("ans4", "" + ans4String);
                 ansArr.put(pc, ansTmp);
 
-
             } catch (JSONException e) {
 
                 e.printStackTrace();
             }
-
-
-
-
-
-
-
-
-
-
     }
+
+
+
 
 
 
     public void fillFields(){
 
-        EditText question = (EditText) findViewById(R.id.editText5);
-
-        EditText ans1 = (EditText) findViewById(R.id.editText6);
-        EditText ans2 = (EditText) findViewById(R.id.editText7);
-        EditText ans3 = (EditText) findViewById(R.id.editText8);
-        EditText ans4 = (EditText) findViewById(R.id.editText9);
+      getStrings();
 
 
         try{
@@ -146,20 +132,15 @@ public class createQuestion extends AppCompatActivity {
     }
 
 
-    String questionString;
-    String ans1String;
-    String ans2String;
-    String ans3String;
-    String ans4String;
 
 
     public void getStrings(){
 
-        EditText question = (EditText) findViewById(R.id.editText5);
-        EditText ans1 = (EditText) findViewById(R.id.editText6);
-        EditText ans2 = (EditText) findViewById(R.id.editText7);
-        EditText ans3 = (EditText) findViewById(R.id.editText8);
-        EditText ans4 = (EditText) findViewById(R.id.editText9);
+        question = (EditText) findViewById(R.id.editText5);
+        ans1 = (EditText) findViewById(R.id.editText6);
+        ans2 = (EditText) findViewById(R.id.editText7);
+        ans3 = (EditText) findViewById(R.id.editText8);
+        ans4 = (EditText) findViewById(R.id.editText9);
 
         questionString = question.getText().toString();
         ans1String = ans1.getText().toString();
@@ -170,12 +151,21 @@ public class createQuestion extends AppCompatActivity {
 
     }
 
+    public void clearHint(){
+
+        question.setHint("");
+        ans1.setHint("");
+        ans2.setHint("");
+        ans3.setHint("");
+        ans4.setHint("");
+
+
+    }
+
+
 
 
     public void next(View v){
-
-
-
 
 
 
@@ -184,12 +174,38 @@ public class createQuestion extends AppCompatActivity {
         if(questionString.equals("")||ans1String.equals("")||ans2String.equals("")||ans3String.equals("")||ans4String.equals("")){
 
             Log.d("Fyll i alla ", "falt");
+
+            if(questionString.equals("")){
+                question.setHint("Fill this out");
+            }
+            if(ans1String.equals("")){
+                ans1.setHint("Fill this out");
+            }
+            if(ans2String.equals("")){
+                ans2.setHint("Fill this out");
+            }
+            if(ans3String.equals("")){
+                ans3.setHint("Fill this out");
+            }
+            if(ans4String.equals("")){
+                ans4.setHint("Fill this out");
+            }
+
+
         }else {
+
+
+
+            clearHint();
+
             getText();
+            pc=pc+1;//Addar 1 till pagecount
+            fillFields();
+
             Button prevButton = (Button) findViewById(R.id.button8);
             prevButton.setVisibility(View.VISIBLE);
 
-            pc=pc+1; //Addar 1 till pagecount
+
         }
 
 
@@ -198,29 +214,23 @@ public class createQuestion extends AppCompatActivity {
 
     public void prev(View v){
 
-        if(pc==1){
 
-            Button prevButton = (Button) findViewById(R.id.button8);
-            prevButton.setVisibility(View.INVISIBLE);
 
-        }else{
-
-        }
-
+        clearHint();
 
 
 
         getStrings();
 
-        if(questionString.equals("")||ans1String.equals("")||ans2String.equals("")||ans3String.equals("")||ans4String.equals("")) {
 
-
-        Log.d("Fyll i alla ", "falt");
-
-        }else{
             getText();
             pc = pc - 1; //tar bort 1 fran pagecount
             fillFields();
+
+
+        if(pc==1){
+            Button prevButton = (Button) findViewById(R.id.button8);
+            prevButton.setVisibility(View.INVISIBLE);
         }
 
 
@@ -231,6 +241,15 @@ public class createQuestion extends AppCompatActivity {
 
 
     public void done(View v){
+
+
+       // if(){
+
+
+
+
+
+       // }
 
 
         Intent myIntent = new Intent(this, hub.class);

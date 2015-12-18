@@ -39,7 +39,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
             //urlConnect.changeData();
 
-            HttpResponse e = updateData.updateShit("https://api.myjson.com/bins/3lyn9"); // temp json
+            //HttpResponse e = updateData.updateShit("https://api.myjson.com/bins/3lyn9"); // temp json
 
             jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1vp4j");
 
