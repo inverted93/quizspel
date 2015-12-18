@@ -24,6 +24,10 @@ public class createQuiz extends AppCompatActivity {
 
     }
 
+
+
+
+
     EditText nameLine;
     EditText descLine;
 
@@ -71,6 +75,16 @@ public class createQuiz extends AppCompatActivity {
 
     }
 
+
+
+
+
+    public String getStrings(){ //Kanske ska goras pa annat satt
+
+        String s = nameLineString + ";" + descLineString;
+
+        return s;
+    }
 
 
 
