@@ -32,6 +32,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
     }
 
 
+
     @Override
     protected String doInBackground(String... arg0){
 
@@ -73,6 +74,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
         protected void onPostExecute(String ab){
             MainActivity.setJson(jobj);
             myQuiz.setJson(jobj);
+            createQuestion.setJSON(jobj);
 
         }
 }

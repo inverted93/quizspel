@@ -1,12 +1,17 @@
 package adroit.backend;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.ParcelFileDescriptor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,13 +19,79 @@ import org.json.JSONObject;
 
 public class createQuestion extends AppCompatActivity {
 
+
+    String quizTitle;
+    String quizDesc;
+    static JSONObject jobj;
+
+    RadioGroup radioGruppen;
+    RadioButton radioKnappen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_question);
+
+        addListener();
         getStrings();
     }
 
+    public void addListener(){
+
+        radioGruppen = (RadioGroup) findViewById(R.id.radioFacit);
+
+        /*Button prevButton = (Button) findViewById(R.id.button8);
+        Button doneButton = (Button) findViewById(R.id.button4);
+        Button newButton = (Button) findViewById(R.id.button5);*/
+
+        radioGruppen.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGruppen, int checkedId) {
+                Log.d("DET TRYCKTES EN KNAPP", "23    " + checkedId);
+
+            }
+        });
+    }
+
+
+    public int getRadio(){
+
+        int id=0;
+
+        RadioButton r1 = (RadioButton) findViewById(R.id.radioButton1);
+        RadioButton r2 = (RadioButton) findViewById(R.id.radioButton2);
+        RadioButton r3 = (RadioButton) findViewById(R.id.radioButton3);
+        RadioButton r4 = (RadioButton) findViewById(R.id.radioButton4);
+
+        if(r1.isPressed()){
+            id = R.id.radioButton1;
+        }
+        if(r2.isPressed()){
+            id = R.id.radioButton2;
+        }
+        if(r3.isPressed()){
+            id = R.id.radioButton3;
+        }
+        if(r4.isPressed()){
+            id = R.id.radioButton4;
+        }
+
+
+
+
+
+
+        return id;
+    }
+
+
+
+
+
+    public static void setJSON(JSONObject j){
+
+        jobj= j;
+    }
 
 
     EditText question;
@@ -136,6 +207,10 @@ public class createQuestion extends AppCompatActivity {
 
     public void getStrings(){
 
+        quizTitle = getIntent().getExtras().getString("title");  //Hamtar titeln ifran sidan innan
+        quizDesc = getIntent().getExtras().getString("description"); //Hamtar description ifran sidan innan
+        Log.d("1", "3" + quizTitle + quizDesc);
+
         question = (EditText) findViewById(R.id.editText5);
         ans1 = (EditText) findViewById(R.id.editText6);
         ans2 = (EditText) findViewById(R.id.editText7);
@@ -189,15 +264,10 @@ public class createQuestion extends AppCompatActivity {
                 ans4.setHint("Fill this out");
             }
 
-
         }else {
-
             answer = true;
-
         }
-
         return answer;
-
     }
 
 
@@ -206,12 +276,10 @@ public class createQuestion extends AppCompatActivity {
     public void next(View v){
 
 
-
+        int i = getRadio();
+        Log.d("Whebpiufabjnjkads", "Okej" + i);
         getStrings();
-
         Boolean ok = checkIfEmpty();
-
-
 
         if(ok==true){
 
@@ -226,31 +294,16 @@ public class createQuestion extends AppCompatActivity {
 
         }
 
-
-
-
-
-
-
-
-
     }
 
 
+
     public void prev(View v){
-
-
-
         clearHint();
-
-
-
         getStrings();
-
-
-            getText();
-            pc = pc - 1; //tar bort 1 fran pagecount
-            fillFields();
+        getText();
+        pc = pc - 1; //tar bort 1 fran pagecount
+        fillFields();
 
 
         if(pc==1){
@@ -266,6 +319,19 @@ public class createQuestion extends AppCompatActivity {
 
 
     public void done(View v){
+
+        next(v);
+
+        /*try{
+            JSONArray quizArr = jobj.getJSONArray("Quiz");
+            JSONArray questionArr = jobj.getJSONArray("Question");
+            JSONArray answerArr = jobj.getJSONArray("Answer");
+
+
+        }catch(JSONException e){
+            e.printStackTrace();
+
+        }*/
 
 
 
