@@ -139,8 +139,6 @@ public class play extends AppCompatActivity {
                 return view;
             }
         };
-        //final ListAdapter answersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, guiAnswers);
-
         answersList.setAdapter(answersAdapter);
 
         CountDown = new CountDownTimer(8000, 100) {
