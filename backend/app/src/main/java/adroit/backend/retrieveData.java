@@ -23,6 +23,15 @@ public class retrieveData extends AsyncTask<String, String, String> {
     JSONArray memberArr;
 
 
+    public void changeJSON(){
+
+
+
+
+
+    }
+
+
     @Override
     protected String doInBackground(String... arg0){
 

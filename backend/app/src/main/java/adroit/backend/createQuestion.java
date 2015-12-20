@@ -163,13 +163,11 @@ public class createQuestion extends AppCompatActivity {
     }
 
 
-
-
-    public void next(View v){
-
+    public Boolean checkIfEmpty(){
 
 
         getStrings();
+        Boolean answer = false;
 
         if(questionString.equals("")||ans1String.equals("")||ans2String.equals("")||ans3String.equals("")||ans4String.equals("")){
 
@@ -194,10 +192,30 @@ public class createQuestion extends AppCompatActivity {
 
         }else {
 
+            answer = true;
 
+        }
+
+        return answer;
+
+    }
+
+
+
+
+    public void next(View v){
+
+
+
+        getStrings();
+
+        Boolean ok = checkIfEmpty();
+
+
+
+        if(ok==true){
 
             clearHint();
-
             getText();
             pc=pc+1;//Addar 1 till pagecount
             fillFields();
@@ -207,6 +225,13 @@ public class createQuestion extends AppCompatActivity {
 
 
         }
+
+
+
+
+
+
+
 
 
     }
@@ -243,13 +268,7 @@ public class createQuestion extends AppCompatActivity {
     public void done(View v){
 
 
-       // if(){
 
-
-
-
-
-       // }
 
 
         Intent myIntent = new Intent(this, hub.class);
