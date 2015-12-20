@@ -2,13 +2,17 @@ package adroit.quiz;
 
 import android.app.AlertDialog;
 import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -118,8 +122,23 @@ public class play extends AppCompatActivity {
 
         countDownText = (TextView) findViewById(R.id.editText4);
 
-        final ListAdapter answersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, guiAnswers);
         final  ListView answersList = (ListView) findViewById(R.id.answersList);
+        final ArrayAdapter<String> answersAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, guiAnswers){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+                View view = super.getView(position,convertView,parent);
+                if(position %2 == 1)
+                {
+                    view.setBackgroundColor(Color.parseColor("#008b8b"));
+                }
+                else
+                {
+                    view.setBackgroundColor(Color.parseColor("#009999"));
+                }
+                return view;
+            }
+        };
         answersList.setAdapter(answersAdapter);
 
         CountDown = new CountDownTimer(8000, 100) {
@@ -284,5 +303,8 @@ public class play extends AppCompatActivity {
     }
 
 
+
+
 }
+
 
