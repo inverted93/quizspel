@@ -67,12 +67,14 @@ public class play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+
         quizDesc = getIntent().getExtras().getString("QuizDesc");
         quizRating = getIntent().getExtras().getString("QuizRating");
         quizRated = getIntent().getExtras().getString("QuizRated");
         quizPlayed = getIntent().getExtras().getString("QuizPlayed");
         quizID = getIntent().getExtras().getString("QuizID");
         quizTitle = getIntent().getExtras().getString("QuizTitle");
+
 
         try {
             JSONArray jQuestions = jsonResponse.getJSONArray("Question");

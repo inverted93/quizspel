@@ -54,11 +54,14 @@
         android:indeterminate="false"
         android:max="@integer/maxQuestions"
         android:progress="@integer/quizProgress"
-        android:background="#3CB371"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_below="@+id/editText4"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:progressDrawable="@drawable/progressbar"
+        />
+
+        <!-- android:background="#3CB371" -->
 
 
 </RelativeLayout>
