@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class createQuestion extends AppCompatActivity {
 
 
@@ -53,35 +55,50 @@ public class createQuestion extends AppCompatActivity {
         });
     }
 
+    RadioButton r1;
+    RadioButton r2;
+    RadioButton r3;
+    RadioButton r4;
 
     public int getRadio(){
 
         int id=0;
 
-        RadioButton r1 = (RadioButton) findViewById(R.id.radioButton1);
-        RadioButton r2 = (RadioButton) findViewById(R.id.radioButton2);
-        RadioButton r3 = (RadioButton) findViewById(R.id.radioButton3);
-        RadioButton r4 = (RadioButton) findViewById(R.id.radioButton4);
+        r1 = (RadioButton) findViewById(R.id.radioButton1);
+        r2 = (RadioButton) findViewById(R.id.radioButton2);
+        r3 = (RadioButton) findViewById(R.id.radioButton3);
+        r4 = (RadioButton) findViewById(R.id.radioButton4);
 
-        if(r1.isPressed()){
+        if(r1.isChecked()){
+            Log.d("RADIO ", "1   ");
             id = R.id.radioButton1;
+
         }
-        if(r2.isPressed()){
+        if(r2.isChecked()){
+            Log.d("RADIO ", "2   ");
             id = R.id.radioButton2;
         }
-        if(r3.isPressed()){
+        if(r3.isChecked()){
+            Log.d("RADIO ", "3   ");
             id = R.id.radioButton3;
         }
-        if(r4.isPressed()){
+        if(r4.isChecked()){
+            Log.d("RADIO ", "4   ");
             id = R.id.radioButton4;
         }
 
 
-
-
-
-
         return id;
+    }
+
+
+
+    public void setRadio(int id){ ///////!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        RadioButton rx = (RadioButton) findViewById(id);
+
+        rx.setChecked(true);
+
     }
 
 
@@ -107,9 +124,12 @@ public class createQuestion extends AppCompatActivity {
     String ans3String;
     String ans4String;
 
+    int radioId;
+
 
     JSONArray questArr = new JSONArray();
     JSONArray ansArr = new JSONArray();
+    ArrayList <Integer> radioArr = new ArrayList <Integer>();
 
     int pc=1; // PageCount
 
@@ -132,6 +152,12 @@ public class createQuestion extends AppCompatActivity {
                 ans3.getText().clear();
                 ans4.getText().clear();
 
+                /*r1.setChecked(false);          //kan fixas senare, sa att radioknappen inte är i tryckt när man går till nästa
+                r2.setChecked(false);
+                r3.setChecked(false);
+                r4.setChecked(false);*/
+
+
                 questTmp.put("question", "" + questionString);
                 questArr.put(pc, questTmp);
 
@@ -139,7 +165,15 @@ public class createQuestion extends AppCompatActivity {
                 ansTmp.put("ans2", "" + ans2String);
                 ansTmp.put("ans3", "" + ans3String);
                 ansTmp.put("ans4", "" + ans4String);
+                ansTmp.put("facit", "" + radioId);
                 ansArr.put(pc, ansTmp);
+
+
+                //Log.d("1111111", "347624978387" + radioId);
+                //radioArr.add(pc, radioId);
+
+
+
 
             } catch (JSONException e) {
 
@@ -170,10 +204,9 @@ public class createQuestion extends AppCompatActivity {
             String a2 = tmpAns.getString("ans2");
             String a3 = tmpAns.getString("ans3");
             String a4 = tmpAns.getString("ans4");
+            String facitString = tmpAns.getString("facit");
 
-
-
-
+            int facitInt = Integer.parseInt(facitString);
 
             question.setText(s);
             ans1.setText(a1);
@@ -183,15 +216,17 @@ public class createQuestion extends AppCompatActivity {
 
 
 
+            //int idTmp = radioArr.get(pc);
+
+            setRadio(facitInt);
+
+
+
             Log.d("909", " 808" + a1 + a2 + a3 + a4);
 
         }catch(JSONException e){
             e.printStackTrace();
         }
-
-
-
-
 
     }
 
@@ -222,6 +257,8 @@ public class createQuestion extends AppCompatActivity {
         ans2String = ans2.getText().toString();
         ans3String = ans3.getText().toString();
         ans4String = ans4.getText().toString();
+
+        radioId=getRadio();
 
 
     }
@@ -276,8 +313,8 @@ public class createQuestion extends AppCompatActivity {
     public void next(View v){
 
 
-        int i = getRadio();
-        Log.d("Whebpiufabjnjkads", "Okej" + i);
+        //int i = getRadio();
+        //Log.d("Whebpiufabjnjkads", "Okej" + i);
         getStrings();
         Boolean ok = checkIfEmpty();
 
@@ -287,10 +324,8 @@ public class createQuestion extends AppCompatActivity {
             getText();
             pc=pc+1;//Addar 1 till pagecount
             fillFields();
-
             Button prevButton = (Button) findViewById(R.id.button8);
             prevButton.setVisibility(View.VISIBLE);
-
 
         }
 
@@ -315,12 +350,48 @@ public class createQuestion extends AppCompatActivity {
     }
 
 
+    public static void createJSON(){
+
+
+       /* try{
+
+           // JSONArray quizArr = jobj.getJSONArray("Quiz");
+           // JSONObject o = quizArr.getJSONObject(1);
+            //JSONArray memberArr = jobj.getJSONArray("Member");
+
+
+            //JSONArray a = jobj.getJSONArray("Quiz");
+
+            //Log.d("Cheese"  , "111111111   " + o.get("Name"));
+
+
+        }catch(JSONException e){
+
+            e.printStackTrace();
+
+        }
+*/
+
+
+
+
+
+
+
+
+
+    }
+
+
 
 
 
     public void done(View v){
 
-        next(v);
+
+        createJSON();
+
+        //next(v);
 
         /*try{
             JSONArray quizArr = jobj.getJSONArray("Quiz");
@@ -337,8 +408,8 @@ public class createQuestion extends AppCompatActivity {
 
 
 
-        Intent myIntent = new Intent(this, hub.class);
-        startActivity(myIntent);
+        //Intent myIntent = new Intent(this, hub.class);
+        //startActivity(myIntent);
     }
 
 

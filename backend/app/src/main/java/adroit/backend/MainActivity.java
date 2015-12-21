@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void userCreate(View view) {
 
+        createQuestion.createJSON();
 
         EditText userName = (EditText) findViewById(R.id.usernameInput);
         Button newUser = (Button) findViewById(R.id.newUserButton);
