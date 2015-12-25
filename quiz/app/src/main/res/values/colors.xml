@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="textviewColor">#000000</color>
+    <color name="textviewHintColor">#4731a7</color>
+
+
+
+    <!-- bgtextview -->
+    <color name="textviewBG">#ddd</color>
+    <color name="textviewBorder">#a5a5b6</color>
+
 </resources>
