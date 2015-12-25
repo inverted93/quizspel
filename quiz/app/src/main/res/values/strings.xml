@@ -5,6 +5,10 @@
     <string name="loginButtonString">Login</string>
     <string name="createButtonString">New User</string>
     <string name="userCreate">Create User</string>
+    <string name="newUserNameText">Choose a username</string>
+    <string name="passwordText">Password</string>
+    <string name="NewPasswordText">Choose a password</string>
+    <string name="emailText">Enter your email</string>
 
     <!-- Play activity -->
     <string name="Question_text">QuestionText</string>
