@@ -13,6 +13,6 @@
     <color name="textviewBorder">#a5a5b6</color>
 
     <!-- bgtextviewfocused -->
-    <color name="textviewBorderFocused">#c30421a3</color>
+    <color name="textviewBorderFocused">#FF7A5A</color>
 
 </resources>
