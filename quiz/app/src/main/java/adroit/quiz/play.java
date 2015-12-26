@@ -36,12 +36,12 @@ public class play extends AppCompatActivity {
 
     // Quiz information som skickas med bundle till resultat som
     // bla skickar dessa till quizinfo igen om OnBacknuttonpressed
-    String quizTitle;
+    String quizTitle "Häftigt quiz ";
     String quizDesc;
     String quizRating;
     String quizRated;
     String quizPlayed;
-    String quizID;
+    String quizID = "1";
 
     static boolean isVisible = false;
 
@@ -71,14 +71,14 @@ public class play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-
+        /*
         quizDesc = getIntent().getExtras().getString("QuizDesc");
         quizRating = getIntent().getExtras().getString("QuizRating");
         quizRated = getIntent().getExtras().getString("QuizRated");
         quizPlayed = getIntent().getExtras().getString("QuizPlayed");
         quizID = getIntent().getExtras().getString("QuizID");
         quizTitle = getIntent().getExtras().getString("QuizTitle");
-
+        */
 
         try {
             JSONArray jQuestions = jsonResponse.getJSONArray("Question");
@@ -141,7 +141,7 @@ public class play extends AppCompatActivity {
         };
         answersList.setAdapter(answersAdapter);
 
-        CountDown = new CountDownTimer(8000, 100) {
+        CountDown = new CountDownTimer(80000, 100) {
 
 
             public void onTick(long ms) {
