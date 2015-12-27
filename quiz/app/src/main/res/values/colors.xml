@@ -6,14 +6,16 @@
     <color name="textviewColor">#000000</color>
     <color name="textviewHintColor">#474356</color>
     <color name="white">#ffffff</color>
-
-
+    <color name="test">#a5a5b6</color>
 
     <!-- bgtextview -->
-    <color name="textviewBG">#ddd</color>
-    <color name="textviewBorder">#a5a5b6</color>
+    <color name="textviewBG">#FCF4D9</color>
+    <color name="textviewBorder">#8ED2C9</color>
 
     <!-- bgtextviewfocused -->
     <color name="textviewBorderFocused">#FF7A5A</color>
+
+    <!-- bgquestionnr -->
+    <color name="questionnrBorder">#FFB85F</color>
 
 </resources>

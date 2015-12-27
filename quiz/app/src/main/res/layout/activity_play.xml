@@ -9,13 +9,14 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="93dp"
+        android:layout_height="200dp"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/editText3"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="0dp"
         android:text="@string/Question_text"
+        android:paddingTop="15dp"
         android:gravity="center"
         android:background="@drawable/bgplaytextview"
         android:focusable="false"
@@ -23,17 +24,18 @@
         android:layout_alignRight="@+id/progressBar"
         android:layout_alignEnd="@+id/progressBar"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
     <EditText
-        android:layout_width="80dp"
+        android:layout_width="150dp"
         android:layout_height="30dp"
         android:singleLine="true"
         android:ems="10"
         android:id="@+id/quizname"
-        android:text="korv"
+        android:text="Quiznamn"
         android:gravity="center"
-        android:background="@color/textviewBorder"
+        android:background="@drawable/bgtiteltextview"
         android:textColor="@color/textviewBG"
         android:focusable="false"
         android:clickable="false"
@@ -44,15 +46,14 @@
         android:layout_width="120dp"
         android:layout_height="30dp"
         android:id="@+id/editText4"
-        android:layout_below="@+id/editText3"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="90dp"
         android:text="@string/Timer_text"
         android:gravity="center"
         android:background="@drawable/bgplaytextview"
         android:focusable="false"
         android:clickable="false"
-        />
+        android:layout_alignBottom="@+id/editText3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="60dp"
@@ -60,16 +61,16 @@
         android:id="@+id/editText5"
         android:layout_below="@+id/editText3"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="10dp"
         android:text="@string/QuestionNr_text"
         android:gravity="center"
-        android:background="@drawable/bgplaytextview"
+        android:background="@drawable/bgquestionnr"
         android:focusable="false"
         android:clickable="false"
         />
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/answersList"
         android:layout_below="@+id/progressBar"
@@ -80,19 +81,19 @@
         />
 
     <ProgressBar
-        android:layout_width="fill_parent"
-        android:layout_height="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:id="@+id/progressBar"
-        android:layout_marginTop="10dp"
         android:indeterminate="false"
         android:max="@integer/maxQuestions"
         android:progress="@integer/quizProgress"
         style="@android:style/Widget.ProgressBar.Horizontal"
+        android:gravity="center_vertical"
+        android:progressDrawable="@drawable/progressbar"
         android:layout_below="@+id/editText4"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:progressDrawable="@drawable/progressbar"
-        />
+        android:layout_marginTop="10dp"/>
 
         <!-- android:background="#3CB371" -->
 

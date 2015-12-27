@@ -4,18 +4,17 @@
     android:shape="rectangle" >
 
     <solid
-        android:color="@color/textviewBorder" >
+        android:color="@color/textviewBG" >
 
     </solid>
 
     <stroke
         android:width="3dp"
-        android:color="@color/textviewBorder" >
+        android:color="@color/questionnrBorder" >
     </stroke>
 
     <corners
-        android:bottomRightRadius="5dp"
-        android:bottomLeftRadius="5dp">
+        android:radius="10dp"   >
     </corners>
 
 </shape>

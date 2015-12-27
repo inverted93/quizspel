@@ -36,7 +36,7 @@ public class play extends AppCompatActivity {
 
     // Quiz information som skickas med bundle till resultat som
     // bla skickar dessa till quizinfo igen om OnBacknuttonpressed
-    String quizTitle "Häftigt quiz ";
+    String quizTitle = "Häftigt quiz ";
     String quizDesc;
     String quizRating;
     String quizRated;
@@ -128,13 +128,15 @@ public class play extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 View view = super.getView(position,convertView,parent);
+                view.setMinimumHeight((parent.getMeasuredHeight()) / 4);
+
                 if(position %2 == 1)
                 {
-                    view.setBackgroundColor(Color.parseColor("#008b8b"));
+                    view.setBackgroundColor(Color.parseColor("#FFB85F"));
                 }
                 else
                 {
-                    view.setBackgroundColor(Color.parseColor("#009999"));
+                    view.setBackgroundColor(Color.parseColor("#FF7A5A"));
                 }
                 return view;
             }
