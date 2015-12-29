@@ -36,6 +36,8 @@ public class retrieveData extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... arg0){
 
+        updateData.update();
+
         try{
 
 
