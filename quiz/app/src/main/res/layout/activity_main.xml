@@ -4,45 +4,60 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/bgshape"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/email"
+        android:maxLength="40"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-@."
         android:hint="Email"
-        android:layout_above="@+id/password"
+        android:padding="6dp"
+        android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password"
-        android:layout_marginBottom="61dp" />
+        android:background="@drawable/bgchoosertextview"
+        android:textColor= "@color/textviewColor"
+        android:textColorHint="@color/textviewHintColor"
+        android:singleLine="true"
+        android:textCursorDrawable="@null" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:inputType="textPassword"
         android:ems="10"
         android:hint="Password"
+        android:padding="6dp"
         android:id="@+id/password"
-        android:layout_marginBottom="53dp"
-        android:layout_above="@+id/usernameInput"
-        android:layout_centerHorizontal="true" />
+        android:maxLength="20"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-"
+        android:layout_below="@+id/email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:background="@drawable/bgchoosertextview"
+        android:singleLine="true"
+        android:textCursorDrawable="@null"/>
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
         android:id="@+id/usernameInput"
-        android:hint="Username"
-        android:layout_marginBottom="53dp"
-        android:layout_alignParentBottom="true"
+        android:maxLength="12"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-"
+        android:hint="@string/newUserNameText"
+        android:padding="6dp"
+        android:visibility="invisible"
+        android:layout_below="@+id/password"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password"
-        android:layout_alignRight="@+id/password"
-        android:layout_alignEnd="@+id/password"
-        android:visibility="invisible"
-        />
+        android:layout_marginTop="33dp"
+        android:background="@drawable/bgchoosertextview"
+        android:singleLine="true"
+        android:textCursorDrawable="@null"/>
 
     <Button
         android:layout_width="wrap_content"
