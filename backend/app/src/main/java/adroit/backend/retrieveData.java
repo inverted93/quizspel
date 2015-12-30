@@ -47,6 +47,11 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
 
 
+
+
+            Log.d("DrontTest", jobj.toString());
+
+
         }catch(JSONException e){
             e.printStackTrace();
         }catch (IOException e){
@@ -55,6 +60,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
         try{
             memberArr = jobj.getJSONArray("Members");
+
         }catch(JSONException e){
             e.printStackTrace();
         }
