@@ -74,15 +74,21 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-
+    EditText editUsername;
+    EditText editPassword;
+    EditText editEmail;
 
 
     public void userCreate(View view) {
 
+        
+        editUsername = (EditText)findViewById(R.id.usernameInput);
+        editPassword = (EditText)findViewById(R.id.password);
+        editEmail = (EditText)findViewById(R.id.email);
         createQuestion.createJSON();
 
         EditText userName = (EditText) findViewById(R.id.usernameInput);
-        Button newUser = (Button) findViewById(R.id.newUserButton);
+        Button newUser = (Button) findViewById(R.id.creatUser);
         Button login = (Button) findViewById(R.id.loginButton);
         if (switcher == false) {
             userName.setVisibility(View.VISIBLE);
@@ -95,7 +101,29 @@ public class MainActivity extends AppCompatActivity{
             login.setText(R.string.loginButtonString);
             switcher = false;
         }
+
+        Button b = (Button)findViewById(R.id.button6);
+
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String stringUsername = editUsername.getText().toString();
+                String stringPassword = editPassword.getText().toString();
+                String stringEmail = editEmail.getText().toString();
+
+                Log.d("Fiskmås1", stringEmail);
+                Log.d("Fiskmås2", stringPassword);
+                Log.d("Fiskmås3", stringUsername);
+
+            }
+        });
+
+
+
+
         Log.d("Heeeej", "1");
+
     }
 
 

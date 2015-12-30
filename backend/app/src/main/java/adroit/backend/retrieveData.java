@@ -76,6 +76,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
         json = readAll(reader);   //anropar metoden neranför som bugger en string av BufferedReadern
         jobj = new JSONObject(json); //skapar ett nytt JSON-objekt av stringen.
 
+<<<<<<< HEAD
 
 
 
@@ -96,6 +97,24 @@ public class retrieveData extends AsyncTask<String, String, String> {
         while((count = rd.read()) != -1){
             sb.append((char) count);
 
+=======
+
+
+            Log.d("DrontTest", jobj.toString());
+
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        try{
+            memberArr = jobj.getJSONArray("Members");
+
+        }catch(JSONException e){
+            e.printStackTrace();
+>>>>>>> 6d49d6e09f75297790d4210a5efd0df9c07ce9c7
         }
         return sb.toString();
 
