@@ -24,6 +24,10 @@ public class createQuiz extends AppCompatActivity {
 
     }
 
+
+
+
+
     EditText nameLine;
     EditText descLine;
 
@@ -31,6 +35,7 @@ public class createQuiz extends AppCompatActivity {
     String descLineString;
     //JSONObject jobj = retrievedata.getJson();
     TextView felMed;
+
 
     public void readLines(View v){
 
@@ -58,7 +63,14 @@ public class createQuiz extends AppCompatActivity {
 
         }else{
 
+
+
             Intent myIntent = new Intent(this, createQuestion.class);
+            Bundle b = new Bundle();
+            b.putString("title", nameLineString);
+            b.putString("description", descLineString);
+
+            myIntent.putExtras(b);
             startActivity(myIntent);
         }
 
@@ -71,6 +83,17 @@ public class createQuiz extends AppCompatActivity {
 
     }
 
+
+
+
+
+    public String getStrings(){ //Kanske ska goras pa annat satt
+
+        String s = nameLineString + ";" + descLineString;
+
+
+        return s;
+    }
 
 
 

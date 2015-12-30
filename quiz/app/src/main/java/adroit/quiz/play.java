@@ -2,13 +2,17 @@ package adroit.quiz;
 
 import android.app.AlertDialog;
 import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -32,12 +36,12 @@ public class play extends AppCompatActivity {
 
     // Quiz information som skickas med bundle till resultat som
     // bla skickar dessa till quizinfo igen om OnBacknuttonpressed
-    String quizTitle;
+    String quizTitle = "Häftigt quiz ";
     String quizDesc;
     String quizRating;
     String quizRated;
     String quizPlayed;
-    String quizID;
+    String quizID = "1";
 
     static boolean isVisible = false;
 
@@ -67,12 +71,14 @@ public class play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        /*
         quizDesc = getIntent().getExtras().getString("QuizDesc");
         quizRating = getIntent().getExtras().getString("QuizRating");
         quizRated = getIntent().getExtras().getString("QuizRated");
         quizPlayed = getIntent().getExtras().getString("QuizPlayed");
         quizID = getIntent().getExtras().getString("QuizID");
         quizTitle = getIntent().getExtras().getString("QuizTitle");
+        */
 
         try {
             JSONArray jQuestions = jsonResponse.getJSONArray("Question");
@@ -116,11 +122,28 @@ public class play extends AppCompatActivity {
 
         countDownText = (TextView) findViewById(R.id.editText4);
 
-        final ListAdapter answersAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, guiAnswers);
         final  ListView answersList = (ListView) findViewById(R.id.answersList);
+        final ArrayAdapter<String> answersAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, guiAnswers){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+                View view = super.getView(position,convertView,parent);
+                view.setMinimumHeight((parent.getMeasuredHeight()) / 4);
+
+                if(position %2 == 1)
+                {
+                    view.setBackgroundColor(Color.parseColor("#FFB85F"));
+                }
+                else
+                {
+                    view.setBackgroundColor(Color.parseColor("#FF7A5A"));
+                }
+                return view;
+            }
+        };
         answersList.setAdapter(answersAdapter);
 
-        CountDown = new CountDownTimer(8000, 100) {
+        CountDown = new CountDownTimer(80000, 100) {
 
 
             public void onTick(long ms) {
@@ -282,5 +305,8 @@ public class play extends AppCompatActivity {
     }
 
 
+
+
 }
+
 

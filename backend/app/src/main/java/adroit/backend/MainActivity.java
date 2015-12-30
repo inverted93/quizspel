@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         new retrieveData().execute();  // VIktig rad
+
 
 
 
@@ -80,9 +80,13 @@ public class MainActivity extends AppCompatActivity{
 
     public void userCreate(View view) {
 
+<<<<<<< HEAD
         editUsername = (EditText)findViewById(R.id.usernameInput);
         editPassword = (EditText)findViewById(R.id.password);
         editEmail = (EditText)findViewById(R.id.email);
+=======
+        createQuestion.createJSON();
+>>>>>>> 8c3fdedab116b3b216dcf9213a7a8e3377aa4e39
 
         EditText userName = (EditText) findViewById(R.id.usernameInput);
         Button newUser = (Button) findViewById(R.id.creatUser);

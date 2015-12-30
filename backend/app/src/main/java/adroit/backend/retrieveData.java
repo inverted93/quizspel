@@ -23,8 +23,20 @@ public class retrieveData extends AsyncTask<String, String, String> {
     JSONArray memberArr;
 
 
+    public void changeJSON(){
+
+
+
+
+
+    }
+
+
+
     @Override
     protected String doInBackground(String... arg0){
+
+        updateData.update();
 
         try{
 
@@ -39,7 +51,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
             //urlConnect.changeData();
 
-            HttpResponse e = updateData.updateShit("https://api.myjson.com/bins/3lyn9"); // temp json
+            //HttpResponse e = updateData.updateShit("https://api.myjson.com/bins/3lyn9"); // temp json
 
             jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1vp4j");
 
@@ -70,6 +82,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
         protected void onPostExecute(String ab){
             MainActivity.setJson(jobj);
             myQuiz.setJson(jobj);
+            createQuestion.setJSON(jobj);
 
         }
 }

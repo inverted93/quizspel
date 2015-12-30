@@ -19,6 +19,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -37,6 +38,79 @@ import java.util.HashMap;
 
 
 public class updateData {
+
+
+    public static void update(){
+
+
+
+
+
+            try{
+                URL u = new URL("https://api.myjson.com/bins/1kxsn");
+                HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestMethod("PUT");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Accept", "application/json");
+
+
+                OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+
+                writer.write("{\"firstName\":\"Lemmy\", \"lastName\":\"Kilmister\"}");
+                writer.flush();
+                writer.close();
+
+                System.out.println("1121423432" + conn.getRequestMethod());
+                String response =conn.getInputStream().toString();
+                System.out.println(response);
+
+
+
+
+            }catch(MalformedURLException e){
+
+
+                System.out.println("Fuck");
+
+            }catch(IOException e){
+                System.out.println("Fuck2");
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public static HttpResponse updateShit(String u){
