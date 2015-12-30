@@ -1,5 +1,6 @@
 package adroit.backend;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.internal.http.multipart.MultipartEntity;
@@ -37,12 +38,38 @@ import java.util.HashMap;
 
 
 
-public class updateData {
+public class updateData extends AsyncTask<String, String, String>{
 
 
-    public static void update(){
+    static JSONObject jobj = new JSONObject();
 
 
+    public static void setJSON(JSONObject j){
+
+        jobj = j;
+
+
+    }
+
+
+
+
+    @Override
+    protected String doInBackground(String... arg0){
+
+
+        update(jobj.toString());
+
+
+        return "";
+
+    }
+
+
+
+
+
+    public static void update(String jsonString){
 
 
 
@@ -54,10 +81,9 @@ public class updateData {
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setRequestProperty("Accept", "application/json");
 
-
                 OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 
-                writer.write("{\"firstName\":\"Lemmy\", \"lastName\":\"Kilmister\"}");
+                writer.write(jsonString);
                 writer.flush();
                 writer.close();
 
@@ -113,7 +139,7 @@ public class updateData {
 
 
 
-    public static HttpResponse updateShit(String u){
+    /*public static HttpResponse updateShit(String u){
 
         Log.d("1", "2 Vi kom in i metoden igen");
 
@@ -188,7 +214,7 @@ public class updateData {
         return null;
 
 
-    }
+    }*/
 
 
 

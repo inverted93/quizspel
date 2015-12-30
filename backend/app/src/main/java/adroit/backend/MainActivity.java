@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         new retrieveData().execute();  // VIktig rad
 
+        new updateData().execute();
 
 
 

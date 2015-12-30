@@ -9,7 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 
 public class retrieveData extends AsyncTask<String, String, String> {
@@ -18,9 +24,15 @@ public class retrieveData extends AsyncTask<String, String, String> {
     jsonConnection jsonClass = new jsonConnection();
     TextView tv;
     String ab;
-    JSONObject jobj;
+    JSONObject jobjResp;
 
-    JSONArray memberArr;
+
+
+
+
+    static InputStream stream = null;
+    static JSONObject jobj=null;
+    static String json = "";
 
 
     public void changeJSON(){
@@ -36,27 +48,10 @@ public class retrieveData extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... arg0){
 
-        updateData.update();
 
         try{
 
-
-            //HashMap<String, String> params = new HashMap<>();
-           //params.put("firstName", "Axel");
-            //params.put("lastName", "Holm");
-
-
-            //ftp.getFtp();
-
-
-            //urlConnect.changeData();
-
-            //HttpResponse e = updateData.updateShit("https://api.myjson.com/bins/3lyn9"); // temp json
-
-            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1vp4j");
-
-
-
+            jobjResp= requestJson("https://api.myjson.com/bins/36jy3");
 
 
         }catch(JSONException e){
@@ -65,18 +60,64 @@ public class retrieveData extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
 
-        try{
-            memberArr = jobj.getJSONArray("Members");
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
         return ab;
     }
+
+
+
+    public static JSONObject requestJson(String url)throws IOException, JSONException{
+
+        stream = new URL(url).openStream();
+
+
+
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-8")));
+        json = readAll(reader);   //anropar metoden neranför som bugger en string av BufferedReadern
+        jobj = new JSONObject(json); //skapar ett nytt JSON-objekt av stringen.
+
+
+
+
+        Log.d("Vi kom in i metoden", "1" + json.toString());
+
+        return jobj;
+
+    }
+
+
+
+
+
+
+    private static String readAll(Reader rd)throws IOException{
+        StringBuilder sb = new StringBuilder();
+        int count;
+        while((count = rd.read()) != -1){
+            sb.append((char) count);
+
+        }
+        return sb.toString();
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
         protected void onPostExecute(String ab){
             MainActivity.setJson(jobj);
             myQuiz.setJson(jobj);
             createQuestion.setJSON(jobj);
+            updateData.setJSON(jobj);
 
         }
 }
