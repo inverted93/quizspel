@@ -48,7 +48,6 @@ public class updateData extends AsyncTask<String, String, String>{
 
         jobj = j;
 
-
     }
 
 
@@ -57,10 +56,7 @@ public class updateData extends AsyncTask<String, String, String>{
     @Override
     protected String doInBackground(String... arg0){
 
-
         update(jobj.toString());
-
-
         return "";
 
     }
@@ -91,134 +87,16 @@ public class updateData extends AsyncTask<String, String, String>{
                 String response =conn.getInputStream().toString();
                 System.out.println(response);
 
-
-
-
             }catch(MalformedURLException e){
-
 
                 System.out.println("Fuck");
 
             }catch(IOException e){
                 System.out.println("Fuck2");
 
-
-
             }
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*public static HttpResponse updateShit(String u){
-
-        Log.d("1", "2 Vi kom in i metoden igen");
-
-        ArrayList <String> url = new ArrayList<String>();
-
-        url.add("https://api.myjson.com/bins/3lyn9");
-        url.add("https://api.myjson.com/put/bins/3lyn9");
-        url.add("https://api.myjson.com/bins/3lyn9");
-        url.add("https://api.myjson.com/bins/:3lyn9");
-        url.add("https://api.myjson.com/bins/3lyn9");
-        url.add("https://api.myjson.com/bins/3lyn9");
-
-        //String url = "https://api.myjson.com/PUT/bins/3lyn9";
-
-
-
-        StringEntity se=null;
-
-
-            for(int i=0; i<url.size();i++){
-
-                try {
-
-                //HttpClient httpClient = new DefaultHttpClient();
-
-                    Log.d("Kommer in i metoden iaf", + url.size() + "okej" + url.get(i));
-
-                //HttpPost httpost = new HttpPost(url.get(i));
-
-                    HttpPut httput = new HttpPut(url.get(i));
-
-
-
-                    //HashMap<String, String> data = new HashMap<>();
-                //data.put("firstName", "Axel");
-                //data.put("lastName", "Holm");
-
-                StringEntity se2 = new StringEntity("'{\"firstName\":\"Axel\", \"lastName\":\"Holm\"}'");
-
-                httput.setEntity(se2);
-                httput.setHeader("Accept", "application/json");
-                    httput.setHeader("Content-type", "application/json");
-
-
-                    Log.d("1337133713371337", "HELLO    " + httput.getURI());
-
-
-                    HttpResponse client = new DefaultHttpClient().execute(httput);
-
-                    Log.d("13371337", "dicken" + httput);
-                    Log.d("13371337", "HELLO" + client.getStatusLine().toString());
-
-
-                    if(client == null){
-
-                        return client;
-
-                    }
-
-
-
-
-
-            }catch(IOException e){
-
-                e.printStackTrace();
-
-            }
-
-        }
-
-        return null;
-
-
-    }*/
-
-
-
-
 
 
     private static String readAll(Reader rd)throws IOException{
