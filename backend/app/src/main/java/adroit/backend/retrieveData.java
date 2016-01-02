@@ -120,8 +120,13 @@ public class retrieveData extends AsyncTask<String, String, String> {
         protected void onPostExecute(String ab){
             MainActivity.setJson(jobj);
             myQuiz.setJson(jobj);
-            createQuestion.setJSON(jobj);
+            createQuestion.setJson(jobj);
             updateData.setJSON(jobj);
+
+
+
+            createQuestion.createJSON(); ///// SKA BORT SENARE
+            Log.d("22222HERHE RJE", "fasfe" + jobj.toString());
 
         }
 }

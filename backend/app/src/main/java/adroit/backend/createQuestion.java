@@ -22,9 +22,10 @@ import java.util.ArrayList;
 public class createQuestion extends AppCompatActivity {
 
 
-    String quizTitle;
-    String quizDesc;
+    static String quizTitle;
+    static String quizDesc;
     static JSONObject jobj;
+    static String test="";
 
     RadioGroup radioGruppen;
     RadioButton radioKnappen;
@@ -105,10 +106,16 @@ public class createQuestion extends AppCompatActivity {
 
 
 
-    public static void setJSON(JSONObject j){
+    public static void setJson(JSONObject j){
+
+        Log.d("VI KOMMERNS HIT VA", "??");
+
+        test="LOL";
 
         jobj= j;
+
     }
+
 
 
     EditText question;
@@ -353,10 +360,26 @@ public class createQuestion extends AppCompatActivity {
     public static void createJSON(){
 
 
-       /* try{
+        try{
 
-           // JSONArray quizArr = jobj.getJSONArray("Quiz");
-           // JSONObject o = quizArr.getJSONObject(1);
+
+            JSONObject nyQuiz = new JSONObject();
+
+            nyQuiz.put("QID", "18");
+            nyQuiz.put("Name", quizTitle);
+            nyQuiz.put("Description", quizDesc);
+            nyQuiz.put("Rating", "0");
+            nyQuiz.put("Rated", "0");
+            nyQuiz.put("Played", "0");
+            nyQuiz.put("UserID", MainActivity.getId());
+            //nyQuiz.put("Creationdate", quizTitle);
+
+
+            Log.d("For those    " + nyQuiz.toString(), "    about to plugg: " +test);
+
+
+            JSONArray quizArr = jobj.getJSONArray("Quiz");
+            //JSONObject o = quizArr.getJSONObject(1);
             //JSONArray memberArr = jobj.getJSONArray("Member");
 
 
@@ -369,8 +392,11 @@ public class createQuestion extends AppCompatActivity {
 
             e.printStackTrace();
 
+        }catch( NullPointerException e){
+
+            e.printStackTrace();
         }
-*/
+
 
 
 
