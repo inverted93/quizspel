@@ -29,29 +29,32 @@
         android:layout_alignStart="@+id/button3" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/results_text"
+        android:gravity="center"
+        android:background="@drawable/bgresults"
         android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="30dp"
         android:focusable="false"
-        android:clickable="false"/>
+        android:clickable="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2" />
 
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText2"
         android:text="@string/Score_text"
-        android:background="#00000000"
-        android:textSize="20sp"
+        android:background="@drawable/bgpercentage"
+        android:textSize="50dp"
         android:gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="-3dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:focusable="false"

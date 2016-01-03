@@ -26,10 +26,10 @@ public class results extends AppCompatActivity {
         double score = getIntent().getExtras().getDouble("Score");
 
         NumberFormat nf = NumberFormat.getPercentInstance();
-        nf.setMinimumFractionDigits(1);
+        nf.setMinimumFractionDigits(0);
 
         TextView scoreView = (TextView) findViewById(R.id.editText2);
-        scoreView.setText("Your score: " + nf.format(score));
+        scoreView.setText(nf.format(score));
 
         //Lägg in rating här, skall endast gå att rate:a en gång per användare.
 

@@ -18,8 +18,8 @@
     <!-- results activity -->
     <string name="playAgainButton_text">Play this quiz again</string>
     <string name="rateQuizButton_text">Rate this quiz</string>
-    <string name="results_text">Results</string>
-    <string name="Score_text">Your score: 00%</string>
+    <string name="results_text">Results:</string>
+    <string name="Score_text">100%</string>
 
     <!-- quizInfo activity -->
     <string name="infoNamn">Awesome quiz</string>

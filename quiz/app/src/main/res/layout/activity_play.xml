@@ -51,7 +51,8 @@
         android:background="@drawable/bgplaytextview"
         android:focusable="false"
         android:clickable="false"
-        android:layout_alignBottom="@+id/editText3"
+        android:layout_alignBaseline="@+id/editText5"
+        android:layout_alignBottom="@+id/editText5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
