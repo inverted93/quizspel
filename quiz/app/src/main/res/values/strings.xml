@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QUIZ</string>
+    <string name="app_name">The Quiz</string>
 
     <!-- Main activity -->
     <string name="loginButtonString">Login</string>

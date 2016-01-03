@@ -132,11 +132,11 @@ public class play extends AppCompatActivity {
 
                 if(position %2 == 1)
                 {
-                    view.setBackgroundColor(Color.parseColor("#FFB85F"));
+                    view.setBackgroundColor(Color.parseColor("#FCF4D9"));
                 }
                 else
                 {
-                    view.setBackgroundColor(Color.parseColor("#FF7A5A"));
+                    view.setBackgroundColor(Color.parseColor("#8ED2C9"));
                 }
                 return view;
             }

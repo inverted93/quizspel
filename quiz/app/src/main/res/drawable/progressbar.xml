@@ -3,27 +3,31 @@
         <shape>
             <stroke
                 android:width="3dp"
-                android:color="#462066" >
+                android:color="#FFB85F" >
             </stroke>
             <corners android:radius="2dip" />
             <gradient
                 android:angle="270"
-                android:centerColor="#FFB85F"
+                android:centerColor="#FFFDC884"
                 android:centerY="0.5"
-                android:endColor="#FFB85F"
-                android:startColor="#FFB85F" />
+                android:endColor="#FFFDC884"
+                android:startColor="#FFFDC884" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
         <clip>
             <shape>
+                <stroke
+                    android:width="3dp"
+                    android:color="#FFB85F" >
+                </stroke>
                 <corners android:radius="2dip" />
                 <gradient
                     android:angle="270"
-                    android:centerColor="#890097"
+                    android:centerColor="#FF7A5A"
                     android:centerY="0.5"
-                    android:endColor="#80ea73ff"
-                    android:startColor="#7ff46aed" />
+                    android:endColor="#FF7A5A"
+                    android:startColor="#FF7A5A" />
             </shape>
         </clip>
     </item>
