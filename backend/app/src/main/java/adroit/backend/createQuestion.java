@@ -17,7 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class createQuestion extends AppCompatActivity {
 
@@ -134,8 +136,8 @@ public class createQuestion extends AppCompatActivity {
     int radioId;
 
 
-    JSONArray questArr = new JSONArray();
-    JSONArray ansArr = new JSONArray();
+    static JSONArray questArr = new JSONArray();
+    static JSONArray ansArr = new JSONArray();
     ArrayList <Integer> radioArr = new ArrayList <Integer>();
 
     int pc=1; // PageCount
@@ -360,7 +362,15 @@ public class createQuestion extends AppCompatActivity {
     public static void createJSON(){
 
 
+        String id = "12";
+        String name ="Axel";
+        String descripp ="LOL";
+
         try{
+
+
+            Date d = new Date();
+            String date = new SimpleDateFormat("yyyyMMdd").format(d);
 
 
             JSONObject nyQuiz = new JSONObject();
@@ -372,24 +382,22 @@ public class createQuestion extends AppCompatActivity {
             nyQuiz.put("Rated", "0");
             nyQuiz.put("Played", "0");
             nyQuiz.put("UserID", MainActivity.getId());
-            //nyQuiz.put("Creationdate", quizTitle);
+            nyQuiz.put("Creationdate", date);
 
 
-            Log.d("For those    " + nyQuiz.toString(), "    about to plugg: " +test);
+            Log.d("Test", "Logg");
+            String tmp = nyQuiz.toString();
+            Log.d("For those    " , "    about to plugg: " + tmp);   //tas bort sen
+
+            updateData.addJsonObj(nyQuiz, questArr, ansArr);
 
 
-            JSONArray quizArr = jobj.getJSONArray("Quiz");
-            //JSONObject o = quizArr.getJSONObject(1);
-            //JSONArray memberArr = jobj.getJSONArray("Member");
 
-
-            //JSONArray a = jobj.getJSONArray("Quiz");
-
-            //Log.d("Cheese"  , "111111111   " + o.get("Name"));
 
 
         }catch(JSONException e){
 
+            Log.d("It did mess up", "..");
             e.printStackTrace();
 
         }catch( NullPointerException e){

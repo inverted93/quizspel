@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,6 +42,8 @@ import java.util.HashMap;
 public class updateData extends AsyncTask<String, String, String>{
 
 
+
+
     static JSONObject jobj = new JSONObject();
 
 
@@ -63,11 +66,70 @@ public class updateData extends AsyncTask<String, String, String>{
 
 
 
+    public static void addJsonObj(JSONObject quizObj, JSONArray questArr, JSONArray ansArr){
+
+
+
+
+
+        try{
+
+            //TA den gamla
+
+            //jobj.getJSONArray("")
+
+
+
+            //
+
+
+
+
+            JSONObject testTmp = new JSONObject();
+
+            testTmp.put("quiz",  quizObj);
+            testTmp.put("QuestionArr", questArr);
+
+
+            Log.d("3e jan ", "kul " + testTmp.toString());
+
+
+
+
+
+
+            for(int i=0; i<questArr.length();i++){
+
+                JSONObject tmp = questArr.getJSONObject(i);
+
+
+
+            }
+
+
+
+        }catch(JSONException e){
+
+            e.printStackTrace();
+
+        }
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
 
 
     public static void update(String jsonString){
-
-
 
 
 
