@@ -2,6 +2,8 @@ package adroit.quiz;
 
 import android.content.Intent;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         EditText userName = (EditText) findViewById(R.id.usernameInput);
         Button newUser = (Button) findViewById(R.id.newUserButton);
         Button login = (Button) findViewById(R.id.loginButton);
+        login.getBackground().setColorFilter(Color.parseColor("#FCF4D9"), PorterDuff.Mode.MULTIPLY);
         if (switcher == false) {
             userName.setVisibility(View.VISIBLE);
             newUser.setText(R.string.loginButtonString);

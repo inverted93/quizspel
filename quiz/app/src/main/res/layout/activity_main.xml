@@ -16,14 +16,13 @@
         android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-@."
         android:hint="Email"
         android:padding="6dp"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/password"
-        android:layout_alignStart="@+id/password"
         android:background="@drawable/bgchoosertextview"
         android:textColor= "@color/textviewColor"
         android:textColorHint="@color/textviewHintColor"
         android:singleLine="true"
-        android:textCursorDrawable="@null" />
+        android:textCursorDrawable="@null"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="250dp"
@@ -89,6 +88,20 @@
         android:layout_above="@+id/email"
         android:layout_centerHorizontal="true"
         android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="The\nQuiz"
+        android:textSize="80dp"
+        android:textStyle="bold"
+        android:textColor="@color/textviewBG"
+        android:lineSpacingExtra="-30dp"
+        android:gravity="center"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/textView5"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
