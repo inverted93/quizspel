@@ -359,7 +359,7 @@ public class createQuestion extends AppCompatActivity {
     }
 
 
-    public static void createJSON(){
+    public void createJSON(){
 
 
         String id = "12";
@@ -389,7 +389,7 @@ public class createQuestion extends AppCompatActivity {
             String tmp = nyQuiz.toString();
             Log.d("For those    " , "    about to plugg: " + tmp);   //tas bort sen
 
-            updateData.addJsonObj(nyQuiz, questArr, ansArr);
+            addJsonObj(nyQuiz, questArr, ansArr);
 
 
 
@@ -444,6 +444,87 @@ public class createQuestion extends AppCompatActivity {
 
         //Intent myIntent = new Intent(this, hub.class);
         //startActivity(myIntent);
+    }
+
+
+
+
+
+
+    public void addJsonObj(JSONObject quizObj, JSONArray questArr, JSONArray ansArr){
+
+
+
+
+
+        try{
+
+            //TA den gamla
+
+            JSONArray oldQuizArr = jobj.getJSONArray("Quiz");
+            JSONArray oldQuestArr = jobj.getJSONArray("Question");
+            JSONArray oldAnsArr = jobj.getJSONArray("Answer");
+            JSONArray oldMemberArr = jobj.getJSONArray("Members");
+
+            //
+
+            //int size = oldQuizArr.length() +1;
+            oldQuizArr.put(quizObj);
+
+            JSONObject tmp = new JSONObject();
+
+
+            for(int i=0; i<questArr.length();i++){
+
+                tmp = questArr.getJSONObject(i);
+
+
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+            //Skapar ett nytt json objekt
+
+            JSONObject testTmp = new JSONObject();
+
+            testTmp.put("Quiz",  oldQuizArr);
+            testTmp.put("Question", oldQuestArr);
+            testTmp.put("Answer", oldAnsArr);
+            testTmp.put("Members", oldMemberArr);
+
+            updateData.setJSON(testTmp);
+            MainActivity.runUpdate();
+
+
+            Log.d("3e jan ", "kul " + testTmp.toString());
+
+
+
+
+
+
+        }catch(JSONException e){
+
+            e.printStackTrace();
+
+        }
+
+
+
+
+
+
+
     }
 
 

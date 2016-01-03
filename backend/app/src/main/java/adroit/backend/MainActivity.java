@@ -43,17 +43,15 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new retrieveData().execute();  // VIktig rad
-        new updateData().execute();
-
-
-
-
-
-
 
 
     }
 
+
+    public static void runUpdate(){
+
+        new updateData().execute();
+    }
 
 
 
@@ -87,7 +85,8 @@ public class MainActivity extends AppCompatActivity{
         editUsername = (EditText)findViewById(R.id.usernameInput);
         editPassword = (EditText)findViewById(R.id.password);
         editEmail = (EditText)findViewById(R.id.email);
-        createQuestion.createJSON();
+
+        //createQuestion.createJSON();
 
         EditText userName = (EditText) findViewById(R.id.usernameInput);
         Button newUser = (Button) findViewById(R.id.creatUser);

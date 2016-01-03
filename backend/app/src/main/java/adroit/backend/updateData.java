@@ -59,68 +59,13 @@ public class updateData extends AsyncTask<String, String, String>{
     @Override
     protected String doInBackground(String... arg0){
 
-        update(jobj.toString());
+        update(jobj);
         return "";
 
     }
 
 
 
-    public static void addJsonObj(JSONObject quizObj, JSONArray questArr, JSONArray ansArr){
-
-
-
-
-
-        try{
-
-            //TA den gamla
-
-            //jobj.getJSONArray("")
-
-
-
-            //
-
-
-
-
-            JSONObject testTmp = new JSONObject();
-
-            testTmp.put("quiz",  quizObj);
-            testTmp.put("QuestionArr", questArr);
-
-
-            Log.d("3e jan ", "kul " + testTmp.toString());
-
-
-
-
-
-
-            for(int i=0; i<questArr.length();i++){
-
-                JSONObject tmp = questArr.getJSONObject(i);
-
-
-
-            }
-
-
-
-        }catch(JSONException e){
-
-            e.printStackTrace();
-
-        }
-
-
-
-
-
-
-
-    }
 
 
 
@@ -129,7 +74,7 @@ public class updateData extends AsyncTask<String, String, String>{
 
 
 
-    public static void update(String jsonString){
+    public static void update(JSONObject j){
 
 
 
@@ -143,13 +88,13 @@ public class updateData extends AsyncTask<String, String, String>{
 
                 OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 
-                writer.write(jsonString);
+                writer.write(j.toString());
                 writer.flush();
                 writer.close();
 
-                System.out.println("1121423432" + conn.getRequestMethod());
+                Log.d("1121423432" + conn.getRequestMethod(), "HEj");
                 String response =conn.getInputStream().toString();
-                System.out.println(response);
+                Log.d("Svar: "+ response, "Okej");
 
             }catch(MalformedURLException e){
 

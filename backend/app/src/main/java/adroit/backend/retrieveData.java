@@ -125,8 +125,5 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
 
 
-            createQuestion.createJSON(); ///// SKA BORT SENARE
-            Log.d("22222HERHE RJE", "fasfe" + jobj.toString());
-
         }
 }
