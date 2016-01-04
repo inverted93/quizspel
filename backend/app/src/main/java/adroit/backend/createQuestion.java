@@ -75,7 +75,6 @@ public class createQuestion extends AppCompatActivity {
         if(r1.isChecked()){
             Log.d("RADIO ", "1   ");
             id = R.id.radioButton1;
-
         }
         if(r2.isChecked()){
             Log.d("RADIO ", "2   ");
@@ -149,9 +148,7 @@ public class createQuestion extends AppCompatActivity {
 
                 getStrings();
 
-
                 Log.d("1:" + questionString, ":2:" + ans1String + ans2String + ans3String + ans4String);
-
                 JSONObject questTmp = new JSONObject();
                 JSONObject ansTmp = new JSONObject();
 
@@ -166,15 +163,14 @@ public class createQuestion extends AppCompatActivity {
                 r3.setChecked(false);
                 r4.setChecked(false);*/
 
-
-                questTmp.put("question", "" + questionString);
+                questTmp.put("question", questionString);
                 questArr.put(pc, questTmp);
 
-                ansTmp.put("ans1", "" + ans1String);
-                ansTmp.put("ans2", "" + ans2String);
-                ansTmp.put("ans3", "" + ans3String);
-                ansTmp.put("ans4", "" + ans4String);
-                ansTmp.put("facit", "" + radioId);
+                ansTmp.put("ans1", ans1String);
+                ansTmp.put("ans2", ans2String);
+                ansTmp.put("ans3", ans3String);
+                ansTmp.put("ans4", ans4String);
+                ansTmp.put("facit", radioId);
                 ansArr.put(pc, ansTmp);
 
 
@@ -362,9 +358,6 @@ public class createQuestion extends AppCompatActivity {
     public void createJSON(){
 
 
-        String id = "12";
-        String name ="Axel";
-        String descripp ="LOL";
 
         try{
 
@@ -372,10 +365,12 @@ public class createQuestion extends AppCompatActivity {
             Date d = new Date();
             String date = new SimpleDateFormat("yyyyMMdd").format(d);
 
+            JSONArray oldQuizArray= jobj.getJSONArray("Quiz");
+            int quizId = oldQuizArray.length()+1;
 
             JSONObject nyQuiz = new JSONObject();
 
-            nyQuiz.put("QID", "18");
+            nyQuiz.put("QID", quizId);
             nyQuiz.put("Name", quizTitle);
             nyQuiz.put("Description", quizDesc);
             nyQuiz.put("Rating", "0");
@@ -385,13 +380,94 @@ public class createQuestion extends AppCompatActivity {
             nyQuiz.put("Creationdate", date);
 
 
-            Log.d("Test", "Logg");
-            String tmp = nyQuiz.toString();
-            Log.d("For those    " , "    about to plugg: " + tmp);   //tas bort sen
-
-            addJsonObj(nyQuiz, questArr, ansArr);
+            Log.d("Star ", "Wars ep 1 " + nyQuiz.toString());
+            Log.d("Star ", "Wars ep 1.1 " + questArr.toString());
 
 
+
+            //Log.d("For those    ", "    about to plugg: " + tmp);   //tas bort sen
+
+            // Question..
+
+            JSONArray oldQuestArr = jobj.getJSONArray("Question");
+            JSONArray oldAnsArr = jobj.getJSONArray("Answer");
+            JSONObject temporaryAns = new JSONObject();
+            JSONObject temporaryQuest = new JSONObject();
+            ArrayList <String> ansList = new ArrayList<String>();
+
+            Log.d("Star ", "Wars ep 1.2 " + oldQuestArr.toString());
+            Log.d("Star ", "Wars ep 1.3 " + oldAnsArr.toString());
+            Log.d("Star ", "Wars ep 1.4 " + questArr.length());
+            Log.d("Star ", "Wars ep 1.5 " + ansArr.toString());
+
+            for(int i=0; i<questArr.length()-1;i++){
+
+                temporaryAns = ansArr.getJSONObject(i+1);
+                temporaryQuest = questArr.getJSONObject(i+1);
+                int quesId = oldQuestArr.length()+1;
+
+                JSONObject nyQuesJson = new JSONObject();
+                nyQuesJson.put("QueID", quesId);
+                nyQuesJson.put("QID", quizId);
+                nyQuesJson.put("qText", temporaryQuest.getString("question"));
+                oldQuestArr.put(nyQuesJson);
+
+                Log.d("Star ", "Wars ep 2 " + nyQuesJson.toString());
+
+                String a1 = temporaryAns.getString("ans1");
+                String a2 = temporaryAns.getString("ans2");
+                String a3 = temporaryAns.getString("ans3");
+                String a4 = temporaryAns.getString("ans4");
+                ansList.add(a1);
+                ansList.add(a2);
+                ansList.add(a3);
+                ansList.add(a4);
+
+                for(int j=0; j<4;j++){
+
+                    JSONObject nyAnsJson = new JSONObject();
+                    nyAnsJson.put("AID", oldAnsArr.length()+1);
+                    nyAnsJson.put("QueID", quesId);
+                    nyAnsJson.put("aText", ansList.get(j));
+                    nyAnsJson.put("rightAnswer", "false"); //Ska andras sa att den far ratt svar..
+                    oldAnsArr.put(nyAnsJson);
+                    Log.d("Star ", "Wars ep 3 " + nyAnsJson.toString());
+
+
+                }
+
+            }
+
+            addJsonObj(nyQuiz, oldQuestArr, oldAnsArr);
+
+
+
+
+            // ANSWERS
+
+            /*JSONArray oldAnsArr = jobj.getJSONArray("Answer");
+
+            JSONObject ans = new JSONObject();
+
+            Log.d("Idag finns alla", "svar:" + questArr.toString());
+
+
+            for(int i=0; i<ansArr.length();i++){  //Kollar igenom alla de svar som har sparats.
+
+                temporary = ansArr.getJSONObject(i);
+
+                int ansId = oldAnsArr.length()+1; // Kollar hur manga som finns o lagger till ett id som ar storre.
+                ans.put("AID", ansId);
+
+
+
+
+
+                //oldAnsArr.put(tmp);
+
+
+
+            }*/
 
 
 
@@ -422,6 +498,13 @@ public class createQuestion extends AppCompatActivity {
 
     public void done(View v){
 
+        Boolean b = checkIfEmpty();
+
+        if(b==true){
+
+            getText();
+        }
+
 
         createJSON();
 
@@ -437,11 +520,6 @@ public class createQuestion extends AppCompatActivity {
             e.printStackTrace();
 
         }*/
-
-
-
-
-
         //Intent myIntent = new Intent(this, hub.class);
         //startActivity(myIntent);
     }
@@ -453,44 +531,16 @@ public class createQuestion extends AppCompatActivity {
 
     public void addJsonObj(JSONObject quizObj, JSONArray questArr, JSONArray ansArr){
 
-
-
-
-
         try{
-
             //TA den gamla
 
             JSONArray oldQuizArr = jobj.getJSONArray("Quiz");
-            JSONArray oldQuestArr = jobj.getJSONArray("Question");
-            JSONArray oldAnsArr = jobj.getJSONArray("Answer");
+            JSONArray oldQuestArr = questArr;
+            JSONArray oldAnsArr = ansArr;
             JSONArray oldMemberArr = jobj.getJSONArray("Members");
 
-            //
 
-            //int size = oldQuizArr.length() +1;
             oldQuizArr.put(quizObj);
-
-            JSONObject tmp = new JSONObject();
-
-
-            for(int i=0; i<questArr.length();i++){
-
-                tmp = questArr.getJSONObject(i);
-
-
-
-
-
-            }
-
-
-
-
-
-
-
-
 
 
             //Skapar ett nytt json objekt
