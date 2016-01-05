@@ -75,13 +75,4 @@
 
    <!-- Knappen knuten till ny användare-->
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/createNewUser"
-        android:id="@+id/button6"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
 </RelativeLayout>
