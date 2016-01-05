@@ -84,12 +84,12 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
 
 
-        JSONObject jo4 = new JSONObject();
+       /* JSONObject jo4 = new JSONObject();
         jo4.put("Test1", "Dennis");
 
         jobj.put("Question",jo4);
 
-        Log.d("TestPut", jobj.toString());
+        Log.d("TestPut", jobj.toString());*/
 
         return jobj;
 

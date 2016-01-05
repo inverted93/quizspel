@@ -42,11 +42,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new retrieveData().execute();  // VIktig rad
+        runRetrieve();
 
 
     }
 
+
+    public static void runRetrieve(){
+        new retrieveData().execute();  // VIktig rad
+    }
 
     public static void runUpdate(){
 

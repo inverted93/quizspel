@@ -79,7 +79,7 @@ public class updateData extends AsyncTask<String, String, String>{
 
 
             try{
-                URL u = new URL("https://api.myjson.com/bins/1kxsn");
+                URL u = new URL("https://api.myjson.com/bins/36jy3");
                 HttpURLConnection conn = (HttpURLConnection) u.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestMethod("PUT");
@@ -99,11 +99,14 @@ public class updateData extends AsyncTask<String, String, String>{
             }catch(MalformedURLException e){
 
                 System.out.println("Fuck");
+                e.printStackTrace();
 
             }catch(IOException e){
                 System.out.println("Fuck2");
-
+                e.printStackTrace();
             }
+
+
 
     }
 
