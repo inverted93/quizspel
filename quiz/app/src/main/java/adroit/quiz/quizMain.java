@@ -291,6 +291,9 @@ public class quizMain extends AppCompatActivity {
             context = c;
             this.list = new ArrayList<SingleRow>();*/
 
+        //http://stackoverflow.com/questions/14118309/how-to-use-search-functionality-in-custom-list-view-in-android
+        //Källan för den här skiten
+
         private ArrayList<SingleRow> mOriginalValues; // Original Values
         private ArrayList<SingleRow> mDisplayedValues;    // Values to be displayed
         LayoutInflater inflater;
