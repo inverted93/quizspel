@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#148623</color>
+    <color name="colorPrimaryDark">#148623</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- bgtextview -->
+    <color name="textviewBG">#FCF4D9</color>
+    <color name="textviewBorder">#58b064</color>
+
+    <!-- bgtextviewfocused -->
+    <color name="textviewBorderFocused">#2695e9</color>
+
+
+
+
+
 </resources>
