@@ -15,11 +15,12 @@
         android:id="@+id/textView3"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/editText5"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
@@ -28,7 +29,9 @@
         android:layout_alignParentEnd="true"
         android:maxLines="1"
         android:nestedScrollingEnabled="false"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:background="@drawable/bgchoosertextview"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,47 +46,51 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/editText6"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:background="@drawable/bgchoosertextview"/>
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/editText7"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editText6"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:background="@drawable/bgchoosertextview"/>
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/editText8"
         android:layout_below="@+id/editText7"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:background="@drawable/bgchoosertextview"/>
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/editText9"
         android:layout_below="@+id/editText8"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:background="@drawable/bgchoosertextview"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -131,25 +138,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radioButton1"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="54dp"
             android:id="@+id/radioButton2"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:layout_marginTop="-4dp"/>
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/radioButton3"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:layout_marginTop="-3dp" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:id="@+id/radioButton4"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:layout_marginTop="-5dp"/>
     </RadioGroup>
 
 
