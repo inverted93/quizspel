@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     */
 
+                    //Nytt User ID
                     try {
                         updateMember.put("UserID" , "7");
                     } catch (JSONException e) {
@@ -181,18 +182,23 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Create member UserID", "fel med id");
                     }
 
+                    //Email som användaren skickar in genom textfält
                     try {
                         updateMember.put("Email", stringEmail);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create member Email", "Inget Email");
                     }
+
+                    //Password som användaren själv skriver in
                     try {
                         updateMember.put("Password", stringPassword);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create member password", "Inget password");
                     }
+
+                    //Användarnamn(username) som användaren själv skriver in
                     try {
                         updateMember.put("Username", stringUsername);
                     } catch (JSONException e) {
@@ -200,45 +206,35 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Create member username", "Inget USername");
                     }
 
+                    //Antal svarade frågor. Hårdkodat
                     try {
-                        updateMember.put("QuestionsAnswered" , "443");
+                        updateMember.put("QuestionsAnswered" , "0");
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create QuestionsAnswer", "Frågor svarade");
                     }
+
+                    //Antal rätta svar. Hårdkodat
                     try {
-                        updateMember.put("RightAnswers" , "22");
+                        updateMember.put("RightAnswers" , "0");
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create RightAnswers", "Rätt frågor");
                     }
 
-
                     Log.d("TEstDronten", updateMember.toString());
 
-
-                    Log.d("KollarTEst", jobj.toString());
-
-                    //upateMEmber trycks in i JSONObjectet från MYJSON
+                    /*Hämtar först ut alla Members ur JSON filen. Lägger sedan till all ny input i arrayen
+                     Detta då en vanlig put skriver över dom existerade objekten i JSON filen */
 
                     try {
-                        jobj.put("Quiz", updateMember);
+                        JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
+                        memberArrUpdateMember.put(updateMember);
+                        Log.d("KollarTEst", memberArrUpdateMember.toString());
+                        Log.d("KollarTEst2", jobj.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Log.d("Create member Member", "Fel med updaten");
                     }
-
-                    Log.d("TEstDrontenAwesome", jobj.toString());
-
-                    /*
-      "UserID": "1",
-      "Email": "",
-      "Password": "",
-      "UserName": "",
-      "QuestionsAnswered": "230",
-      "RightAnswers": "9999"
- */
-
                 }
             });
 

@@ -73,8 +73,9 @@
         android:id="@+id/ratingBar"
         android:rating="2.0"
         android:textColor="#FF000000"
-        android:clickable="false"
         android:layout_centerVertical="true"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
         android:layout_centerHorizontal="true" />
 
     <TextView

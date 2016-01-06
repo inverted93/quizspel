@@ -13,6 +13,7 @@
         android:ems="10"
         android:id="@+id/email"
         android:hint="Email"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-@."
         android:layout_above="@+id/password"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password"
