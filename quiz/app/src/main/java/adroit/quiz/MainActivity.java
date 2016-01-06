@@ -53,9 +53,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //new retrieveData().execute();
+        runRetrieve();
+
+    }
+
+    public static void runRetrieve(){
+
         new retrieveData().execute();
 
     }
+
+    public static void runUpdate(){
+        new updateData().execute();
+    }
+
 
     EditText anvText;
     EditText passText;
@@ -64,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     Button loginButton;
 
     boolean switcher;
-    boolean checkErrorMsg; //Används för att fel meddelandet inte ska skrivas ut för tidigt.
+    boolean checkErrorMsg; //Används för att felmeddelandet inte ska skrivas ut för tidigt.
 
 
     ArrayList<String> userList = new ArrayList<String>();
@@ -179,7 +191,7 @@ class retrieveData extends AsyncTask<String, String, String> {
     protected String doInBackground(String... arg0){
 
         try{
-            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1vp4j");
+            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/4sird");
 
         }catch(JSONException e){
             e.printStackTrace();
@@ -199,6 +211,7 @@ class retrieveData extends AsyncTask<String, String, String> {
         quizMain.setJson(jobj);//Jonas
         play.setJson(jobj);//Jonas
         MainActivity.setJson(jobj);//Jonas
+        results.setJson(jobj);
 
     }
 }
