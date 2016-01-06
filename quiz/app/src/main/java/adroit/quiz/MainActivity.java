@@ -199,7 +199,6 @@ class retrieveData extends AsyncTask<String, String, String> {
         quizMain.setJson(jobj);//Jonas
         play.setJson(jobj);//Jonas
         MainActivity.setJson(jobj);//Jonas
-        GameAdapter.setJson(jobj);
 
     }
 }
