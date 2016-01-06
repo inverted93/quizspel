@@ -54,24 +54,12 @@ public class updateData extends AsyncTask<String, String, String>{
     }
 
 
-
-
     @Override
     protected String doInBackground(String... arg0){
 
         update(jobj);
         return "";
-
     }
-
-
-
-
-
-
-
-
-
 
 
     public static void update(JSONObject j){
