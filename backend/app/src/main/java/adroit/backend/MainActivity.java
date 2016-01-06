@@ -205,11 +205,11 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("TEstDronten", updateMember.toString());
 
 
-                    Log.d("TEstDrontenAwesome123", jobj.toString());
+                    Log.d("KollarTEst", jobj.toString());
 
 
                     try {
-                        jobj.put("Members", updateMember);
+                        jobj.put("Quiz", updateMember);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create member Member", "Fel med updaten");
