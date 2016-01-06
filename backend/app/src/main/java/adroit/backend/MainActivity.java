@@ -95,7 +95,11 @@ public class MainActivity extends AppCompatActivity {
         EditText userName = (EditText) findViewById(R.id.usernameInput);
         Button newUser = (Button) findViewById(R.id.creatUser);
         Button login = (Button) findViewById(R.id.loginButton);
+
+
         if (switcher == false) {
+
+
             userName.setVisibility(View.VISIBLE);
             newUser.setText(R.string.loginButtonString);
             login.setText(R.string.userCreate);
@@ -117,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Fiskmås2", stringPassword);
                     Log.d("Fiskmås3", stringUsername);
 
-
+                    //Skapar JSONObjektet som alla put kommer att laggas i.
                     JSONObject updateMember = new JSONObject();
 
                     /*
@@ -174,39 +178,48 @@ public class MainActivity extends AppCompatActivity {
                         updateMember.put("UserID" , "7");
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.d("Create member UserID", "fel med id");
                     }
 
                     try {
                         updateMember.put("Email", stringEmail);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.d("Create member Email", "Inget Email");
                     }
                     try {
                         updateMember.put("Password", stringPassword);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.d("Create member password", "Inget password");
                     }
                     try {
                         updateMember.put("Username", stringUsername);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.d("Create member username", "Inget USername");
                     }
 
                     try {
                         updateMember.put("QuestionsAnswered" , "443");
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.d("Create QuestionsAnswer", "Frågor svarade");
                     }
                     try {
                         updateMember.put("RightAnswers" , "22");
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.d("Create RightAnswers", "Rätt frågor");
                     }
+
+
                     Log.d("TEstDronten", updateMember.toString());
 
 
                     Log.d("KollarTEst", jobj.toString());
 
+                    //upateMEmber trycks in i JSONObjectet från MYJSON
 
                     try {
                         jobj.put("Quiz", updateMember);
