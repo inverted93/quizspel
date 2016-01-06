@@ -16,7 +16,7 @@ public class hub extends AppCompatActivity {
 
     public void changePage(View view){
 
-        Intent myIntent = new Intent(this, play.class);
+        Intent myIntent = new Intent(this, quizMain.class);
         startActivity(myIntent);
         finish();
         overridePendingTransition(0, 0);

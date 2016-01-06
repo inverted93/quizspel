@@ -138,8 +138,8 @@ public class quizMain extends AppCompatActivity {
     }
 
     private void initialize() {
-        ListView gameList = (ListView) findViewById(R.id.gameList);
-        EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
+        gameList = (ListView) findViewById(R.id.gameList);
+        inputSearch = (EditText) findViewById(R.id.inputSearch);
     }
 
     public void sortList (View view) {
