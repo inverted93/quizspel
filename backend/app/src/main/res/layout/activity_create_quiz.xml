@@ -28,6 +28,7 @@
         android:layout_alignParentEnd="true"
         android:maxLines="1"
         android:singleLine="true"
+        android:padding="6dp"
         android:background="@drawable/bgchoosertextview"/>
 
     <TextView
@@ -51,6 +52,7 @@
         android:layout_alignEnd="@+id/editText3"
         android:maxLines="17"
         android:singleLine="true"
+        android:padding="6dp"
         android:background="@drawable/bgchoosertextview"/>
 
     <Button
