@@ -29,13 +29,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class quizMain extends AppCompatActivity {
 
-    boolean switcher;
+    public static Context context;
+
+    boolean nameSwitcher;
+    boolean ratingSwitcher;
 
     private GameAdapter adapter1;
     private ArrayList<SingleRow> list = new ArrayList<SingleRow>();
@@ -54,16 +59,18 @@ public class quizMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_main);
-        //ListView gameList = (ListView) findViewById(R.id.gameList);
-        //gameList.setAdapter(new GameAdapter(this));
-
+        context = getApplicationContext();
         initialize();
+        makeList();
+        //hur göra här?
+        //sortRatingList();
 
 
 
 
 
-        //EditText inputSearch = (EditText) findViewById(R.id.inputSearch);
+
+
         inputSearch.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -86,7 +93,7 @@ public class quizMain extends AppCompatActivity {
 
 
 
-        gameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*gameList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -133,38 +140,54 @@ public class quizMain extends AppCompatActivity {
                 finish();
                 overridePendingTransition(0, 0);
             }
-        });
+        });*/
 
     }
+
+
+
 
     private void initialize() {
         gameList = (ListView) findViewById(R.id.gameList);
         inputSearch = (EditText) findViewById(R.id.inputSearch);
     }
 
-    public void sortList (View view) {
+    public void sortNameList (View view) {
 
-        ListView gameList = (ListView) findViewById(R.id.gameList);
-
-        if (switcher == false) {
-            Collections.sort(list, new SortingComparatorAsc());
+        if (nameSwitcher == false) {
+            Collections.sort(list, new SortingComparatorNameAsc());
             adapter1 = new GameAdapter(quizMain.this, list);
             gameList.setAdapter(adapter1);
-            switcher = true;
+            nameSwitcher = true;
         } else {
-            Collections.sort(list, new SortingComparatorDsc());
+            Collections.sort(list, new SortingComparatorNameDsc());
             adapter1 = new GameAdapter(quizMain.this, list);
             gameList.setAdapter(adapter1);
-            switcher = false;
+            nameSwitcher = false;
         }
     }
 
-    protected void onResume(){
-        super.onResume();
+    public void sortRatingList (View view) {
+
+        if (ratingSwitcher == false) {
+            Collections.sort(list, new SortingComparatorRatingAsc());
+            adapter1 = new GameAdapter(quizMain.this, list);
+            gameList.setAdapter(adapter1);
+            ratingSwitcher = true;
+        } else {
+            Collections.sort(list, new SortingComparatorRatingDsc());
+            adapter1 = new GameAdapter(quizMain.this, list);
+            gameList.setAdapter(adapter1);
+            ratingSwitcher = false;
+        }
+    }
+
+    public void makeList(){
 
         ArrayList<String> games = new ArrayList<String>();
         ArrayList<String> ratings = new ArrayList<String>();
         ArrayList<String> creators = new ArrayList<String>();
+        ArrayList<String> IDs = new ArrayList<String>();
 
         try {
             JSONArray quiz = jsonResponse.getJSONArray("Quiz");
@@ -173,9 +196,14 @@ public class quizMain extends AppCompatActivity {
                 JSONObject qInfo = quiz.getJSONObject(i);
                 String name = qInfo.getString("Name");
                 String rating = qInfo.getString("Rating");
+                double ratingDouble = Double.parseDouble(rating);
+                NumberFormat formatter = new DecimalFormat("#0.0");
+                //System.out.println(formatter.format(4.0));
+                String ratingDone = formatter.format(ratingDouble);
                 String userID = qInfo.getString("UserID");
                 games.add(name);
-                ratings.add(rating);
+                ratings.add(ratingDone);
+                IDs.add(userID);
                 for (int x = 0; x < member.length(); x++){
 
                     JSONObject mInfo = member.getJSONObject(x);
@@ -206,9 +234,11 @@ public class quizMain extends AppCompatActivity {
         String[] creator = new String[creators.size()];
         creator = creators.toArray(creator);
 
+        String[] ID = new String[IDs.size()];
+        ID = IDs.toArray(ID);
 
         for(int i=0; i<games.size(); i++){
-            list.add(new SingleRow(title[i], rating[i], creator[i]));
+            list.add(new SingleRow(title[i], rating[i], creator[i], ID[i]));
         }
         adapter1 = new GameAdapter(quizMain.this, list);
         gameList.setAdapter(adapter1);
@@ -228,7 +258,7 @@ public class quizMain extends AppCompatActivity {
 
 }
 
-    class SortingComparatorAsc implements Comparator<SingleRow> {
+    class SortingComparatorNameAsc implements Comparator<SingleRow> {
 
 
         @Override
@@ -237,7 +267,7 @@ public class quizMain extends AppCompatActivity {
         }
     }
 
-    class SortingComparatorDsc implements Comparator<SingleRow> {
+    class SortingComparatorNameDsc implements Comparator<SingleRow> {
 
         @Override
         public int compare(SingleRow s1, SingleRow s2) {
@@ -245,17 +275,34 @@ public class quizMain extends AppCompatActivity {
         }
     }
 
+    class SortingComparatorRatingAsc implements Comparator<SingleRow> {
+
+        @Override
+        public int compare(SingleRow s1, SingleRow s2) {
+            return s1.getRating().compareTo(s2.getRating());
+        }
+    }
+
+    class SortingComparatorRatingDsc implements Comparator<SingleRow> {
+
+        @Override
+        public int compare(SingleRow s1, SingleRow s2) {
+            return -s1.getRating().compareTo(s2.getRating());
+        }
+    }
 
 
     class SingleRow{
         String title;
         String rating;
         String creator;
-        SingleRow(String title, String rating, String creator){
+        String ID;
+        SingleRow(String title, String rating, String creator, String ID){
             super();
             this.title=title;
             this.rating=rating;
             this.creator=creator;
+            this.ID=ID;
         }
         public String getTitle() {
             return title;
@@ -275,15 +322,21 @@ public class quizMain extends AppCompatActivity {
         public void setCreator(String creator) {
             this.creator = creator;
         }
+        public String getID() {
+            return ID;
+        }
+        public void setID(String ID) {
+            this.ID = ID;
+        }
     }
 
 
     class GameAdapter extends BaseAdapter implements Filterable{
 
-        /*static JSONObject jsonResponse = new JSONObject();
+        static JSONObject jsonResponse = new JSONObject();
         public static void setJson(JSONObject json){
             jsonResponse = json;
-        }*/
+        }
 
         /*ArrayList<SingleRow> list;
         Context context;
@@ -350,8 +403,48 @@ public class quizMain extends AppCompatActivity {
 
                 public void onClick(View v) {
                     
-                    String s = mDisplayedValues.get(position).title;
-                    Log.d("Här skall namnet stå", "som du tryckte på" + s);
+                    String s = mDisplayedValues.get(position).ID;
+                    Log.d("Här skall id stå", "som du tryckte på" + s);
+
+                    String name = "";
+                    String desc = "";
+                    String rating = "";
+                    String rated = "";
+                    String played = "";
+
+                    try {
+                        JSONArray quiz = jsonResponse.getJSONArray("Quiz");
+                        for (int i = 0; i < quiz.length(); i++) {
+                            JSONObject info = quiz.getJSONObject(i);
+                            String check = info.getString("QID");
+                            if (check.equals(s)) {
+                                //JSONObject desc = quiz.getJSONObject(i);
+                                name = info.getString("Name");
+                                desc = info.getString("Description");
+                                rating = info.getString("Rating");
+                                rated = info.getString("Rated");
+                                played = info.getString("Played");
+                            } else {
+                            }
+                        }
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    Bundle b = new Bundle();
+                    b.putString("QuizTitle", name);
+                    b.putString("QuizDesc", desc);
+                    b.putString("QuizRating", rating);
+                    b.putString("QuizRated", rated);
+                    b.putString("QuizPlayed", played);
+                    b.putString("QuizID", s);
+
+                    Intent myIntent = new Intent(quizMain.context, quizInfo.class);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    myIntent.putExtras(b);
+                    quizMain.context.startActivity(myIntent);
+
 
                 }
             });
@@ -415,9 +508,10 @@ public class quizMain extends AppCompatActivity {
                     } else {
                         constraint = constraint.toString().toLowerCase();
                         for (int i = 0; i < mOriginalValues.size(); i++) {
-                            String data = mOriginalValues.get(i).title;
-                            if (data.toLowerCase().startsWith(constraint.toString())) {
-                                FilteredArrList.add(new SingleRow(mOriginalValues.get(i).title, mOriginalValues.get(i).rating, mOriginalValues.get(i).creator));
+                            String t = mOriginalValues.get(i).title;
+                            String c = mOriginalValues.get(i).creator;
+                            if (t.toLowerCase().startsWith(constraint.toString())||c.toLowerCase().startsWith(constraint.toString())) {
+                                FilteredArrList.add(new SingleRow(mOriginalValues.get(i).title, mOriginalValues.get(i).rating, mOriginalValues.get(i).creator, mOriginalValues.get(i).ID));
                             }
                         }
                         // set the Filtered result to return

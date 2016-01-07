@@ -116,63 +116,61 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View view)throws JSONException{
 
+        if (switcher == false) {
 
-        Log.d("Heeeeeej", "1 vi ar i login ");
+            try {
 
+                checkErrorMsg = false; //!!!!
+                anvText = (EditText) findViewById(R.id.email);
+                passText = (EditText) findViewById(R.id.password);
+                felMed = (TextView) findViewById(R.id.textView5);
+                String anvTmp = anvText.getText().toString();
+                String passTmp = passText.getText().toString();
 
-        try {
+                felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
 
-            checkErrorMsg = false; //!!!!
-            anvText = (EditText)findViewById(R.id.email);
-            passText = (EditText)findViewById(R.id.password);
-            felMed = (TextView)findViewById(R.id.textView5);
-            String anvTmp = anvText.getText().toString();
-            String passTmp = passText.getText().toString();
+                JSONArray memberArr = jobj.getJSONArray("Members");
+                String uName;
+                String password;
 
-            felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
-
-            JSONArray memberArr = jobj.getJSONArray("Members");
-            String uName;
-            String password;
-
-            Log.d("1. ", "2" + memberArr.length());
+                Log.d("1. ", "2" + memberArr.length());
 
 
+                for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
 
 
-            for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
+                    JSONObject tmpJ = memberArr.getJSONObject(i);
+                    uName = tmpJ.getString("UserName");
+                    password = tmpJ.getString("Password");
 
+                    if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
 
-                JSONObject tmpJ = memberArr.getJSONObject(i);
-                uName = tmpJ.getString("UserName");
-                password = tmpJ.getString("Password");
+                        id = tmpJ.getString("UserID");
+                        Intent myIntent = new Intent(this, hub.class);
+                        startActivity(myIntent);
+                        finish(); //Jonas
+                        overridePendingTransition(0, 0); //Jonas
+                        checkErrorMsg = true; //!!!
+                        break;
 
-                if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
+                    } else {
+                        checkErrorMsg = false;
+                    }
 
-                    id = tmpJ.getString("UserID");
-                    Intent myIntent = new Intent(this, hub.class);
-                    startActivity(myIntent);
-                    finish(); //Jonas
-                    overridePendingTransition(0, 0); //Jonas
-                    checkErrorMsg = true; //!!!
-                    break;
-
-                } else {
-                    checkErrorMsg = false;
                 }
+            } catch (NullPointerException e) {
 
             }
-        }catch(NullPointerException e){
 
+            if (checkErrorMsg == false) { //!!!!!!
+                felMed.setVisibility(View.VISIBLE);
+                felMed.setText("Incorrect username or password");
+
+            }
+
+        }else{
+            //Här ska vara kod för att skapa användare
         }
-
-        if(checkErrorMsg==false){ //!!!!!!
-            felMed.setVisibility(View.VISIBLE);
-            felMed.setText("Incorrect username or password");
-
-        }
-
-
     }
 
 }
@@ -212,6 +210,7 @@ class retrieveData extends AsyncTask<String, String, String> {
         play.setJson(jobj);//Jonas
         MainActivity.setJson(jobj);//Jonas
         results.setJson(jobj);
+        GameAdapter.setJson(jobj);
 
     }
 }

@@ -33,6 +33,7 @@
 
     <!-- quizMain activity -->
     <string name="sortListButton">By Name</string>
+    <string name="sortListButton2">By Rating</string>
 
 
 </resources>

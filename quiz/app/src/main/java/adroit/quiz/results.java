@@ -87,20 +87,13 @@ public class results extends AppCompatActivity {
                     JSONObject newQuizObj = new JSONObject();
 
                     newQuizObj.put("QID", id);
-                    newQuizObj.put("Name", "Historia");
-                    newQuizObj.put("Description", "Sjukt bra quiz");
-                    newQuizObj.put("Rating", sum);
-                    newQuizObj.put("Rated", numbOfRatings +1);
-                    newQuizObj.put("Played", "50");
-                    newQuizObj.put("UserID", "1");
-                    newQuizObj.put("Creationdate", "20150819");
-
-                    /*
                     newQuizObj.put("Name", getIntent().getExtras().getString("QuizTitle"));
                     newQuizObj.put("Description", getIntent().getExtras().getString("QuizDesc"));
+                    newQuizObj.put("Rating", sum);
+                    newQuizObj.put("Rated", numbOfRatings +1);
                     newQuizObj.put("Played", getIntent().getExtras().getString("QuizPlayed"));
                     newQuizObj.put("UserID", getIntent().getExtras().getString("userID"));
-                    newQuizObj.put("Creationdate", getIntent().getExtras().getString("creationDate"));*/
+                    newQuizObj.put("Creationdate", getIntent().getExtras().getString("creationDate"));
 
                     //Dessa ska in sen men intenterna funkar inte riktigt..
 
