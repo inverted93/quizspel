@@ -131,6 +131,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
             myQuiz.setJson(jobj);
             createQuestion.setJson(jobj);
             updateData.setJSON(jobj);
+            hub.setJson(jobj);
 
 
 

@@ -99,7 +99,7 @@ public class updateData extends AsyncTask<String, String, String>{
     }
 
 
-    private static String readAll(Reader rd)throws IOException{
+    /*private static String readAll(Reader rd)throws IOException{
         StringBuilder sb = new StringBuilder();
         int count;
         while((count = rd.read()) != -1){
@@ -109,7 +109,7 @@ public class updateData extends AsyncTask<String, String, String>{
         return sb.toString();
 
 
-    }
+    }*/
 
 
 
