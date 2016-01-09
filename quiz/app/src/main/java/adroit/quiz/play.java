@@ -34,14 +34,15 @@ import java.util.concurrent.TimeUnit;
 
 public class play extends AppCompatActivity {
 
-    // Quiz information som skickas med bundle till resultat som
-    // bla skickar dessa till quizinfo igen om OnBacknuttonpressed
-    String quizTitle = "Häftigt quiz ";
+    /* Quiz information som skickas med bundle till resultat som
+       bla skickar dessa till quizinfo igen om OnBacknuttonpressed
+    */
+    String quizTitle;
     String quizDesc;
     String quizRating;
     String quizRated;
     String quizPlayed;
-    String quizID = "1";
+    String quizID;
 
     static boolean isVisible = false;
 
@@ -113,7 +114,10 @@ public class play extends AppCompatActivity {
         String firstQuestion = questionsArr.get(questionNr);
         ((TextView) findViewById(R.id.editText3)).setText(firstQuestion);
         numberOfQuestions = questionsArr.size();
+        ((TextView) findViewById(R.id.quizname)).setText(quizTitle);
         ((ProgressBar)findViewById(R.id.progressBar)).setMax(numberOfQuestions);
+        ((ProgressBar)findViewById(R.id.progressBar)).setProgress(questionNr + 1);
+        ((TextView) findViewById(R.id.editText5)).setText((questionNr +1) + "/" + numberOfQuestions);
 
         for(int i = 0 ; i <4 ; i++) {
             String itemAnswer = answers.get(i);
@@ -215,7 +219,8 @@ public class play extends AppCompatActivity {
 
         String questionText = questionsArr.get(questionNr);
         ((TextView) findViewById(R.id.editText3)).setText(questionText);
-        ((ProgressBar)findViewById(R.id.progressBar)).setProgress(questionNr);
+        ((ProgressBar)findViewById(R.id.progressBar)).setProgress(questionNr +1);
+        ((TextView) findViewById(R.id.editText5)).setText((questionNr +1) + "/" + numberOfQuestions);
 
     }
 
