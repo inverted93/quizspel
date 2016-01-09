@@ -83,6 +83,36 @@ public class MainActivity extends AppCompatActivity {
     EditText editEmail;
 
 
+    public void createJson(JSONArray memberArr){
+
+        JSONObject jsonFinal = new JSONObject();
+
+        try{
+
+            JSONArray quizArr = jobj.getJSONArray("Quiz");
+            JSONArray questArr = jobj.getJSONArray("Question");
+            JSONArray ansArr = jobj.getJSONArray("Answer");
+
+            jsonFinal.put("Quiz", quizArr);
+            jsonFinal.put("Question", questArr);
+            jsonFinal.put("Answer", ansArr);
+            jsonFinal.put("Members", memberArr);
+
+            updateData.setJSON(jsonFinal);
+            MainActivity.runUpdate();
+            MainActivity.runRetrieve();
+
+
+        }catch(JSONException e){
+
+            e.printStackTrace();
+
+        }
+
+    }
+
+
+
     public void userCreate(View view) throws JSONException{
 
 
@@ -174,17 +204,35 @@ public class MainActivity extends AppCompatActivity {
                     }
                     */
 
+
+
+
                     //Nytt User ID
                     try {
-                        updateMember.put("UserID" , "7");
+
+                        JSONArray memberArr = jobj.getJSONArray("Members");
+
+                        int length = memberArr.length() +1;
+
+
+
+
+
+
+                        updateMember.put("UserID" , length);
+                        updateMember.put("Email", stringEmail);
+                        updateMember.put("Password", stringPassword);
+                        updateMember.put("Username", stringUsername);
+                        updateMember.put("QuestionsAnswered" , "0");
+                        updateMember.put("RightAnswers" , "0");
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create member UserID", "fel med id");
                     }
 
                     //Email som användaren skickar in genom textfält
-                    try {
-                        updateMember.put("Email", stringEmail);
+                    /*try {
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create member Email", "Inget Email");
@@ -192,15 +240,15 @@ public class MainActivity extends AppCompatActivity {
 
                     //Password som användaren själv skriver in
                     try {
-                        updateMember.put("Password", stringPassword);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create member password", "Inget password");
-                    }
+                    }*/
 
                     //Användarnamn(username) som användaren själv skriver in
-                    try {
-                        updateMember.put("Username", stringUsername);
+                    /*try {
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create member username", "Inget USername");
@@ -208,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //Antal svarade frågor. Hårdkodat
                     try {
-                        updateMember.put("QuestionsAnswered" , "0");
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create QuestionsAnswer", "Frågor svarade");
@@ -216,11 +264,11 @@ public class MainActivity extends AppCompatActivity {
 
                     //Antal rätta svar. Hårdkodat
                     try {
-                        updateMember.put("RightAnswers" , "0");
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create RightAnswers", "Rätt frågor");
-                    }
+                    }*/
 
                     Log.d("TEstDronten", updateMember.toString());
 
@@ -232,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
                         memberArrUpdateMember.put(updateMember);
                         Log.d("KollarTEst", memberArrUpdateMember.toString());
                         Log.d("KollarTEst2", jobj.toString());
+                        createJson(memberArrUpdateMember);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
