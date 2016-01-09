@@ -3,7 +3,9 @@ package adroit.quiz;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 public class hub extends AppCompatActivity {
 
@@ -11,6 +13,8 @@ public class hub extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
+        ((TextView) findViewById(R.id.textView7)).setVisibility(4);
+
     }
 
 
@@ -23,11 +27,22 @@ public class hub extends AppCompatActivity {
 
     }
 
+    public void changeAppToBackend (View view) {
+        // Metod för att starta upp backend appen. Om appen inte finns på enheten så
+        // fångar catchen up detta och skriver ut ett meddelande till användaren
+        try {
+            Intent startBackend = getPackageManager().getLaunchIntentForPackage("adtroit.backend");
+            startActivity(startBackend);
+        }
+        catch (Exception e) {
+            ((TextView) findViewById(R.id.textView7)).setText("You must have the app to start it");
+            ((TextView) findViewById(R.id.textView7)).setVisibility(0);
+        }
+    }
 
     public void onBackPressed()
     {
         super.onBackPressed();
-
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
