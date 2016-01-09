@@ -154,70 +154,11 @@ public class MainActivity extends AppCompatActivity {
                     //Skapar JSONObjektet som alla put kommer att laggas i.
                     JSONObject updateMember = new JSONObject();
 
-                    /*
-                    JSONObject updateUserId = new JSONObject();
-                    try {
-                        updateUserId.put("UserID", "1");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member UserID", "fel med id");
-                    }
-
-                    JSONObject updateEmail = new JSONObject();
-                    try {
-                        updateEmail.put("Email", stringEmail);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member Email", "Inget Email");
-                    }
-
-                    JSONObject updatePassword = new JSONObject();
-                    try {
-                        updatePassword.put("Password", stringPassword);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member password", "Inget password");
-                    }
-
-                    JSONObject updateUserName = new JSONObject();
-                    try {
-                        updateUserName.put("UserName", stringUsername);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member username", "Inget USername");
-                    }
-
-                    JSONObject updateQuestionsAnswered = new JSONObject();
-                    try {
-                        updateUserName.put("QuestionsAnswered", "234");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create QuestionsAnswer", "Frågor svarade");
-                    }
-
-                    JSONObject updateRightAnswers = new JSONObject();
-                    try {
-                        updateUserName.put("RightAnswers", "32");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create RightAnswers", "Rätt frågor");
-                    }
-                    */
-
-
-
-
-                    //Nytt User ID
                     try {
 
                         JSONArray memberArr = jobj.getJSONArray("Members");
 
                         int length = memberArr.length() +1;
-
-
-
-
-
 
                         updateMember.put("UserID" , length);
                         updateMember.put("Email", stringEmail);
@@ -230,45 +171,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Create member UserID", "fel med id");
                     }
 
-                    //Email som användaren skickar in genom textfält
-                    /*try {
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member Email", "Inget Email");
-                    }
-
-                    //Password som användaren själv skriver in
-                    try {
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member password", "Inget password");
-                    }*/
-
-                    //Användarnamn(username) som användaren själv skriver in
-                    /*try {
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member username", "Inget USername");
-                    }
-
-                    //Antal svarade frågor. Hårdkodat
-                    try {
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create QuestionsAnswer", "Frågor svarade");
-                    }
-
-                    //Antal rätta svar. Hårdkodat
-                    try {
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create RightAnswers", "Rätt frågor");
-                    }*/
 
                     Log.d("TEstDronten", updateMember.toString());
 
