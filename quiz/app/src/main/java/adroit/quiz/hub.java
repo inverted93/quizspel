@@ -31,11 +31,11 @@ public class hub extends AppCompatActivity {
         // Metod för att starta upp backend appen. Om appen inte finns på enheten så
         // fångar catchen up detta och skriver ut ett meddelande till användaren
         try {
-            Intent startBackend = getPackageManager().getLaunchIntentForPackage("adtroit.backend");
+            Intent startBackend = getPackageManager().getLaunchIntentForPackage("adroit.backend");
             startActivity(startBackend);
         }
         catch (Exception e) {
-            ((TextView) findViewById(R.id.textView7)).setText("You must have the app to start it");
+            ((TextView) findViewById(R.id.textView7)).setText(getString(R.string.errorMessageHub));
             ((TextView) findViewById(R.id.textView7)).setVisibility(0);
         }
     }
