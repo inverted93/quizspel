@@ -7,29 +7,76 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context="adroit.backend.hub">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:text="Create new quiz"
         android:id="@+id/button"
         android:minHeight="200dp"
         android:minWidth="440dp"
         android:onClick="changePage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:text="My quiz"
         android:id="@+id/button2"
         android:minHeight="200dp"
         android:minWidth="440dp"
         android:onClick="changePageMyQuiz"
-        android:layout_below="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nr. of question answered: "
+        android:id="@+id/textView8"
+        android:layout_above="@+id/button6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="66dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="00"
+        android:id="@+id/textView4"
+        android:layout_alignTop="@+id/textView8"
+        android:layout_toRightOf="@+id/textView8"
+        android:layout_toEndOf="@+id/textView8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Percent answered correct: "
+        android:id="@+id/textView10"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="000%"
+        android:id="@+id/textView13"
+        android:layout_alignTop="@+id/textView10"
+        android:layout_toRightOf="@+id/textView10"
+        android:layout_toEndOf="@+id/textView10" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:text="Log Out"
+        android:id="@+id/button6"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
 
 
 </RelativeLayout>

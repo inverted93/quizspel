@@ -515,7 +515,6 @@ public class createQuestion extends AppCompatActivity {
 
         try{
             //Hamtar de gamla jsonArrayerna av de som inte anvands och lagger till de nya arrayerna av de som anvands.
-
             JSONArray oldQuizArr = jobj.getJSONArray("Quiz");
             JSONArray oldQuestArr = questArr;
             JSONArray oldAnsArr = ansArr;
@@ -526,7 +525,6 @@ public class createQuestion extends AppCompatActivity {
 
 
             //Skapar ett nytt json objekt
-
             JSONObject completeJson = new JSONObject();
 
             completeJson.put("Quiz",  oldQuizArr);
@@ -537,9 +535,6 @@ public class createQuestion extends AppCompatActivity {
             updateData.setJSON(completeJson);
             MainActivity.runUpdate();
             MainActivity.runRetrieve();
-
-
-
 
             Log.d("3e jan ", "kul " + completeJson.toString());
 
