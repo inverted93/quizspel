@@ -109,6 +109,7 @@ public class play extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // lägg in indexoutofboundsexception här
         String firstQuestion = questionsArr.get(questionNr);
         ((TextView) findViewById(R.id.editText3)).setText(firstQuestion);
         numberOfQuestions = questionsArr.size();
