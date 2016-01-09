@@ -10,6 +10,13 @@
     <string name="NewPasswordText">Choose a password</string>
     <string name="emailText">Enter your email</string>
 
+    <!-- Hub activity -->
+    <string name="playButton">Play</string>
+    <string name="logOutButton">Log Out</string>
+    <string name="backendButton">Go to app</string>
+    <string name="userCreatedText">You\'ve succefully created a user!</string>
+    <string name="backendText">Create your own quiz?\n Use the backend app</string>
+
     <!-- Play activity -->
     <string name="Question_text">QuestionText</string>
     <string name="Timer_text">Time left: 10</string>
