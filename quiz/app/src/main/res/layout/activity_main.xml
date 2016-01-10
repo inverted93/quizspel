@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:text="@string/loginButtonString"
         android:id="@+id/loginButton"
-        android:onClick="changePage"
+        android:onClick="login"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

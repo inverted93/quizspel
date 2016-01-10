@@ -21,21 +21,11 @@ public class quizInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_info);
         setInfo();
-        /*
-        // Check whether we're recreating a previously destroyed instance
-        if (savedInstanceState != null) {
-            // Restore value of members from saved state
-            mCurrentScore = savedInstanceState.getString(STATE_SCORE);
-            mCurrentLevel = savedInstanceState.getInt(STATE_LEVEL);
-        } else {
-            // Probably initialize members with default values for a new instance
-
-        }
-        */
-
     }
 
 
+    //Denna metoden hämtar ut värden från Bundle som skickades med från den tidigare aktivitetet (quizMain)
+    //Sedan sätts dessa värden i separata textrutor för att visa relevant information om spelet
     public void setInfo(){
 
         TextView quizTitel = (TextView) findViewById(R.id.quizTitel);
@@ -44,10 +34,6 @@ public class quizInfo extends AppCompatActivity {
         TextView playedNumber = (TextView) findViewById(R.id.playedNumber);
         TextView votedNumber = (TextView) findViewById(R.id.votedNumber);
 
-
-        //Bundle extras = getIntent().getExtras();
-        //if (extras != null) {
-
             quizTitle = getIntent().getExtras().getString("QuizTitle");
             quizDesc = getIntent().getExtras().getString("QuizDesc");
             quizRating = getIntent().getExtras().getString("QuizRating");
@@ -55,18 +41,14 @@ public class quizInfo extends AppCompatActivity {
             quizPlayed = getIntent().getExtras().getString("QuizPlayed");
             quizID = getIntent().getExtras().getString("QuizID");
 
-       // }
             quizTitel.setText(quizTitle);
             desc.setText(quizDesc);
             ratingBar.setRating(Float.parseFloat(quizRating));
             playedNumber.setText(quizPlayed);
             votedNumber.setText(quizRated);
-
-
-
     }
 
-
+    //Skickar vidare värdena till nästa aktivitet (play)
     public void changePage(View view){
 
         Bundle b = new Bundle();
@@ -94,8 +76,6 @@ public class quizInfo extends AppCompatActivity {
         startActivity(i);
         finish();
         overridePendingTransition(0, 0);
-
     }
-
 
 }

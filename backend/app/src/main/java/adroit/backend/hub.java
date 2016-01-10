@@ -21,6 +21,7 @@ public class hub extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
+        ((TextView) findViewById(R.id.textView7)).setVisibility(4);
         fillStats();
     }
 
@@ -33,14 +34,27 @@ public class hub extends AppCompatActivity{
         jobj= j;
     }
 
+    public void changeAppToTheQuiz (View view) {
+        // Metod för att starta upp backend appen. Om appen inte finns på enheten så
+        // fångar catchen up detta och skriver ut ett meddelande till användaren
+        try {
+            Intent startBackend = getPackageManager().getLaunchIntentForPackage("adroit.quiz");
+            startActivity(startBackend);
+        }
+        catch (Exception e) {
+            ((TextView) findViewById(R.id.textView7)).setText(getString(R.string.errorMessageHub));
+            ((TextView) findViewById(R.id.textView7)).setVisibility(0);
+        }
+    }
+
 
     public void fillStats(){
 
         id = getIntent().getExtras().getString("id");
 
         Log.d("Rangers", "Conquers WestHam");
-        TextView totView = (TextView)findViewById(R.id.textView4);
-        TextView corrView = (TextView)findViewById(R.id.textView13);
+        //TextView totView = (TextView)findViewById(R.id.textView4);
+        TextView corrView = (TextView)findViewById(R.id.textView3);
 
         try{
 
@@ -63,7 +77,7 @@ public class hub extends AppCompatActivity{
 
             Log.d("Rangers", "Conquers WestHam" + qA);
             Log.d("Rangers", "Conquers WestHam" + cA);
-            totView.setText(qA);
+            //totView.setText(qA);
 
             double qADouble = Double.parseDouble(qA);
             double cADouble = Double.parseDouble(cA);
@@ -72,7 +86,7 @@ public class hub extends AppCompatActivity{
 
             String percent = formatter.format((cADouble/qADouble)*100);
 
-            corrView.setText(percent + "%");
+            corrView.setText("Questions answered\n" + qA + "\n\nRight answers percentage\n" + percent + "%");
 
 
         }catch(JSONException e){
