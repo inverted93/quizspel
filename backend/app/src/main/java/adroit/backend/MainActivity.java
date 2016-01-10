@@ -243,10 +243,14 @@ public class MainActivity extends AppCompatActivity {
                 uName = tmpJ.getString("UserName");
                 password = tmpJ.getString("Password");
 
+
                 if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
 
                     id = tmpJ.getString("UserID");
                     Intent myIntent = new Intent(this, hub.class);
+                    Bundle b = new Bundle();
+                    b.putString("id",id);
+                    myIntent.putExtras(b);
                     startActivity(myIntent);
                     checkErrorMsg = true; //!!!
                     break;

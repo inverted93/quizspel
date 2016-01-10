@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 
 public class hub extends AppCompatActivity{
@@ -22,7 +24,9 @@ public class hub extends AppCompatActivity{
         fillStats();
     }
 
+
     String id = "1";
+
     static JSONObject jobj = new JSONObject();
 
     public static void setJson(JSONObject j){
@@ -32,8 +36,10 @@ public class hub extends AppCompatActivity{
 
     public void fillStats(){
 
+        id = getIntent().getExtras().getString("id");
+
         Log.d("Rangers", "Conquers WestHam");
-        TextView totView = (TextView)findViewById(R.id.textView10);
+        TextView totView = (TextView)findViewById(R.id.textView4);
         TextView corrView = (TextView)findViewById(R.id.textView13);
 
         try{
@@ -55,8 +61,18 @@ public class hub extends AppCompatActivity{
 
             }
 
+            Log.d("Rangers", "Conquers WestHam" + qA);
+            Log.d("Rangers", "Conquers WestHam" + cA);
             totView.setText(qA);
-            corrView.setText(cA + "%");
+
+            double qADouble = Double.parseDouble(qA);
+            double cADouble = Double.parseDouble(cA);
+
+            NumberFormat formatter = new DecimalFormat("#0");
+
+            String percent = formatter.format((cADouble/qADouble)*100);
+
+            corrView.setText(percent + "%");
 
 
         }catch(JSONException e){
