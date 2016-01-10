@@ -212,14 +212,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Temporär onClick för emulatorn är så jävla långsam
-    public void changePage(View view){
-
-        Intent myIntent = new Intent(this, hub.class);
-        startActivity(myIntent);
-        finish();
-        overridePendingTransition(0, 0);
-    }
 
     public void login(View view)throws JSONException{
 
