@@ -16,7 +16,7 @@
     <string name="backendButton">Go to app</string>
     <string name="userCreatedText">You\'ve succefully created a user!</string>
     <string name="backendText">Create your own quiz?\n Use the backend app</string>
-    <string name="errorMessageHub">You must have the app to start it</string>
+    <string name="errorMessageHub">Can\'t find the app on your device</string>
 
     <!-- Play activity -->
     <string name="Question_text">QuestionText</string>

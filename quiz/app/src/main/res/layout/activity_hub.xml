@@ -52,13 +52,21 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Användarnamn"
-        android:background="@drawable/bghubuserstats"
+        android:textColor="@color/textviewBG"
+        android:gravity="center"
+        android:background="@drawable/bghubusername"
         android:id="@+id/textView6"
-        android:layout_below="@+id/gridLayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignRight="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/gridLayout" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,16 +86,23 @@
         android:onClick="changeAppToBackend"
         android:id="@+id/button2"
         android:layout_above="@+id/button5"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/backendText"
-        android:gravity="center"
+        android:gravity="top"
+        android:paddingTop="20dp"
+        android:paddingBottom="80dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/bghubuserstats"
         android:id="@+id/textView8"
-        android:layout_above="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_marginBottom="-15dp"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
