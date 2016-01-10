@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Awesome Quiz"
+        android:background="@drawable/bghubusername"
         android:id="@+id/quizTitel"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/infoText"
+        android:background="@drawable/bghubuserstats"
         android:id="@+id/quizDesc"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
@@ -29,7 +31,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar"
+        android:background="@drawable/bghubuserstats"
+        android:numStars="5"
         android:rating="4.5"
+        android:paddingTop="10dp"
+        android:paddingBottom="100dp"
         android:isIndicator="true"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -41,20 +47,20 @@
         android:text="@string/intGames"
         android:id="@+id/playedNumber"
         android:textStyle="bold"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/ratingBar"
+        android:layout_marginLeft="40dp"
+        android:layout_alignStart="@+id/ratingBar" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+
         android:text="@string/textGames"
         android:id="@+id/textView4"
-        android:layout_marginBottom="47dp"
-        android:layout_above="@+id/textView5"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,10 +68,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/textVote"
         android:id="@+id/textView5"
-        android:layout_alignBaseline="@+id/votedNumber"
-        android:layout_alignBottom="@+id/votedNumber"
-        android:layout_alignLeft="@+id/ratingBar"
-        android:layout_alignStart="@+id/ratingBar" />
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,9 +79,10 @@
         android:text="@string/intVote"
         android:id="@+id/votedNumber"
         android:textStyle="bold"
-        android:layout_above="@+id/startQuiz"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/playedNumber"
+        android:layout_alignLeft="@+id/ratingBar"
+        android:layout_marginLeft="40dp"
+        android:layout_alignStart="@+id/ratingBar" />
 
     <Button
         android:layout_width="wrap_content"
@@ -86,15 +92,16 @@
         android:id="@+id/startQuiz"
         android:onClick="changePage"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/quizTitel"
-        android:layout_toEndOf="@+id/quizTitel" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ratingText"
         android:id="@+id/ratingText"
-        android:layout_below="@+id/ratingBar"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/startQuiz"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="43dp" />
 
 </RelativeLayout>
