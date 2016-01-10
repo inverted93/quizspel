@@ -246,6 +246,8 @@ public class play extends AppCompatActivity {
             b.putString("QuizRated", quizRated);
             b.putString("QuizPlayed", quizPlayed);
             b.putString("QuizID", quizID);
+            b.putString("corrA", "" + correctAnswers);
+            b.putString("nrOQ", "" + numberOfQuestions);
 
             Intent myIntent = new Intent(this, results.class);
             myIntent.putExtras(b);

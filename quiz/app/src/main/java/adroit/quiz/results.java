@@ -40,6 +40,8 @@ public class results extends AppCompatActivity {
         TextView scoreView = (TextView) findViewById(R.id.editText2);
         scoreView.setText(nf.format(score));
 
+        Log.d("Today", "Is shit create");
+        updateStats();
         //Lägg in rating här, skall endast gå att rate:a en gång per användare.
 
     }
@@ -47,6 +49,82 @@ public class results extends AppCompatActivity {
     public static void setJson(JSONObject j){
         jobj = j;
 
+    }
+
+    String quizId ="";
+    String correctAnswersStringDouble;
+    String answeredQuestionsString;
+
+    public void createJsonMembers(JSONArray membArr){
+
+        try{
+
+            JSONArray questArr = jobj.getJSONArray("Question");
+            JSONArray answerArr = jobj.getJSONArray("Answer");
+            JSONArray quizArr = jobj.getJSONArray("Quiz");
+
+            JSONObject finalObj = new JSONObject();
+            finalObj.put("Quiz", quizArr);
+            finalObj.put("Question", questArr);
+            finalObj.put("Answer", answerArr);
+            finalObj.put("Members", membArr);
+
+            updateData.setJson(finalObj);
+            MainActivity.runUpdate();
+            MainActivity.runRetrieve();
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateStats(){
+
+        quizId = getIntent().getExtras().getString("QuizID");
+        correctAnswersStringDouble = getIntent().getExtras().getString("corrA");
+        double correctAnswersDouble = Double.parseDouble(correctAnswersStringDouble);
+        int correctAnswersInt = (int) correctAnswersDouble;
+        answeredQuestionsString = getIntent().getExtras().getString("nrOQ");
+        int answeredQuestions = Integer.parseInt(answeredQuestionsString);
+
+        try{
+            JSONArray membArr = jobj.getJSONArray("Members");
+
+            Log.d("Today ", "is shit" + correctAnswersInt);
+            Log.d("Today ", "is shit" + answeredQuestions);
+            JSONObject newMemberObj = new JSONObject();
+
+            for(int i=0; i < membArr.length(); i++){
+
+                JSONObject tmp = membArr.getJSONObject(i);
+                String id = tmp.getString("UserID");
+
+                if(quizId.equals(id)){
+
+                    String qAOld = tmp.getString("QuestionsAnswered");
+                    String cAOld = tmp.getString("RightAnswers");
+                    int answeredQuestionOld = Integer.parseInt(qAOld);
+                    int correctAnswersOld = Integer.parseInt(cAOld);
+
+                    int qA = answeredQuestionOld + answeredQuestions;
+                    int cA = correctAnswersInt + correctAnswersOld;
+
+                    newMemberObj.put("UserID", id);
+                    newMemberObj.put("Email", tmp.getString("Email"));
+                    newMemberObj.put("Password", tmp.getString("Password"));
+                    newMemberObj.put("UserName", tmp.getString("UserName"));
+                    newMemberObj.put("QuestionsAnswered", ""+qA);
+                    newMemberObj.put("RightAnswers", ""+cA);
+
+                    membArr.put(i, newMemberObj);
+
+                }
+            }
+
+            createJsonMembers(membArr);
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -59,12 +137,10 @@ public class results extends AppCompatActivity {
 
         JSONObject tmpObj = new JSONObject();
 
-
         try{
 
             JSONArray quizArr = jobj.getJSONArray("Quiz");
             //quizArr
-
 
             for(int i=0;i<quizArr.length();i++){
 
@@ -77,7 +153,6 @@ public class results extends AppCompatActivity {
                     double rating = Double.parseDouble(ratingString);
                     double numbOfRatings = Double.parseDouble(numbOfRatingsString);
                     double numbOfRatingsFinal = numbOfRatings +1;
-
 
                     Double sum = (rating * numbOfRatings + usersRate)/numbOfRatingsFinal;
 
@@ -95,38 +170,18 @@ public class results extends AppCompatActivity {
                     newQuizObj.put("UserID", getIntent().getExtras().getString("userID"));
                     newQuizObj.put("Creationdate", getIntent().getExtras().getString("creationDate"));
 
-                    //Dessa ska in sen men intenterna funkar inte riktigt..
-
-
-
                     quizArr.put(i, newQuizObj);
-                   
-
                 }
-
-               // if(){
-
                     String playedString = tmpObj.getString("Played");
-
-
-                //}
-
-
-
             }
-
             createJson(quizArr);
-
         }catch(JSONException e){
-
             e.printStackTrace();
-
         }
     }
 
 
     public void createJson(JSONArray quizArr){
-
 
         try{
 
@@ -144,15 +199,9 @@ public class results extends AppCompatActivity {
             MainActivity.runUpdate();
             MainActivity.runRetrieve();
 
-
-
         }catch(JSONException e){
             e.printStackTrace();
         }
-
-
-
-
     }
 
 
