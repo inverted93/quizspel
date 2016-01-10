@@ -186,6 +186,9 @@ public class quizMain extends AppCompatActivity {
         for(int i=0; i<games.size(); i++){
             list.add(new SingleRow(title[i], rating[i], creator[i], ID[i]));
         }
+        //Vänder uppochner på listan så att det nyaste spelet hamnar längst upp
+        Collections.reverse(list);
+        
         //Här initieras SingleRow-listan i GameAdapter-klassen
         adapter1 = new GameAdapter(quizMain.this, list);
         gameList.setAdapter(adapter1);
