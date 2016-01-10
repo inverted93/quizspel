@@ -22,4 +22,10 @@
     <!-- bghubuserstatus -->
     <color name="hubuserstatusBorder">#462066</color>
 
+    <!-- bghubuserstatus -->
+    <color name="buttonstartcolor">#318cec</color>
+    <color name="buttonendcolor">#2466ac</color>
+    <color name="buttonbordercolor">#2a7ace</color>
+
+
 </resources>

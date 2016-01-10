@@ -82,9 +82,11 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:text="@string/backendButton"
+        android:textColor="@color/textviewBG"
         android:onClick="changeAppToBackend"
+        android:background="@drawable/bgbutton"
         android:id="@+id/button2"
         android:layout_above="@+id/button5"
         android:layout_centerHorizontal="true"
