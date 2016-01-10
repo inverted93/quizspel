@@ -157,10 +157,11 @@ public class MainActivity extends AppCompatActivity {
                         memberArrUpdateMember.put(updateMember);
                         Log.d("KollarTEst", memberArrUpdateMember.toString());
                         Log.d("KollarTEst2", jobj.toString());
-                        //createJson(memberArrUpdateMember);
+                        createJson(memberArrUpdateMember);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                 }
             });
 
@@ -181,6 +182,34 @@ public class MainActivity extends AppCompatActivity {
 
         }
         Log.d("Heeeej", "1");
+    }
+
+    public void createJson(JSONArray memberArr){
+
+        JSONObject jsonFinal = new JSONObject();
+
+        try{
+
+            JSONArray quizArr = jobj.getJSONArray("Quiz");
+            JSONArray questArr = jobj.getJSONArray("Question");
+            JSONArray ansArr = jobj.getJSONArray("Answer");
+
+            jsonFinal.put("Quiz", quizArr);
+            jsonFinal.put("Question", questArr);
+            jsonFinal.put("Answer", ansArr);
+            jsonFinal.put("Members", memberArr);
+
+            updateData.setJson(jsonFinal);
+            MainActivity.runUpdate();
+            MainActivity.runRetrieve();
+
+
+        }catch(JSONException e){
+
+            e.printStackTrace();
+
+        }
+
     }
 
     //Temporär onClick för emulatorn är så jävla långsam
