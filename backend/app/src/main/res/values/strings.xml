@@ -6,7 +6,14 @@
     <string name="doneQuestionButton">Done! Create Quiz</string>
     <string name="createNewQuestionButton">New Question</string>
 
-
+    <!-- Hub activity -->
+    <string name="createquizButton">Create Quiz</string>
+    <string name="myquizButton">My Quiz</string>
+    <string name="logOutButton">Log Out</string>
+    <string name="thequizButton">Go to app</string>
+    <string name="userCreatedText">You\'ve succefully created a user!</string>
+    <string name="thequizText">Tired of quizmaking?\nStart playing \"The Quiz\"</string>
+    <string name="errorMessageHub">Can\'t find the app on your device</string>
 
 
     <!-- Main activity -->

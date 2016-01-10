@@ -3,6 +3,11 @@
     <color name="colorPrimary">#148623</color>
     <color name="colorPrimaryDark">#148623</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="textviewColor">#000000</color>
+    <color name="textviewHintColor">#474356</color>
+    <color name="white">#ffffff</color>
+    <color name="test">#a5a5b6</color>
+    <color name="red">#ff0900</color>
 
     <!-- bgtextview -->
     <color name="textviewBG">#FCF4D9</color>
@@ -10,6 +15,9 @@
 
     <!-- bgtextviewfocused -->
     <color name="textviewBorderFocused">#2695e9</color>
+
+    <!-- bghubuserstatus -->
+    <color name="hubuserstatusBorder">#462066</color>
 
 
 
