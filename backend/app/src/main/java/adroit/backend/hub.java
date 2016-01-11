@@ -52,10 +52,9 @@ public class hub extends AppCompatActivity{
 
     public void fillStats(){
 
+
         id = getIntent().getExtras().getString("id");
 
-        Log.d("Rangers", "Conquers WestHam");
-        //TextView totView = (TextView)findViewById(R.id.textView4);
         TextView corrView = (TextView)findViewById(R.id.textView3);
 
         try{
