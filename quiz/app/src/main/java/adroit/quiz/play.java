@@ -204,9 +204,16 @@ public class play extends AppCompatActivity {
         Log.d("nextQueston", "10");
         userAnswers.add(questionAnswer);
 
-        int nrOfAnswers = answerNumber + 4; // gör 4 till class variabel typ nrOfQuestionsVisible eller guiAnswers.size();
+        /**
+         * for loopen kollar på platsen(nummer) efter den sista frågan i föregånde quiz, därför
+         * adderas det en 1:a på första platsen i loopen, och eftersom det är fyra frågor som skall
+         * visas varje gång ökas int nrOfAnswers med answersnumber
+         * (platsen på sista svarsalternativet i föregående fråga) + 5
+         */
+
+        int nrOfAnswers = answerNumber + 5;
         guiAnswers.clear();
-        for(int i = answerNumber ; i < nrOfAnswers ; i++) {
+        for(int i = (answerNumber +1) ; i < nrOfAnswers ; i++) {
             Log.d("innan get", "1");
             String guiAnswer = answers.get(i);
             Log.d("Efter get", "2");
