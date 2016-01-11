@@ -7,33 +7,44 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context="adroit.quiz.quizInfo">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Awesome Quiz"
-        android:background="@drawable/bghubusername"
-        android:id="@+id/quizTitel"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/infoText"
+        android:gravity="center"
         android:background="@drawable/bghubuserstats"
         android:id="@+id/quizDesc"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/ratingBar"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Awesome Quiz"
+        android:textColor="@color/textviewBG"
+        android:gravity="center"
+        android:background="@drawable/bghubusername"
+        android:id="@+id/quizTitel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"/>
 
     <RatingBar
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/ratingBar"
         android:background="@drawable/bghubuserstats"
+        android:paddingLeft="5dp"
         android:numStars="5"
         android:rating="4.5"
+        android:stepSize="0.1"
         android:paddingTop="10dp"
         android:paddingBottom="100dp"
         android:isIndicator="true"
@@ -49,18 +60,19 @@
         android:textStyle="bold"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/ratingBar"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="61dp"
         android:layout_alignStart="@+id/ratingBar" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-
         android:text="@string/textGames"
         android:id="@+id/textView4"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignLeft="@+id/ratingBar"
+        android:layout_alignStart="@+id/ratingBar"
+        android:layout_marginLeft="86dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,9 +92,8 @@
         android:id="@+id/votedNumber"
         android:textStyle="bold"
         android:layout_below="@+id/playedNumber"
-        android:layout_alignLeft="@+id/ratingBar"
-        android:layout_marginLeft="40dp"
-        android:layout_alignStart="@+id/ratingBar" />
+        android:layout_alignLeft="@+id/playedNumber"
+        android:layout_alignStart="@+id/playedNumber" />
 
     <Button
         android:layout_width="wrap_content"
@@ -91,17 +102,19 @@
         android:background="@drawable/bgbutton"
         android:id="@+id/startQuiz"
         android:onClick="changePage"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/ratingBar"
+        android:layout_marginTop="31dp"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_alignLeft="@+id/votedNumber"
+        android:layout_alignStart="@+id/votedNumber" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ratingText"
         android:id="@+id/ratingText"
-        android:layout_above="@+id/startQuiz"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp" />
+        android:layout_above="@+id/playedNumber"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
