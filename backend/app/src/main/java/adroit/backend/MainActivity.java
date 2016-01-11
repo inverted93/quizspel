@@ -278,37 +278,46 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
-
-
-
-
     }
 
 
 
 
-    public boolean getBool(String userName, String Email){
+    public boolean getBool(String userName, String email){
+        /*metoden används för attt se så att användarnamnet eller
+        emailen inte redan finns i databasen. Den kollar också
+         så att användaren har med ett @ i sin mailadress.*/
+        Boolean b = true;
+
+        if(!email.contains("@")){
+            //Kollar så att det finns ett @, sätter variabeln till false om det inte finns.
+            b = false;
+        }
 
         try{
+            JSONArray membArr = jobj.getJSONArray("Members");
+            /*hämtar ett Json objekt som används för att hämta användarnamn och email.
+             * Loopen jobbar igenom alla objekt och ser om användarnamnet eller emailen
+             * finns på något mer ställe */
+            for(int i=0; i<membArr.length();i++){
+                JSONObject tmp = membArr.getJSONObject(i);
+                String uNameFromJson = tmp.getString("UserName");
+                String emailFromJson = tmp.getString("Email");
 
-            JSONArray arrTmp = jobj.getJSONArray("Members");
+                if(userName.equals(uNameFromJson)||email.equals(emailFromJson)){
 
-            for(int i=0; i<arrTmp.length();i++){
-
-                arrTmp.getJSONObject(i);
-
-
+                    b= false;
+                    //Sätter variabeln till false om det redan finns ett
+                    // konto med det här användarnamnet eller emailen.
+                }
             }
 
         }catch(JSONException e){
 
             e.printStackTrace();
         }
-
-
-
-        return false;
+        return b;
+        //Returnerar boolean till anropande rad där de kan användas för varna användare
     }
 
 
