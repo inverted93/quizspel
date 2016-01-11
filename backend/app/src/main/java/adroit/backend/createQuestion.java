@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -27,7 +28,6 @@ public class createQuestion extends AppCompatActivity {
     static String quizTitle;
     static String quizDesc;
     static JSONObject jobj;
-    static String test="";
 
     RadioGroup radioGruppen;
     RadioButton radioKnappen;
@@ -108,10 +108,6 @@ public class createQuestion extends AppCompatActivity {
 
 
     public static void setJson(JSONObject j){
-
-        Log.d("VI KOMMERNS HIT VA", "??");
-
-        test="LOL";
 
         jobj= j;
 
@@ -380,13 +376,6 @@ public class createQuestion extends AppCompatActivity {
             nyQuiz.put("Creationdate", date);
 
 
-            Log.d("Star ", "Wars ep 1 " + nyQuiz.toString());
-            Log.d("Star ", "Wars ep 1.1 " + questArr.toString());
-
-
-
-            //Log.d("For those    ", "    about to plugg: " + tmp);   //tas bort sen
-
             // Question..
 
             JSONArray oldQuestArr = jobj.getJSONArray("Question");
@@ -395,26 +384,17 @@ public class createQuestion extends AppCompatActivity {
             JSONObject temporaryQuest = new JSONObject();
             ArrayList <String> ansList = new ArrayList<String>();
 
-            Log.d("Star ", "Wars ep 1.2 " + oldQuestArr.toString());
-            Log.d("Star ", "Wars ep 1.3 " + oldAnsArr.toString());
-            Log.d("Star ", "Wars ep 1.4 " + questArr.length());
-            Log.d("Star ", "Wars ep 1.5 " + ansArr.toString());
-
             for(int i=0; i<questArr.length()-1;i++){
 
                 temporaryAns = ansArr.getJSONObject(i+1);
                 temporaryQuest = questArr.getJSONObject(i+1);
                 int quesId = oldQuestArr.length()+1;
 
-                Log.d("Star " + temporaryQuest.toString(), "Wars ep 1.6 " + temporaryAns.toString());
-
                 JSONObject nyQuesJson = new JSONObject();
                 nyQuesJson.put("QueID", quesId);
                 nyQuesJson.put("QID", quizId);
                 nyQuesJson.put("qText", temporaryQuest.getString("question"));
                 oldQuestArr.put(nyQuesJson);
-
-                Log.d("Star ", "Wars ep 2 " + nyQuesJson.toString());
 
                 String a1 = temporaryAns.getString("ans1");
                 String a2 = temporaryAns.getString("ans2");
@@ -451,7 +431,7 @@ public class createQuestion extends AppCompatActivity {
                     nyAnsJson.put("aText", ansList.get(j));
                     nyAnsJson.put("rightAnswer", rightAnswerString); //Ska andras sa att den far ratt svar..
                     oldAnsArr.put(nyAnsJson);
-                    Log.d("Star ", "Wars ep 3 " + nyAnsJson.toString());
+
 
                 }
             }
@@ -469,41 +449,40 @@ public class createQuestion extends AppCompatActivity {
 
             e.printStackTrace();
         }
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
 
     public void done(View v){
 
+        /*När done knappen har tryckts och quizen ska skapas.
+        * om alla fällt är ifyllda och quizet består av minst två frågor*/
         Boolean b = checkIfEmpty();
 
         if(b==true){
 
-            getText();
+            if(questArr.length()>=2){
+
+                getText();
+
+                createJSON();
+                ansArr = new JSONArray(); //Rensar listorna ifran tmp datan..
+                questArr = new JSONArray();
+                radioArr.clear();
+
+                Intent myIntent = new Intent(this, hub.class);
+                startActivity(myIntent); //Skickar tillbaka anvandaren till hub.
+
+            }else{
+                TextView info = (TextView) findViewById(R.id.textView10);
+                info.setVisibility(View.VISIBLE);
+                /*Sätter informationsfältet till synligt informerar
+                användaren om att man myste göra fler än två frågor*/
+            }
         }
 
 
-        createJSON();
 
 
-        ansArr = new JSONArray(); //Rensar listorna ifran tmp datan..
-        questArr = new JSONArray();
-        radioArr.clear();
 
-        Intent myIntent = new Intent(this, hub.class);
-        startActivity(myIntent); //Skickar tillbaka anvandaren till hub.
     }
 
 

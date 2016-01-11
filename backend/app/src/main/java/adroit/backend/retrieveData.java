@@ -26,24 +26,9 @@ public class retrieveData extends AsyncTask<String, String, String> {
     String ab;
     JSONObject jobjResp;
 
-
-
-
-
     static InputStream stream = null;
     static JSONObject jobj=null;
     static String json = "";
-
-
-    public void changeJSON(){
-
-
-
-
-
-    }
-
-
 
     @Override
     protected String doInBackground(String... arg0){
@@ -51,7 +36,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
         try{
 
-            jobjResp= requestJson("https://api.myjson.com/bins/36jy3");
+            jobjResp= requestJson("https://api.myjson.com/bins/40ht5");
 
 
         }catch(JSONException e){
@@ -70,15 +55,9 @@ public class retrieveData extends AsyncTask<String, String, String> {
         stream = new URL(url).openStream();
 
 
-
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-8")));
         json = readAll(reader);   //anropar metoden neranför som bugger en string av BufferedReadern
         jobj = new JSONObject(json); //skapar ett nytt JSON-objekt av stringen.
-
-
-
-
 
         Log.d("Vi kom in i metoden", "1" + json.toString());
 

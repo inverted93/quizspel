@@ -9,25 +9,30 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".hub" >
+        <activity android:name=".hub"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".createQuiz" >
+        <activity android:name=".createQuiz"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".createQuestion" >
+        <activity android:name=".createQuestion"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".myQuiz" >
+        <activity android:name=".myQuiz"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Main2Activity" >
-        </activity>
-        <activity android:name=".backendQuizInfo" >
+
+        <activity android:name=".backendQuizInfo"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

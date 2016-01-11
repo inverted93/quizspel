@@ -67,7 +67,7 @@ public class updateData extends AsyncTask<String, String, String>{
 
 
             try{
-                URL u = new URL("https://api.myjson.com/bins/36jy3");
+                URL u = new URL("https://api.myjson.com/bins/40ht5");
                 HttpURLConnection conn = (HttpURLConnection) u.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestMethod("PUT");

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -23,12 +24,12 @@ public class hub extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
-        ((TextView) findViewById(R.id.textView7)).setVisibility(4);
+        ((TextView) findViewById(R.id.textView7)).setVisibility(View.INVISIBLE);
         fillStats();
     }
 
 
-    String id = "1";
+    String id = MainActivity.getId();
 
     static JSONObject jobj = new JSONObject();
 
@@ -45,7 +46,8 @@ public class hub extends AppCompatActivity{
         }
         catch (Exception e) {
             ((TextView) findViewById(R.id.textView7)).setText(getString(R.string.errorMessageHub));
-            ((TextView) findViewById(R.id.textView7)).setVisibility(0);
+            ((TextView) findViewById(R.id.textView7)).setVisibility(View.VISIBLE);
+
         }
     }
 
@@ -53,7 +55,6 @@ public class hub extends AppCompatActivity{
     public void fillStats(){
 
 
-        id = getIntent().getExtras().getString("id");
 
         TextView corrView = (TextView)findViewById(R.id.textView3);
 
@@ -71,14 +72,8 @@ public class hub extends AppCompatActivity{
 
                     qA = tmpObj.getString("QuestionsAnswered");
                     cA = tmpObj.getString("RightAnswers");
-
                 }
-
             }
-
-            Log.d("Rangers", "Conquers WestHam" + qA);
-            Log.d("Rangers", "Conquers WestHam" + cA);
-            //totView.setText(qA);
 
             double qADouble = Double.parseDouble(qA);
             double cADouble = Double.parseDouble(cA);
@@ -89,23 +84,14 @@ public class hub extends AppCompatActivity{
 
             corrView.setText("Questions answered\n" + qA + "\n\nRight answers percentage\n" + percent + "%");
 
-
         }catch(JSONException e){
             e.printStackTrace();
         }
-
-
-
-
-
-
     }
-
 
     public void changePage(View v){
 
         Intent myIntent = new Intent(this, createQuiz.class);
-
         startActivity(myIntent);
 
     }

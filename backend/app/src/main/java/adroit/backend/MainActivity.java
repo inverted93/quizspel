@@ -244,9 +244,6 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("1. ", "2" + memberArr.length());
 
-
-
-
             for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
 
 
@@ -254,16 +251,16 @@ public class MainActivity extends AppCompatActivity {
                 uName = tmpJ.getString("UserName");
                 password = tmpJ.getString("Password");
 
-
-                if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
+                //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
+                if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {// Vi ska ta bort funktionen som bara loggar in sen..
 
                     id = tmpJ.getString("UserID");
                     Intent myIntent = new Intent(this, hub.class);
-                    Bundle b = new Bundle();
+                    /*Bundle b = new Bundle();
                     b.putString("id",id);
-                    myIntent.putExtras(b);
+                    myIntent.putExtras(b);*/
                     startActivity(myIntent);
-                    checkErrorMsg = true; //!!!
+                    checkErrorMsg = true;
                     break;
 
                 } else {
@@ -290,6 +287,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+    public boolean getBool(String userName, String Email){
+
+        try{
+
+            JSONArray arrTmp = jobj.getJSONArray("Members");
+
+            for(int i=0; i<arrTmp.length();i++){
+
+                arrTmp.getJSONObject(i);
+
+
+            }
+
+        }catch(JSONException e){
+
+            e.printStackTrace();
+        }
+
+
+
+        return false;
+    }
 
 
 

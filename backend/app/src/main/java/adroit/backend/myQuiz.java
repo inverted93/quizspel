@@ -29,15 +29,6 @@ public class myQuiz extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +38,16 @@ public class myQuiz extends AppCompatActivity {
 
             JSONArray quizArray = json.getJSONArray("Quiz");
             for(int i = 0; i<quizArray.length();i++){
+                Log.d("RIP" + idInt, "fritid");
                 JSONObject quizObj = quizArray.getJSONObject(i);
+                Log.d("RIP" + idInt, "fritid" + quizObj.toString());
+
+
                 String name = quizObj.getString("Name"); //Hittar namnet
                 String id = quizObj.getString("UserID"); //Hittar id
-
-                if(idInt.equals(id)){ //Lagger bara till de som har samma id
+                Log.d("RIP" + idInt, "fritid" + id);
+                if(idInt.equals(id)){
+                    //Lagger bara till de som har samma id
                     games.add(name);
                 }
             }
