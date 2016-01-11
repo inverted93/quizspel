@@ -61,6 +61,7 @@
         android:layout_height="wrap_content"
         android:text="@string/createButtonString"
         android:id="@+id/creatUser"
+        android:background="@drawable/bgbutton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -72,6 +73,7 @@
         android:text="@string/loginButtonString"
         android:id="@+id/loginButton"
         android:onClick="login"
+        android:background="@drawable/bgbutton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -86,6 +88,38 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
         android:background="@drawable/bgchoosertextview"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="The\nQuiz"
+        android:textSize="80dp"
+        android:textStyle="bold"
+        android:textColor="@color/textviewBG"
+        android:lineSpacingExtra="-30dp"
+        android:gravity="center"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Backend"
+        android:textSize="30dp"
+        android:rotation="-30"
+        android:textStyle="bold"
+        android:textColor="@color/textviewBorderFocused"
+        android:lineSpacingExtra="-30dp"
+        android:gravity="center"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/email"
+        android:layout_marginBottom="25dp"
+        android:layout_alignRight="@+id/email"
+        android:layout_marginRight="0dp"
+        android:layout_alignEnd="@+id/email" />
 
    <!-- Knappen knuten till ny användare-->
 

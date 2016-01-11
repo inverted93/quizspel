@@ -11,13 +11,13 @@
 
     <!-- bgtextview -->
     <color name="textviewBG">#FCF4D9</color>
-    <color name="textviewBorder">#58b064</color>
+    <color name="textviewBorder">#bd005151</color>
 
     <!-- bgtextviewfocused -->
     <color name="textviewBorderFocused">#2695e9</color>
 
     <!-- bghubuserstatus -->
-    <color name="hubuserstatusBorder">#462066</color>
+    <color name="hubuserstatusBorder">#CDBB79</color>
 
 
 
