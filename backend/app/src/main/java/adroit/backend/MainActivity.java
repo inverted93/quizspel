@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+    /*Deklaration av edittexterna(TExtfälten) till create user*/
     EditText editUsername;
     EditText editPassword;
     EditText editEmail;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void userCreate(View view) throws JSONException{
 
-
+        /*Edit texterna knyts til vissa textfält*/
         editUsername = (EditText)findViewById(R.id.usernameInput);
         editPassword = (EditText)findViewById(R.id.password);
         editEmail = (EditText)findViewById(R.id.email);
@@ -134,38 +134,48 @@ public class MainActivity extends AppCompatActivity {
             newUser.setText(R.string.loginButtonString);
             login.setText(R.string.userCreate);
             switcher = true;
-
+            //Knappen som ska anändas till onklick deklareras
             Button b = (Button)findViewById(R.id.loginButton);
 
             //Hämtar input när användaren skapar att nytt account
-
+            /*Onklick deklareras*/
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
+                    /*Stringar deklareras för att kunna ta emot input
+                    * från användaren när denna trycke rpå create member kanppen.*/
                     String stringUsername = editUsername.getText().toString();
                     String stringPassword = editPassword.getText().toString();
                     String stringEmail = editEmail.getText().toString();
 
+                    /*Loggar där programmeraren kan se om inputen kom till stringarna*/
                     Log.d("Fiskmås1", stringEmail);
                     Log.d("Fiskmås2", stringPassword);
                     Log.d("Fiskmås3", stringUsername);
 
-                    //Skapar JSONObjektet som alla put kommer att laggas i.
+                    /*Skapar JSONObjektet som alla put kommer att laggas i.*/
                     JSONObject updateMember = new JSONObject();
 
                     try {
 
                         JSONArray memberArr = jobj.getJSONArray("Members");
 
+                        /*Int length som får datan av hur många objekt som finns i JSONdatan.
+                        *DEnna int används sedan för att ge den nya membern sin UserID
+                        */
                         int length = memberArr.length() +1;
 
+                        /*Här läggs den nya användar datan
+                        *in i JSONObjektet
+                        *updateMember.*/
                         updateMember.put("UserID" , length);
                         updateMember.put("Email", stringEmail);
                         updateMember.put("Password", stringPassword);
                         updateMember.put("Username", stringUsername);
                         updateMember.put("QuestionsAnswered" , "0");
                         updateMember.put("RightAnswers" , "0");
+                        /*Catch för JSONobjekten*/
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.d("Create member UserID", "fel med id");
@@ -175,11 +185,15 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("TEstDronten", updateMember.toString());
 
                     /*Hämtar först ut alla Members ur JSON filen. Lägger sedan till all ny input i arrayen
-                     Detta då en vanlig put skriver över dom existerade objekten i JSON filen */
+                     *Detta då en vanlig put skriver över dom existerade objekten i JSON filen */
 
                     try {
                         JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
                         memberArrUpdateMember.put(updateMember);
+
+                        /*Loggar där utvecklaren kan se om inputen kom in i
+                        * member arrayen inom JSON datan och se om hela JSON
+                        * datan uppdaterades.*/
                         Log.d("KollarTEst", memberArrUpdateMember.toString());
                         Log.d("KollarTEst2", jobj.toString());
                         createJson(memberArrUpdateMember);
@@ -187,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+            /*Onklick slutar*/
             });
 
         }else{
@@ -195,10 +210,6 @@ public class MainActivity extends AppCompatActivity {
             login.setText(R.string.loginButtonString);
             switcher = false;
         }
-
-
-
-
 
 
         Log.d("Heeeej", "1");
