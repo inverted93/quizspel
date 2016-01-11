@@ -100,70 +100,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (switcher == false) {
 
-            editUsername = (EditText)findViewById(R.id.usernameInput);
-            editPassword = (EditText)findViewById(R.id.password);
-            editEmail = (EditText)findViewById(R.id.email);
+
 
             userName.setVisibility(View.VISIBLE);
             newUser.setText(R.string.loginButtonString);
             login.setText(R.string.userCreate);
             switcher = true;
 
-            userName = (EditText) findViewById(R.id.usernameInput);
 
-            Button b = (Button)findViewById(R.id.loginButton);
-
-
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    String stringUsername = editUsername.getText().toString();
-                    String stringPassword = editPassword.getText().toString();
-                    String stringEmail = editEmail.getText().toString();
-
-                    Log.d("Fiskmås1", stringEmail);
-                    Log.d("Fiskmås2", stringPassword);
-                    Log.d("Fiskmås3", stringUsername);
-
-                    //Skapar JSONObjektet som alla put kommer att laggas i.
-                    JSONObject updateMember = new JSONObject();
-
-                    try {
-
-                        JSONArray memberArr = jobj.getJSONArray("Members");
-
-                        int length = memberArr.length() +1;
-
-                        updateMember.put("UserID" , length);
-                        updateMember.put("Email", stringEmail);
-                        updateMember.put("Password", stringPassword);
-                        updateMember.put("Username", stringUsername);
-                        updateMember.put("QuestionsAnswered" , "0");
-                        updateMember.put("RightAnswers" , "0");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member UserID", "fel med id");
-                    }
-
-
-                    Log.d("TEstDronten", updateMember.toString());
-
-                    /*Hämtar först ut alla Members ur JSON filen. Lägger sedan till all ny input i arrayen
-                     Detta då en vanlig put skriver över dom existerade objekten i JSON filen */
-
-                    try {
-                        JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
-                        memberArrUpdateMember.put(updateMember);
-                        Log.d("KollarTEst", memberArrUpdateMember.toString());
-                        Log.d("KollarTEst2", jobj.toString());
-                        createJson(memberArrUpdateMember);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
 
 
 
@@ -269,10 +213,64 @@ public class MainActivity extends AppCompatActivity {
 
         }else{
             //Här ska vara kod för att skapa användare
-        }
-    }
 
-}
+            editUsername = (EditText)findViewById(R.id.usernameInput);
+            editPassword = (EditText)findViewById(R.id.password);
+            editEmail = (EditText)findViewById(R.id.email);
+
+
+                    String stringUsername = editUsername.getText().toString();
+                    String stringPassword = editPassword.getText().toString();
+                    String stringEmail = editEmail.getText().toString();
+
+                    Log.d("Fiskmås1", stringEmail);
+                    Log.d("Fiskmås2", stringPassword);
+                    Log.d("Fiskmås3", stringUsername);
+
+                    //Skapar JSONObjektet som alla put kommer att laggas i.
+                    JSONObject updateMember = new JSONObject();
+
+                    try {
+
+                        JSONArray memberArr = jobj.getJSONArray("Members");
+
+                        int length = memberArr.length() +1;
+
+                        updateMember.put("UserID" , length);
+                        updateMember.put("Email", stringEmail);
+                        updateMember.put("Password", stringPassword);
+                        updateMember.put("Username", stringUsername);
+                        updateMember.put("QuestionsAnswered" , "0");
+                        updateMember.put("RightAnswers" , "0");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.d("Create member UserID", "fel med id");
+                    }
+
+
+                    Log.d("TEstDronten", updateMember.toString());
+
+                    /*Hämtar först ut alla Members ur JSON filen. Lägger sedan till all ny input i arrayen
+                     Detta då en vanlig put skriver över dom existerade objekten i JSON filen */
+
+                    try {
+                        JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
+                        memberArrUpdateMember.put(updateMember);
+                        Log.d("KollarTEst", memberArrUpdateMember.toString());
+                        Log.d("KollarTEst2", jobj.toString());
+                        createJson(memberArrUpdateMember);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+
+        }
+
+
+
 class retrieveData extends AsyncTask<String, String, String> {
 
 
