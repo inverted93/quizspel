@@ -286,7 +286,7 @@ class retrieveData extends AsyncTask<String, String, String> {
     protected String doInBackground(String... arg0){
 
         try{
-            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/58xch");
+            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1kfd1");
 
         }catch(JSONException e){
             e.printStackTrace();

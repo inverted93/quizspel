@@ -51,9 +51,10 @@ public class results extends AppCompatActivity {
 
     }
 
-    String quizId ="";
+    String loginId = "1";
     String correctAnswersStringDouble;
     String answeredQuestionsString;
+    String played = "1";
 
     public void createJsonMembers(JSONArray membArr){
 
@@ -80,7 +81,8 @@ public class results extends AppCompatActivity {
 
     public void updateStats(){
 
-        quizId = getIntent().getExtras().getString("QuizID");
+        loginId = MainActivity.getId();
+        String quizId = getIntent().getExtras().getString("QuizID");
         correctAnswersStringDouble = getIntent().getExtras().getString("corrA");
         double correctAnswersDouble = Double.parseDouble(correctAnswersStringDouble);
         int correctAnswersInt = (int) correctAnswersDouble;
@@ -89,6 +91,7 @@ public class results extends AppCompatActivity {
 
         try{
             JSONArray membArr = jobj.getJSONArray("Members");
+            JSONArray quizArr = jobj.getJSONArray("Quiz");
 
             Log.d("Today ", "is shit" + correctAnswersInt);
             Log.d("Today ", "is shit" + answeredQuestions);
@@ -96,13 +99,14 @@ public class results extends AppCompatActivity {
 
             for(int i=0; i < membArr.length(); i++){
 
-                JSONObject tmp = membArr.getJSONObject(i);
-                String id = tmp.getString("UserID");
+                JSONObject tmpMembArr = membArr.getJSONObject(i);
+                String id = tmpMembArr.getString("UserID");
 
-                if(quizId.equals(id)){
+                if(loginId.equals(id)){
+                    Log.d("Miami", "is da shit Stats");
 
-                    String qAOld = tmp.getString("QuestionsAnswered");
-                    String cAOld = tmp.getString("RightAnswers");
+                    String qAOld = tmpMembArr.getString("QuestionsAnswered");
+                    String cAOld = tmpMembArr.getString("RightAnswers");
                     int answeredQuestionOld = Integer.parseInt(qAOld);
                     int correctAnswersOld = Integer.parseInt(cAOld);
 
@@ -110,18 +114,44 @@ public class results extends AppCompatActivity {
                     int cA = correctAnswersInt + correctAnswersOld;
 
                     newMemberObj.put("UserID", id);
-                    newMemberObj.put("Email", tmp.getString("Email"));
-                    newMemberObj.put("Password", tmp.getString("Password"));
-                    newMemberObj.put("UserName", tmp.getString("UserName"));
+                    newMemberObj.put("Email", tmpMembArr.getString("Email"));
+                    newMemberObj.put("Password", tmpMembArr.getString("Password"));
+                    newMemberObj.put("UserName", tmpMembArr.getString("UserName"));
                     newMemberObj.put("QuestionsAnswered", ""+qA);
                     newMemberObj.put("RightAnswers", ""+cA);
 
                     membArr.put(i, newMemberObj);
+                    createJsonMembers(membArr);
 
                 }
-            }
+                    JSONObject tmpQuizArr = quizArr.getJSONObject(i);
+                    String quizIdFromJson = tmpQuizArr.getString("QID");
 
-            createJsonMembers(membArr);
+                if(quizId.equals(quizIdFromJson)){
+
+                    JSONObject newQuizObj = new JSONObject();
+
+                    String quizPlayed = getIntent().getExtras().getString("QuizPlayed");
+                    int playedInt = Integer.parseInt(quizPlayed);
+                    int playedIntFinal = playedInt +1;
+                    played = ""+playedIntFinal;
+                    Log.d("Miami", "den metoden" + playedIntFinal);
+
+                    newQuizObj.put("QID", quizId);
+                    newQuizObj.put("Name", getIntent().getExtras().getString("QuizTitle"));
+                    newQuizObj.put("Description", getIntent().getExtras().getString("QuizDesc"));
+                    newQuizObj.put("Rating", getIntent().getExtras().getString("QuizRating"));
+                    newQuizObj.put("Rated", getIntent().getExtras().getString("QuizRated"));
+                    newQuizObj.put("Played", ""+playedIntFinal);
+                    newQuizObj.put("UserID", tmpQuizArr.getString("UserID"));
+                    newQuizObj.put("Creationdate", tmpQuizArr.getString("Creationdate"));
+
+                    quizArr.put(i, newQuizObj);
+                    createJson(quizArr);
+
+                    Log.d("Miami", "den metoden" + playedIntFinal + newQuizObj.toString());
+                }
+            }
         }catch(JSONException e){
             e.printStackTrace();
         }
@@ -148,13 +178,16 @@ public class results extends AppCompatActivity {
                 String id = tmpObj.getString("QID");
                 if(id.equals(quizId)){
 
+                    Log.d("Miami", "is da shit Rating");
                     String ratingString = tmpObj.getString("Rating");
                     String numbOfRatingsString = tmpObj.getString("Rated");
                     double rating = Double.parseDouble(ratingString);
                     double numbOfRatings = Double.parseDouble(numbOfRatingsString);
                     double numbOfRatingsFinal = numbOfRatings +1;
+                    String numbOfRatingsFinalString = "" +numbOfRatingsFinal;
 
                     Double sum = (rating * numbOfRatings + usersRate)/numbOfRatingsFinal;
+                    String summa = "" + sum;
 
                     Log.d("Rating", "tja lol" + sum);
                     Log.d("Rating", "He" + rating + numbOfRatings + usersRate);
@@ -164,17 +197,18 @@ public class results extends AppCompatActivity {
                     newQuizObj.put("QID", id);
                     newQuizObj.put("Name", getIntent().getExtras().getString("QuizTitle"));
                     newQuizObj.put("Description", getIntent().getExtras().getString("QuizDesc"));
-                    newQuizObj.put("Rating", sum);
-                    newQuizObj.put("Rated", numbOfRatings +1);
-                    newQuizObj.put("Played", getIntent().getExtras().getString("QuizPlayed"));
-                    newQuizObj.put("UserID", getIntent().getExtras().getString("userID"));
-                    newQuizObj.put("Creationdate", getIntent().getExtras().getString("creationDate"));
+                    newQuizObj.put("Rating", summa);
+                    newQuizObj.put("Rated", numbOfRatingsFinalString);
+                    newQuizObj.put("Played", played);
+                    newQuizObj.put("UserID", tmpObj.getString("UserID"));
+                    newQuizObj.put("Creationdate", tmpObj.getString("Creationdate"));
 
                     quizArr.put(i, newQuizObj);
                 }
                     String playedString = tmpObj.getString("Played");
             }
             createJson(quizArr);
+            backToHub(view);
         }catch(JSONException e){
             e.printStackTrace();
         }
@@ -194,6 +228,8 @@ public class results extends AppCompatActivity {
             finalObj.put("Question", questArr);
             finalObj.put("Answer", answerArr);
             finalObj.put("Members", membersArr);
+
+            Log.d("Miami", "Sucks" + finalObj.toString());
 
             updateData.setJson(finalObj);
             MainActivity.runUpdate();
@@ -247,5 +283,18 @@ public class results extends AppCompatActivity {
         overridePendingTransition(0, 0);
 
     }
+
+    public void backToHub(View v){
+
+        Intent i = new Intent(this, hub.class);
+        startActivity(i);
+        finish();
+        overridePendingTransition(0, 0);
+
+
+    }
+
+
+
 
 }

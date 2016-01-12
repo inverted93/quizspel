@@ -41,11 +41,17 @@ public class quizInfo extends AppCompatActivity {
             quizPlayed = getIntent().getExtras().getString("QuizPlayed");
             quizID = getIntent().getExtras().getString("QuizID");
 
+            //Nedan parsas Stringen om till en double för att den sedan
+            // ska kunna omvandlas till en int. Detta eftersom den kommer i formatet
+            // ##.# och det inte ser snyggt ut i layouten om den förblir i det formatet.
+            Double quizRatedTmp = Double.parseDouble(quizRated);
+            int quizRatedInt = quizRatedTmp.intValue();
+
             quizTitel.setText(quizTitle);
             desc.setText(quizDesc);
             ratingBar.setRating(Float.parseFloat(quizRating));
             playedNumber.setText(quizPlayed);
-            votedNumber.setText(quizRated);
+            votedNumber.setText(""+quizRatedInt);
     }
 
     //Skickar vidare värdena till nästa aktivitet (play)
