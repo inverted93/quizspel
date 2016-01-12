@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#148623</color>
-    <color name="colorPrimaryDark">#148623</color>
+    <color name="colorPrimary">#002929</color>
+    <color name="colorPrimaryDark">#002929</color>
     <color name="colorAccent">#FF4081</color>
     <color name="textviewColor">#000000</color>
     <color name="textviewHintColor">#474356</color>
@@ -14,7 +14,7 @@
     <color name="textviewBorder">#bd005151</color>
 
     <!-- bgtextviewfocused -->
-    <color name="textviewBorderFocused">#2695e9</color>
+    <color name="textviewBorderFocused">#CDBB79</color>
 
     <!-- bghubuserstatus -->
     <color name="hubuserstatusBorder">#CDBB79</color>
