@@ -168,13 +168,9 @@ public class createQuestion extends AppCompatActivity {
                 ansTmp.put("ans4", ans4String);
                 ansTmp.put("facit", radioId);
                 ansArr.put(pc, ansTmp);
-
-
+                
                 //Log.d("1111111", "347624978387" + radioId);
                 //radioArr.add(pc, radioId);
-
-
-
 
             } catch (JSONException e) {
 
@@ -215,13 +211,9 @@ public class createQuestion extends AppCompatActivity {
             ans3.setText(a3);
             ans4.setText(a4);
 
-
-
             //int idTmp = radioArr.get(pc);
 
             setRadio(facitInt);
-
-
 
             Log.d("909", " 808" + a1 + a2 + a3 + a4);
 
@@ -230,16 +222,6 @@ public class createQuestion extends AppCompatActivity {
         }
 
     }
-
-
-    public void Create(){
-
-
-
-    }
-
-
-
 
     public void getStrings(){
 
@@ -261,7 +243,6 @@ public class createQuestion extends AppCompatActivity {
 
         radioId=getRadio();
 
-
     }
 
     public void clearHint(){
@@ -272,9 +253,7 @@ public class createQuestion extends AppCompatActivity {
         ans3.setHint("");
         ans4.setHint("");
 
-
     }
-
 
     public Boolean checkIfEmpty(){
 
@@ -309,10 +288,7 @@ public class createQuestion extends AppCompatActivity {
     }
 
 
-
-
     public void next(View v){
-
 
         //int i = getRadio();
         //Log.d("Whebpiufabjnjkads", "Okej" + i);
@@ -327,12 +303,8 @@ public class createQuestion extends AppCompatActivity {
             fillFields();
             Button prevButton = (Button) findViewById(R.id.button8);
             prevButton.setVisibility(View.VISIBLE);
-
         }
-
     }
-
-
 
     public void prev(View v){
         clearHint();
@@ -346,17 +318,11 @@ public class createQuestion extends AppCompatActivity {
             Button prevButton = (Button) findViewById(R.id.button8);
             prevButton.setVisibility(View.INVISIBLE);
         }
-
-
     }
-
 
     public void createJSON(){
 
-
-
         try{
-
 
             Date d = new Date();
             String date = new SimpleDateFormat("yyyyMMdd").format(d);
@@ -437,8 +403,6 @@ public class createQuestion extends AppCompatActivity {
             }
 
             addJsonObj(nyQuiz, oldQuestArr, oldAnsArr);
-
-
 
         }catch(JSONException e){
 
