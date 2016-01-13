@@ -72,6 +72,8 @@ public class createQuiz extends AppCompatActivity {
 
             myIntent.putExtras(b);
             startActivity(myIntent);
+            finish();
+            overridePendingTransition(0,0);
         }
 
 
@@ -95,6 +97,27 @@ public class createQuiz extends AppCompatActivity {
         return s;
     }
 
+    public void changePageToMain(View view){
+
+        Intent myIntent = new Intent(this, MainActivity.class);
+        startActivity(myIntent);
+        finish();
+        overridePendingTransition(0, 0);
+
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+
+        super.onBackPressed();
+
+        Intent i = new Intent(this, hub.class);
+        startActivity(i);
+        finish();
+        overridePendingTransition(0, 0);
+
+    }
 
 
 
