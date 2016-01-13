@@ -76,7 +76,7 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:text="@string/thequizButton"
         android:textColor="@color/textviewBG"
         android:onClick="changeAppToTheQuiz"
@@ -84,7 +84,7 @@
         android:background="@drawable/bgbuttonhub"
         android:layout_above="@+id/button5"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp" />
+        android:layout_marginBottom="85dp" />
 
     <TextView
         android:layout_width="wrap_content"

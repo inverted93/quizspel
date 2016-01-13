@@ -27,5 +27,8 @@
     <color name="buttonendcolor">#2466ac</color>
     <color name="buttonbordercolor">#2a7ace</color>
 
+    <!-- bgbuttonhub -->
+    <color name="buttonhubstartcolor">#e4622d</color>
+    <color name="buttonhubBorder">#d65c2b</color>
 
 </resources>
