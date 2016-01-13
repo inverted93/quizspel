@@ -57,7 +57,8 @@ public class createQuestion extends AppCompatActivity {
             }
         });
     }
-
+    /*Deklarerar radiobuttons som ska användas för att v
+    * isa vilket svar som är den rätta*/
     RadioButton r1;
     RadioButton r2;
     RadioButton r3;
@@ -67,6 +68,7 @@ public class createQuestion extends AppCompatActivity {
 
         int id=0;
 
+        /*RadioButtons tilldelas en RadioButton genom det id dom har*/
         r1 = (RadioButton) findViewById(R.id.radioButton1);
         r2 = (RadioButton) findViewById(R.id.radioButton2);
         r3 = (RadioButton) findViewById(R.id.radioButton3);
@@ -89,7 +91,7 @@ public class createQuestion extends AppCompatActivity {
             id = R.id.radioButton4;
         }
 
-
+        //Redrunerar vilket svar som är rätt
         return id;
     }
 
