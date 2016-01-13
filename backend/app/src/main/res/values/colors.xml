@@ -19,6 +19,9 @@
     <!-- bghubuserstatus -->
     <color name="hubuserstatusBorder">#CDBB79</color>
 
+    <!-- bgbuttonhub -->
+    <color name="hubButtonborder">#978a58</color>
+    <color name="hubButtongradient">#afa067</color>
 
 
 
