@@ -3,6 +3,8 @@ package adroit.backend;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     static JSONObject jobj;
     static String id;
     static boolean errorOccured = false;
+    private CharSequence toastText;
 
 
     public static void setJson(JSONObject j){
@@ -52,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void networkCheck(){
+
+        /*
+        Boolean b1 = getBool("", "fadsgfa", "gsdfg");
+        Boolean b2 = getBool("sgf", "gfdg", "");
+        Boolean b3 = getBool("@gsdfgkmdsf", "sdfg", "");
+        Log.d("Matilda", "hej" + b1 + b2 + b3);*/
 
         if(jobj==null){
             errorOccured =true;
@@ -132,185 +141,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    public void userCreate(View view) throws JSONException{
-
-        networkCheck();
-        if(errorOccured==true){
-            runRetrieve();
-        }
-        /*Edit texterna knyts til vissa textfält*/
-        editUsername = (EditText)findViewById(R.id.usernameInput);
-        editPassword = (EditText)findViewById(R.id.password);
-        editEmail = (EditText)findViewById(R.id.email);
-
-        //createQuestion.createJSON();
-
-        EditText userName = (EditText) findViewById(R.id.usernameInput);
-        Button newUser = (Button) findViewById(R.id.creatUser);
-        Button login = (Button) findViewById(R.id.loginButton);
-
-
-        if (switcher == false) {
-
-
-
-            userName.setVisibility(View.VISIBLE);
-            newUser.setText(R.string.loginButtonString);
-            login.setText(R.string.userCreate);
-            switcher = true;
-            //Knappen som ska anändas till onklick deklareras
-            Button b = (Button)findViewById(R.id.loginButton);
-
-            //Hämtar input när användaren skapar att nytt account
-            /*Onklick deklareras*/
-            b.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    /*Stringar deklareras för att kunna ta emot input
-                    * från användaren när denna trycke rpå create member kanppen.*/
-                    String stringUsername = editUsername.getText().toString();
-                    String stringPassword = editPassword.getText().toString();
-                    String stringEmail = editEmail.getText().toString();
-
-                    Boolean boolTmp = getBool(stringUsername, stringEmail, stringPassword);
-                    if(boolTmp==true){
-
-
-
-                    /*Loggar där programmeraren kan se om inputen kom till stringarna*/
-                    Log.d("Fiskmås1", stringEmail);
-                    Log.d("Fiskmås2", stringPassword);
-                    Log.d("Fiskmås3", stringUsername);
-
-                    /*Skapar JSONObjektet som alla put kommer att laggas i.*/
-                    JSONObject updateMember = new JSONObject();
-
-                    try {
-
-                        JSONArray memberArr = jobj.getJSONArray("Members");
-
-                        /*Int length som får datan av hur många objekt som finns i JSONdatan.
-                        *DEnna int används sedan för att ge den nya membern sin UserID
-                        */
-                        int length = memberArr.length() +1;
-
-                        /*Här läggs den nya användar datan
-                        *in i JSONObjektet
-                        *updateMember.*/
-                        updateMember.put("UserID" , length);
-                        updateMember.put("Email", stringEmail);
-                        updateMember.put("Password", stringPassword);
-                        updateMember.put("Username", stringUsername);
-                        updateMember.put("QuestionsAnswered" , "0");
-                        updateMember.put("RightAnswers" , "0");
-                        /*Catch för JSONobjekten*/
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member UserID", "fel med id");
-                    }
-
-
-                    Log.d("TEstDronten", updateMember.toString());
-
-                    /*Hämtar först ut alla Members ur JSON filen. Lägger sedan till all ny input i arrayen
-                     *Detta då en vanlig put skriver över dom existerade objekten i JSON filen */
-
-                    try {
-                        JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
-                        memberArrUpdateMember.put(updateMember);
-
-                        /*Loggar där utvecklaren kan se om inputen kom in i
-                        * member arrayen inom JSON datan och se om hela JSON
-                        * datan uppdaterades.*/
-                        Log.d("KollarTEst", memberArrUpdateMember.toString());
-                        Log.d("KollarTEst2", jobj.toString());
-                        createJson(memberArrUpdateMember);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            /*Onklick slutar*/
-            });
-
-        }else{
-            userName.setVisibility(View.INVISIBLE);
-            newUser.setText(R.string.createButtonString);
-            login.setText(R.string.loginButtonString);
-            switcher = false;
-        }
-
-
-        Log.d("Heeeej", "1");
-
-    }
-
-
-
-    public void login(View view)throws JSONException{
-        networkCheck();
-        if(errorOccured==true){
-            runRetrieve();
-        }
-        Log.d("Heeeeeej", "1 vi ar i login ");
-
-        try {
-
-        checkErrorMsg = false; //!!!!
-        anvText = (EditText)findViewById(R.id.email);
-        passText = (EditText)findViewById(R.id.password);
-        felMed = (TextView)findViewById(R.id.textView5);
-        String anvTmp = anvText.getText().toString();
-        String passTmp = passText.getText().toString();
-
-        felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
-
-        JSONArray memberArr = jobj.getJSONArray("Members");
-        String uName;
-        String email;
-        String password;
-
-        Log.d("1. ", "2" + memberArr.length());
-
-            for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
-
-
-                JSONObject tmpJ = memberArr.getJSONObject(i);
-                uName = tmpJ.getString("UserName");
-                email = tmpJ.getString("Email");
-                password = tmpJ.getString("Password");
-
-                //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
-                if (anvTmp.equals(uName) && passTmp.equals(password) || anvTmp.equals(email) && passTmp.equals(password) || i == 0) {// Vi ska ta bort funktionen som bara loggar in sen..
-
-                    id = tmpJ.getString("UserID");
-                    Intent myIntent = new Intent(this, hub.class);
-                    /*Bundle b = new Bundle();
-                    b.putString("id",id);
-                    myIntent.putExtras(b);*/
-                    startActivity(myIntent);
-                    checkErrorMsg = true;
-                    break;
-
-                } else {
-                    checkErrorMsg = false;
-                }
-
-            }
-        }catch(NullPointerException e){
-
-        }
-
-        if(checkErrorMsg==false){ //!!!!!!
-            felMed.setVisibility(View.VISIBLE);
-            felMed.setText("Incorrect username or password");
-
-        }
-
-    }
-
     String tText="";
 
 
@@ -326,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         if(!email.contains("@")){
             //Kollar så att det finns ett @, sätter variabeln till false om det inte finns.
             b = false;
-            String tText="";
+            toastText="Not a valid Email";
         }
 
         try{
@@ -336,19 +166,19 @@ public class MainActivity extends AppCompatActivity {
              * finns på något mer ställe */
             for(int i=0; i<membArr.length();i++){
                 JSONObject tmp = membArr.getJSONObject(i);
-                Log.d("Pop", "Andre");
+                Log.d("Pop", "Andre" + tmp.toString());
                 String uNameFromJson = tmp.getString("UserName");
                 String emailFromJson = tmp.getString("Email");
 
                 if(userName.equals(uNameFromJson)){
-                    tText ="Username is taken! ";
+                    toastText ="Username is taken! ";
                     b= false;
                     //Sätter variabeln till false om det redan finns ett
                     // konto med det här användarnamnet eller emailen.
                 }
                 if(email.equals(emailFromJson)){
                     b= false;
-                    tText ="This Email already has an account";
+                    toastText ="This Email already has an account";
                 }
             }
 
@@ -387,12 +217,173 @@ public class MainActivity extends AppCompatActivity {
         }
         if(passwordFieldString.length()<4){
             b = false;
-            tText="Password must be atleast 4 character";
+            toastText="Password must be atleast 4 character";
         }
 
         return b;
     }
 
+
+    public void buttonSwitcher(View view) {
+
+
+        EditText userName = (EditText) findViewById(R.id.usernameInput);
+        Button newUser = (Button) findViewById(R.id.createUser);
+        Button login = (Button) findViewById(R.id.loginButton);
+        login.getBackground().setColorFilter(Color.parseColor("#FCF4D9"), PorterDuff.Mode.MULTIPLY);
+
+
+        if (switcher == false) {
+
+            userName.setVisibility(View.VISIBLE);
+            newUser.setText(R.string.loginButtonString);
+            login.setText(R.string.userCreate);
+            switcher = true;
+
+        }else{
+            userName.setVisibility(View.INVISIBLE);
+            newUser.setText(R.string.createButtonString);
+            login.setText(R.string.loginButtonString);
+            switcher = false;
+        }
+    }
+
+
+
+    public void login(View view)throws JSONException {
+
+        Context context = getApplicationContext();
+        networkCheck();
+        if(errorOccured==true){
+            runRetrieve();
+        }
+
+
+
+            if (switcher == false) {
+
+                try {
+
+                    checkErrorMsg = false; //!!!!
+                    anvText = (EditText) findViewById(R.id.email);
+                    passText = (EditText) findViewById(R.id.password);
+                    felMed = (TextView) findViewById(R.id.textView5);
+                    String anvTmp = anvText.getText().toString();
+                    String passTmp = passText.getText().toString();
+
+                    felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
+
+                    JSONArray memberArr = jobj.getJSONArray("Members");
+                    String uName;
+                    String password;
+
+                    Log.d("1. ", "2" + memberArr.length());
+
+
+                    for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
+
+
+                        JSONObject tmpJ = memberArr.getJSONObject(i);
+                        uName = tmpJ.getString("UserName");
+                        password = tmpJ.getString("Password");
+
+                        if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
+
+                            id = tmpJ.getString("UserID");
+
+                            Intent myIntent = new Intent(this, hub.class);
+                            startActivity(myIntent);
+                            finish(); //Jonas
+                            overridePendingTransition(0, 0); //Jonas
+                            checkErrorMsg = true; //!!!
+                            break;
+
+                        } else {
+                            checkErrorMsg = false;
+                        }
+
+                    }
+                } catch (NullPointerException e) {
+
+                }
+
+                if (checkErrorMsg == false) { //!!!!!!
+                    felMed.setVisibility(View.VISIBLE);
+                    felMed.setText("Incorrect username or password");
+
+                }
+
+            } else {
+                //Här är kod för att skapa användare
+
+                editUsername = (EditText) findViewById(R.id.usernameInput);
+                editPassword = (EditText) findViewById(R.id.password);
+                editEmail = (EditText) findViewById(R.id.email);
+
+
+                String stringUsername = editUsername.getText().toString();
+                String stringPassword = editPassword.getText().toString();
+                String stringEmail = editEmail.getText().toString();
+
+                Log.d("Email", stringEmail);
+                Log.d("Password", stringPassword);
+                Log.d("Username", stringUsername);
+
+                //if axels metod stämmer
+
+                boolean b = getBool(stringUsername, stringEmail, stringPassword);
+                Log.d("BOOLEAN", "Piss" + b);
+                if (b == true) {
+                    //Skapar JSONObjektet som alla put kommer att laggas i.
+                    JSONObject updateMember = new JSONObject();
+
+                    try {
+
+                        JSONArray memberArr = jobj.getJSONArray("Members");
+
+                        int length = memberArr.length() + 1;
+
+                        updateMember.put("UserID", length);
+                        updateMember.put("Email", stringEmail);
+                        updateMember.put("Password", stringPassword);
+                        updateMember.put("UserName", stringUsername);
+                        updateMember.put("QuestionsAnswered", "0");
+                        updateMember.put("RightAnswers", "0");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.d("Create member UserID", "Error");
+                    }
+
+
+                    Log.d("Test", updateMember.toString());
+
+                    /*Hämtar först ut alla Members ur JSON filen. Lägger sedan till all ny input i arrayen
+                     Detta då en vanlig put skriver över dom existerade objekten i JSON filen */
+
+                    try {
+                        JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
+                        memberArrUpdateMember.put(updateMember);
+                        Log.d("KollarTEst", memberArrUpdateMember.toString());
+                        Log.d("KollarTEst2", jobj.toString());
+                        createJson(memberArrUpdateMember);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    toastText = "The User: " + stringUsername + " was created";
+                    int duration = Toast.LENGTH_LONG;
+
+                    Toast toast = Toast.makeText(context, toastText, duration);
+                    toast.show();
+                } else {
+                    int duration = Toast.LENGTH_LONG;
+
+                    Toast toast = Toast.makeText(context, toastText, duration);
+                    toast.show();
+                }
+            }
+
+    }
 
 
 

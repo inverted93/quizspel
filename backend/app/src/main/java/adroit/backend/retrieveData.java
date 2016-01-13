@@ -37,7 +37,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
         try{
 
-            jobjResp= requestJson("https://api.myjson.com/bins/3kehl");
+            jobjResp= requestJson("https://api.myjson.com/bins/3fxzt");
 
 
         }catch(JSONException e){

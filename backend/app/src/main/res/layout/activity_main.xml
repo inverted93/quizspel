@@ -60,12 +60,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/createButtonString"
-        android:id="@+id/creatUser"
+        android:id="@+id/createUser"
         android:background="@drawable/bgbutton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="userCreate"/>
+        android:onClick="buttonSwitcher"/>
 
     <Button
         android:layout_width="wrap_content"
