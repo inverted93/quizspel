@@ -34,6 +34,7 @@
         android:ems="10"
         android:id="@+id/quizname"
         android:text="Quiznamn"
+        android:textStyle="bold"
         android:gravity="center"
         android:background="@drawable/bgtiteltextview"
         android:textColor="@color/textviewBG"
