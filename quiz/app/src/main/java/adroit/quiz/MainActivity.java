@@ -308,6 +308,7 @@ class retrieveData extends AsyncTask<String, String, String> {
         MainActivity.setJson(jobj);//Jonas
         results.setJson(jobj);
         GameAdapter.setJson(jobj);
+        hub.setJson(jobj);
 
     }
 }

@@ -9,14 +9,30 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class hub extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
+        fillStats();
         ((TextView) findViewById(R.id.textView7)).setVisibility(4);
 
+    }
+
+    String id = MainActivity.getId();
+
+    static JSONObject jobj = new JSONObject();
+
+    public static void setJson(JSONObject j){
+        jobj= j;
     }
 
 
@@ -42,6 +58,8 @@ public class hub extends AppCompatActivity {
         }
     }
 
+
+
     public void changePageToMain(View view){
 
         Intent myIntent = new Intent(this, MainActivity.class);
@@ -49,6 +67,44 @@ public class hub extends AppCompatActivity {
         finish();
         overridePendingTransition(0, 0);
 
+    }
+
+
+    public void fillStats(){
+
+
+
+        TextView corrView = (TextView)findViewById(R.id.textView3);
+
+        try{
+
+            JSONArray membArr = jobj.getJSONArray("Members");
+            String qA ="";
+            String cA ="";
+
+            for(int i=0; i<membArr.length(); i++){
+
+                JSONObject tmpObj = membArr.getJSONObject(i);
+                String userId = tmpObj.getString("UserID");
+                if(userId.equals(id)){
+
+                    qA = tmpObj.getString("QuestionsAnswered");
+                    cA = tmpObj.getString("RightAnswers");
+                }
+            }
+
+            double qADouble = Double.parseDouble(qA);
+            double cADouble = Double.parseDouble(cA);
+
+            NumberFormat formatter = new DecimalFormat("#0");
+
+            String percent = formatter.format((cADouble/qADouble)*100);
+
+            corrView.setText("Questions answered\n" + qA + "\n\nRight answers percentage\n" + percent + "%");
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
     }
 
     public void onBackPressed()
