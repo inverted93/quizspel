@@ -62,9 +62,6 @@ public class quizMain extends AppCompatActivity {
         context = getApplicationContext();
         initialize();
         makeList();
-        //hur göra här?
-        //sortRatingList();
-
 
 
         inputSearch.addTextChangedListener(new TextWatcher() {
@@ -188,7 +185,7 @@ public class quizMain extends AppCompatActivity {
         }
         //Vänder uppochner på listan så att det nyaste spelet hamnar längst upp
         Collections.reverse(list);
-        
+
         //Här initieras SingleRow-listan i GameAdapter-klassen
         adapter1 = new GameAdapter(quizMain.this, list);
         gameList.setAdapter(adapter1);

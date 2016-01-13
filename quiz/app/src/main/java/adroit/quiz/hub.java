@@ -23,7 +23,7 @@ public class hub extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
         fillStats();
-        ((TextView) findViewById(R.id.textView7)).setVisibility(4);
+        ((TextView) findViewById(R.id.textView7)).setVisibility(View.INVISIBLE);
 
     }
 
@@ -54,7 +54,7 @@ public class hub extends AppCompatActivity {
         }
         catch (Exception e) {
             ((TextView) findViewById(R.id.textView7)).setText(getString(R.string.errorMessageHub));
-            ((TextView) findViewById(R.id.textView7)).setVisibility(0);
+            ((TextView) findViewById(R.id.textView7)).setVisibility(View.VISIBLE);
         }
     }
 
@@ -72,8 +72,7 @@ public class hub extends AppCompatActivity {
 
     public void fillStats(){
 
-
-
+        TextView userName = (TextView) findViewById(R.id.textView6);
         TextView corrView = (TextView)findViewById(R.id.textView3);
 
         try{
@@ -87,7 +86,7 @@ public class hub extends AppCompatActivity {
                 JSONObject tmpObj = membArr.getJSONObject(i);
                 String userId = tmpObj.getString("UserID");
                 if(userId.equals(id)){
-
+                    userName.setText(tmpObj.getString("UserName"));
                     qA = tmpObj.getString("QuestionsAnswered");
                     cA = tmpObj.getString("RightAnswers");
                 }
