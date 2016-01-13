@@ -1,5 +1,6 @@
 package adroit.quiz;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
     boolean checkErrorMsg; //Används för att felmeddelandet inte ska skrivas ut för tidigt.
 
 
-    ArrayList<String> userList = new ArrayList<String>();
-    ArrayList<String> passList = new ArrayList<String>();
+    //ArrayList<String> userList = new ArrayList<String>();
+    //ArrayList<String> passList = new ArrayList<String>();
 
 
 
-    public void userCreate(View view) {
+    public void buttonSwitcher(View view) {
 
 
         EditText userName = (EditText) findViewById(R.id.usernameInput);
@@ -100,33 +102,19 @@ public class MainActivity extends AppCompatActivity {
 
         if (switcher == false) {
 
-
-
             userName.setVisibility(View.VISIBLE);
             newUser.setText(R.string.loginButtonString);
             login.setText(R.string.userCreate);
             switcher = true;
 
-
-
-
-
-
-            Log.d("Heeeej", "2");
         }else{
-
-
-
             userName.setVisibility(View.INVISIBLE);
             newUser.setText(R.string.createButtonString);
             login.setText(R.string.loginButtonString);
             switcher = false;
-
-
-
         }
-        Log.d("Heeeej", "1");
     }
+
 
     public void createJson(JSONArray memberArr){
 
@@ -153,11 +141,13 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
 
         }
-
     }
 
+    private CharSequence toastText;
 
-    public void login(View view)throws JSONException{
+    public void login(View view)throws JSONException {
+
+        Context context = getApplicationContext();
 
         if (switcher == false) {
 
@@ -189,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                     if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
 
                         id = tmpJ.getString("UserID");
+
                         Intent myIntent = new Intent(this, hub.class);
                         startActivity(myIntent);
                         finish(); //Jonas
@@ -211,60 +202,113 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-        }else{
-            //Här ska vara kod för att skapa användare
+        } else {
+            //Här är kod för att skapa användare
 
-            editUsername = (EditText)findViewById(R.id.usernameInput);
-            editPassword = (EditText)findViewById(R.id.password);
-            editEmail = (EditText)findViewById(R.id.email);
-
-
-                    String stringUsername = editUsername.getText().toString();
-                    String stringPassword = editPassword.getText().toString();
-                    String stringEmail = editEmail.getText().toString();
-
-                    Log.d("Fiskmås1", stringEmail);
-                    Log.d("Fiskmås2", stringPassword);
-                    Log.d("Fiskmås3", stringUsername);
-
-                    //Skapar JSONObjektet som alla put kommer att laggas i.
-                    JSONObject updateMember = new JSONObject();
-
-                    try {
-
-                        JSONArray memberArr = jobj.getJSONArray("Members");
-
-                        int length = memberArr.length() +1;
-
-                        updateMember.put("UserID" , length);
-                        updateMember.put("Email", stringEmail);
-                        updateMember.put("Password", stringPassword);
-                        updateMember.put("Username", stringUsername);
-                        updateMember.put("QuestionsAnswered" , "0");
-                        updateMember.put("RightAnswers" , "0");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d("Create member UserID", "fel med id");
-                    }
+            editUsername = (EditText) findViewById(R.id.usernameInput);
+            editPassword = (EditText) findViewById(R.id.password);
+            editEmail = (EditText) findViewById(R.id.email);
 
 
-                    Log.d("TEstDronten", updateMember.toString());
+            String stringUsername = editUsername.getText().toString();
+            String stringPassword = editPassword.getText().toString();
+            String stringEmail = editEmail.getText().toString();
+
+            Log.d("Email", stringEmail);
+            Log.d("Password", stringPassword);
+            Log.d("Username", stringUsername);
+
+            //if axels metod stämmer
+
+            boolean b = getBool(stringUsername, stringEmail, stringPassword);
+            if (b == true) {
+                //Skapar JSONObjektet som alla put kommer att laggas i.
+                JSONObject updateMember = new JSONObject();
+
+                try {
+
+                    JSONArray memberArr = jobj.getJSONArray("Members");
+
+                    int length = memberArr.length() + 1;
+
+                    updateMember.put("UserID", length);
+                    updateMember.put("Email", stringEmail);
+                    updateMember.put("Password", stringPassword);
+                    updateMember.put("Username", stringUsername);
+                    updateMember.put("QuestionsAnswered", "0");
+                    updateMember.put("RightAnswers", "0");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("Create member UserID", "Error");
+                }
+
+
+                Log.d("Test", updateMember.toString());
 
                     /*Hämtar först ut alla Members ur JSON filen. Lägger sedan till all ny input i arrayen
                      Detta då en vanlig put skriver över dom existerade objekten i JSON filen */
 
-                    try {
-                        JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
-                        memberArrUpdateMember.put(updateMember);
-                        Log.d("KollarTEst", memberArrUpdateMember.toString());
-                        Log.d("KollarTEst2", jobj.toString());
-                        createJson(memberArrUpdateMember);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
+                    memberArrUpdateMember.put(updateMember);
+                    Log.d("KollarTEst", memberArrUpdateMember.toString());
+                    Log.d("KollarTEst2", jobj.toString());
+                    createJson(memberArrUpdateMember);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
+                CharSequence text = "The User: " + stringUsername + " was created";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            } else {
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, toastText, duration);
+                toast.show();
+            }
+        }
+    }
+
+    public boolean getBool(String userName, String email, String password){
+        /*metoden används för attt se så att användarnamnet eller
+        emailen inte redan finns i databasen. Den kollar också
+         så att användaren har med ett @ i sin mailadress.*/
+        Boolean b = true;
+
+        if(!email.contains("@")){
+            //Kollar så att det finns ett @, sätter variabeln till false om det inte finns.
+            b = false;
+            toastText = "Incorrect Email";
+        }
+
+        try{
+            JSONArray membArr = jobj.getJSONArray("Members");
+            /*hämtar ett Json objekt som används för att hämta användarnamn och email.
+             * Loopen jobbar igenom alla objekt och ser om användarnamnet eller emailen
+              finns på något mer ställe */
+            for(int i=0; i<membArr.length();i++){
+                JSONObject tmp = membArr.getJSONObject(i);
+                String uNameFromJson = tmp.getString("UserName");
+                String emailFromJson = tmp.getString("Email");
+
+                if(userName.equals(uNameFromJson)||email.equals(emailFromJson)){
+
+                    b= false;
+                    //Sätter variabeln till false om det redan finns ett
+                    // konto med det här användarnamnet eller emailen.
                 }
             }
+
+        }catch(JSONException e){
+
+            e.printStackTrace();
+        }
+        return b;
+        //Returnerar boolean till anropande rad där de kan användas för varna användare
+    }
 
 
         }
