@@ -1,5 +1,6 @@
 package adroit.backend;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
@@ -36,12 +37,14 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
         try{
 
-            jobjResp= requestJson("https://api.myjson.com/bins/40ht5");
+            jobjResp= requestJson("https://api.myjson.com/bins/3kehl");
 
 
         }catch(JSONException e){
+            Log.d("Inget internet", "1337");
             e.printStackTrace();
-        }catch (IOException e){
+        }catch (IOException e) {
+            Log.d("Inget internet", "794");
             e.printStackTrace();
         }
 
@@ -63,7 +66,7 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
 
 
-       /* JSONObject jo4 = new JSONObject();
+        /* JSONObject jo4 = new JSONObject();
         jo4.put("Test1", "Dennis");
 
         jobj.put("Question",jo4);

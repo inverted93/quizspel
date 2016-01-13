@@ -1,5 +1,6 @@
 package adroit.backend;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     static JSONObject jobj;
     static String id;
+    static boolean errorOccured = false;
 
 
     public static void setJson(JSONObject j){
@@ -44,6 +48,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         runRetrieve();
 
+
+    }
+
+    public void networkCheck(){
+
+        if(jobj==null){
+            errorOccured =true;
+            Context context = getApplicationContext();
+            CharSequence msg = "Network Error";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, msg, duration);
+            toast.show();
+        }else{
+            errorOccured =false;
+        }
 
     }
 
@@ -115,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void userCreate(View view) throws JSONException{
 
+        networkCheck();
+        if(errorOccured==true){
+            runRetrieve();
+        }
         /*Edit texterna knyts til vissa textfält*/
         editUsername = (EditText)findViewById(R.id.usernameInput);
         editPassword = (EditText)findViewById(R.id.password);
@@ -128,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (switcher == false) {
+
 
 
             userName.setVisibility(View.VISIBLE);
@@ -148,6 +173,11 @@ public class MainActivity extends AppCompatActivity {
                     String stringUsername = editUsername.getText().toString();
                     String stringPassword = editPassword.getText().toString();
                     String stringEmail = editEmail.getText().toString();
+
+                    Boolean boolTmp = getBool(stringUsername, stringEmail, stringPassword);
+                    if(boolTmp==true){
+
+
 
                     /*Loggar där programmeraren kan se om inputen kom till stringarna*/
                     Log.d("Fiskmås1", stringEmail);
@@ -201,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+            }
             /*Onklick slutar*/
             });
 
@@ -219,13 +250,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void login(View view)throws JSONException{
-
-
-
-
-
+        networkCheck();
+        if(errorOccured==true){
+            runRetrieve();
+        }
         Log.d("Heeeeeej", "1 vi ar i login ");
-
 
         try {
 
@@ -240,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
 
         JSONArray memberArr = jobj.getJSONArray("Members");
         String uName;
+        String email;
         String password;
 
         Log.d("1. ", "2" + memberArr.length());
@@ -249,10 +279,11 @@ public class MainActivity extends AppCompatActivity {
 
                 JSONObject tmpJ = memberArr.getJSONObject(i);
                 uName = tmpJ.getString("UserName");
+                email = tmpJ.getString("Email");
                 password = tmpJ.getString("Password");
 
                 //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
-                if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {// Vi ska ta bort funktionen som bara loggar in sen..
+                if (anvTmp.equals(uName) && passTmp.equals(password) || anvTmp.equals(email) && passTmp.equals(password) || i == 0) {// Vi ska ta bort funktionen som bara loggar in sen..
 
                     id = tmpJ.getString("UserID");
                     Intent myIntent = new Intent(this, hub.class);
@@ -305,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
              * finns på något mer ställe */
             for(int i=0; i<membArr.length();i++){
                 JSONObject tmp = membArr.getJSONObject(i);
+                Log.d("Pop", "Andre");
                 String uNameFromJson = tmp.getString("UserName");
                 String emailFromJson = tmp.getString("Email");
 
@@ -318,22 +350,12 @@ public class MainActivity extends AppCompatActivity {
                     b= false;
                     tText ="This Email already has an account";
                 }
-
-
-
-
-
             }
 
         }catch(JSONException e){
 
             e.printStackTrace();
         }
-
-
-
-
-
         return b;
         //Returnerar boolean till anropande rad där de kan användas för varna användare
     }
@@ -367,11 +389,6 @@ public class MainActivity extends AppCompatActivity {
             b = false;
             tText="Password must be atleast 4 character";
         }
-
-
-
-
-
 
         return b;
     }
