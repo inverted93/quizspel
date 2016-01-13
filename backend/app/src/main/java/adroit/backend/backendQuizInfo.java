@@ -52,4 +52,17 @@ public class backendQuizInfo extends Activity {
 
     }
 
+    @Override
+    public void onBackPressed()
+    {
+
+        super.onBackPressed();
+
+        Intent i = new Intent(this, myQuiz.class);
+        startActivity(i);
+        finish();
+        overridePendingTransition(0, 0);
+
+    }
+
 }

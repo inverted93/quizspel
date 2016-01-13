@@ -436,6 +436,8 @@ public class createQuestion extends AppCompatActivity {
 
                 Intent myIntent = new Intent(this, hub.class);
                 startActivity(myIntent); //Skickar tillbaka anvandaren till hub.
+                finish();
+                overridePendingTransition(0,0);
 
             }else{
                 TextView info = (TextView) findViewById(R.id.textView10);
@@ -495,6 +497,19 @@ public class createQuestion extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+
+        super.onBackPressed();
+
+        Intent i = new Intent(this, createQuiz.class);
+        startActivity(i);
+        finish();
+        overridePendingTransition(0, 0);
 
     }
 

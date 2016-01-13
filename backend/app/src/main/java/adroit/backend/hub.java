@@ -80,7 +80,7 @@ public class hub extends AppCompatActivity{
 
             NumberFormat formatter = new DecimalFormat("#0");
 
-            String percent = formatter.format((cADouble/qADouble)*100);
+            String percent = formatter.format((cADouble / qADouble) * 100);
 
             corrView.setText("Questions answered\n" + qA + "\n\nRight answers percentage\n" + percent + "%");
 
@@ -139,10 +139,6 @@ public class hub extends AppCompatActivity{
         alert.show();
 
     }
-
-
-
-
 
 
 
