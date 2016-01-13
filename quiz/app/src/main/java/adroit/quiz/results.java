@@ -244,8 +244,20 @@ public class results extends AppCompatActivity {
 
     public void changePageToQuizInfo(View view){
 
+        quizTitle = getIntent().getExtras().getString("QuizTitle");
+        quizDesc = getIntent().getExtras().getString("QuizDesc");
+        quizRating = getIntent().getExtras().getString("QuizRating");
+        quizRated = getIntent().getExtras().getString("QuizRated");
+        quizPlayed = getIntent().getExtras().getString("QuizPlayed");
+        quizID = getIntent().getExtras().getString("QuizID");
+
         Bundle b = new Bundle();
         b.putString("QuizTitle", quizTitle);
+        b.putString("QuizDesc", quizDesc);
+        b.putString("QuizRating", quizRating);
+        b.putString("QuizRated", quizRated);
+        b.putString("QuizPlayed", quizPlayed);
+        b.putString("QuizID", quizID);
 
         Intent i = new Intent(this, quizInfo.class);
         i.putExtras(b);

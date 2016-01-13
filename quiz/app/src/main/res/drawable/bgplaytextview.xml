@@ -7,6 +7,11 @@
         android:color="@color/textviewBG" >
     </solid>
 
+    <padding android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp"/>
+
     <stroke
         android:width="3dp"
         android:color="@color/textviewBorder" >
