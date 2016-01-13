@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">backend</string>
+    <string name="app_name">Backend</string>
     <string name="createQuizNameLabel">Name</string>
     <string name="createQuizDescriptionLabel">Description</string>
     <string name="createQuizNextButton">Next</string>
