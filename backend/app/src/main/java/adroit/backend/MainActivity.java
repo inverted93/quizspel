@@ -280,18 +280,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    String tText="";
 
 
 
-    public boolean getBool(String userName, String email){
+    public boolean getBool(String userName, String email, String password){
         /*metoden används för attt se så att användarnamnet eller
         emailen inte redan finns i databasen. Den kollar också
          så att användaren har med ett @ i sin mailadress.*/
         Boolean b = true;
 
+        b = checkIfEmpty();
+
         if(!email.contains("@")){
             //Kollar så att det finns ett @, sätter variabeln till false om det inte finns.
             b = false;
+            String tText="";
         }
 
         try{
@@ -304,20 +308,72 @@ public class MainActivity extends AppCompatActivity {
                 String uNameFromJson = tmp.getString("UserName");
                 String emailFromJson = tmp.getString("Email");
 
-                if(userName.equals(uNameFromJson)||email.equals(emailFromJson)){
-
+                if(userName.equals(uNameFromJson)){
+                    tText ="Username is taken! ";
                     b= false;
                     //Sätter variabeln till false om det redan finns ett
                     // konto med det här användarnamnet eller emailen.
                 }
+                if(email.equals(emailFromJson)){
+                    b= false;
+                    tText ="This Email already has an account";
+                }
+
+
+
+
+
             }
 
         }catch(JSONException e){
 
             e.printStackTrace();
         }
+
+
+
+
+
         return b;
         //Returnerar boolean till anropande rad där de kan användas för varna användare
+    }
+
+
+    public boolean checkIfEmpty(){
+
+        boolean b =true;
+
+        EditText emailField = (EditText) findViewById(R.id.email);
+        EditText userNameField = (EditText) findViewById(R.id.usernameInput);
+        EditText passwordField = (EditText) findViewById(R.id.password);
+
+        String emailFieldString = emailField.getText().toString();
+        String userNameFieldString = emailField.getText().toString();
+        String passwordFieldString = emailField.getText().toString();
+
+        if(emailFieldString.equals("")){
+            b = false;
+            emailField.setHint("Fill this out");
+        }
+        if(userNameFieldString.equals("")){
+            b = false;
+            userNameField.setHint("Fill this out");
+        }
+        if(passwordFieldString.equals("")){
+            b = false;
+            passwordField.setHint("Fill this out");
+        }
+        if(passwordFieldString.length()<4){
+            b = false;
+            tText="Password must be atleast 4 character";
+        }
+
+
+
+
+
+
+        return b;
     }
 
 
