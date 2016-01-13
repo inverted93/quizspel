@@ -72,6 +72,8 @@ public class createQuiz extends AppCompatActivity {
 
             myIntent.putExtras(b);
             startActivity(myIntent);
+            finish();
+            overridePendingTransition(0,0);
         }
 
 
