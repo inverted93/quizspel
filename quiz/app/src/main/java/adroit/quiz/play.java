@@ -34,8 +34,10 @@ import java.util.concurrent.TimeUnit;
 
 public class play extends AppCompatActivity {
 
-    /* Quiz information som skickas med bundle till resultat som
-       bla skickar dessa till quizinfo igen om OnBacknuttonpressed
+    /**
+     * Dessa stringar innehåller information om quizet som skickas som bundle till
+     *  results aktiviteten som i sin tur skickar dessa till quizinfo
+     *  när användaren väljer att byta aktivitet
     */
     String quizTitle;
     String quizDesc;
@@ -44,20 +46,20 @@ public class play extends AppCompatActivity {
     String quizPlayed;
     String quizID;
 
-    static boolean isVisible = false;
+    static boolean isVisible = false;   // Sätts false om appen är pausad(ej används), annars true
 
     private CountDownTimer CountDown;
-    double correctAnswers = 0;
-    int answerNumber = 3;
-    int numberOfQuestions = 0;
-    int questionNr = 0;
-    int secondsLeft = 0;
-    TextView countDownText;
-    ArrayList<String> userAnswers = new ArrayList<>();
-    List<String> questionsArr = new ArrayList<>();
-    List<String> answers = new ArrayList<>();
-    List<String> guiAnswers = new ArrayList<>();
-    List<String> rightAnswers = new ArrayList<>();
+    double correctAnswers = 0; // Lagrar antal rätta svar
+    int answerNumber = 3; // Lagrar info om vilken plats i en array med svarsalternativ man skall hämta frågor
+    int numberOfQuestions = 0;  // Hur många frågor har quizet
+    int questionNr = 0; // Vilken fråga är aktuell för användaren
+    int secondsLeft = 0;  // Används i countDownTimern för att lagra aktuell sekund
+    TextView countDownText; // Visar antal sekunder kvar
+    ArrayList<String> userAnswers = new ArrayList<>();  // Lagrar de svar användaren valt på frågorna
+    List<String> questionsArr = new ArrayList<>(); // Lagrar alla svar som tillhör quizet
+    List<String> answers = new ArrayList<>();   // Lagrar alla svarsalternativ
+    List<String> guiAnswers = new ArrayList<>();    // Lagrar svarsalternativ för aktuell fråga
+    List<String> rightAnswers = new ArrayList<>();  // Lagrar alla korrekta svar
 
     static JSONObject jsonResponse = new JSONObject();
 
@@ -72,6 +74,9 @@ public class play extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        /**
+         * Hämtar bundels från quizinfo med infromation om valt quiz som lagras i variabler
+         */
 
         quizDesc = getIntent().getExtras().getString("QuizDesc");
         quizRating = getIntent().getExtras().getString("QuizRating");
@@ -81,25 +86,41 @@ public class play extends AppCompatActivity {
         quizTitle = getIntent().getExtras().getString("QuizTitle");
 
 
+        /**
+         * Hämtar två JSON arrayer som man sedan hämtar strängar med frågor
+         * och svaralternativ ifrån och lagrar i olika arrayer
+         */
+
         try {
+            //  Hämtar två JSON arrayer, en med frågor, en med svar
             JSONArray jQuestions = jsonResponse.getJSONArray("Question");
             JSONArray jAnswers = jsonResponse.getJSONArray("Answer");
-            for (int i = 0; i < jQuestions.length(); i++) {
+            
+            for (int i = 0; i < jQuestions.length(); i++) // Loopar igenom fråge-arrayen
+            {
                 JSONObject info = jQuestions.getJSONObject(i);
-                String check = info.getString("QID");
-                if (check.equals(quizID)) {
+                String check = info.getString("QID");   // Lagrar Quiz ID "QID" i check
+
+                if (check.equals(quizID)) // kolla om check är samma som quizID, som kom med bundle från quizinfo
+                {
                     String question = info.getString("qText");
-                    String QueID = info.getString("QueID");
-                    questionsArr.add(question);
-                    for (int i2 = 0; i2 < jAnswers.length(); i2++) {
+                    String QueID = info.getString("QueID"); // lagrar fråge ID "QueID"
+                    questionsArr.add(question); // lagrar frågan i en array med frågor
+
+                    for (int i2 = 0; i2 < jAnswers.length(); i2++) // Kollar igenom array med frågor
+                    {
                         JSONObject info2 = jAnswers.getJSONObject(i2);
-                        String check2 = info2.getString("QueID");
-                        if (QueID.equals(check2)) {
-                            String answer = info2.getString("aText");
-                            answers.add(answer);
-                            String rAnswer = info2.getString("rightAnswer");
-                            if (rAnswer.equals("true")) {
-                                rightAnswers.add(answer);
+                        String check2 = info2.getString("QueID"); //lagrar fråge ID "QueID"
+
+                        if (QueID.equals(check2)) // kolla om check2 är samma som QueID, som kom med bundle från quizinfo
+                        {
+                            String answer = info2.getString("aText"); // Hämta ett svarsalternativ
+                            answers.add(answer); // lagrar svarsalternativet i en array med svarsalternativ
+                            String rAnswer = info2.getString("rightAnswer"); // Hämtar en sträng som visar om svarsalternativet är rätt eller fel
+
+                            if (rAnswer.equals("true")) // Kollar om svarsalternativet är korrekt
+                            {
+                                rightAnswers.add(answer);   // lägger till svaralternativet i en lista med alla rätta svar
                             }
                         }
                     }
@@ -237,7 +258,7 @@ public class play extends AppCompatActivity {
             userAnswers.add("");
 
         for(int i = 0; i < numberOfQuestions; i++) {
-            if ((userAnswers.get(i)).equals(rightAnswers.get(i))){
+            if ((userAnswers.get(i)).equals(rightAnswers.get(i))){ // kanske bara byta plats på dessa?
                 correctAnswers++;
             }
         }
