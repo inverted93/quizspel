@@ -32,6 +32,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ * Skriv allmäna grejer som att användare skall se 4 frågor.
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
 public class play extends AppCompatActivity {
 
     /**
@@ -95,7 +108,7 @@ public class play extends AppCompatActivity {
             //  Hämtar två JSON arrayer, en med frågor, en med svar
             JSONArray jQuestions = jsonResponse.getJSONArray("Question");
             JSONArray jAnswers = jsonResponse.getJSONArray("Answer");
-            
+
             for (int i = 0; i < jQuestions.length(); i++) // Loopar igenom fråge-arrayen
             {
                 JSONObject info = jQuestions.getJSONObject(i);
@@ -131,31 +144,47 @@ public class play extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // lägg in indexoutofboundsexception här
-        String firstQuestion = questionsArr.get(questionNr);
-        ((TextView) findViewById(R.id.editText3)).setText(firstQuestion);
-        numberOfQuestions = questionsArr.size();
-        ((TextView) findViewById(R.id.quizname)).setText(quizTitle);
-        ((ProgressBar)findViewById(R.id.progressBar)).setMax(numberOfQuestions);
-        ((ProgressBar)findViewById(R.id.progressBar)).setProgress(questionNr + 1);
-        ((TextView) findViewById(R.id.editText5)).setText((questionNr +1) + "/" + numberOfQuestions);
+
+        String firstQuestion = questionsArr.get(questionNr); // Hämtar första frågan i fråge arrayen
+        ((TextView) findViewById(R.id.editText3)).setText(firstQuestion); // Skriver ut frågan i en textview
+        numberOfQuestions = questionsArr.size();    // sätter variabel med antal frågor genom att kolla hur stor frågearrayen är
+        ((TextView) findViewById(R.id.quizname)).setText(quizTitle);    // Skriver ut quiznamn i en textview
+        ((ProgressBar)findViewById(R.id.progressBar)).setMax(numberOfQuestions);    // Sätter ett maxvärde på en progressbar baserat på antal frågor
+        ((ProgressBar)findViewById(R.id.progressBar)).setProgress(1);  // Sätter progressen på 1
+        ((TextView) findViewById(R.id.editText5)).setText((questionNr +1) + "/" + numberOfQuestions); // Skriver ut vilken fråga man är på och hur många det finns
 
         for(int i = 0 ; i <4 ; i++) {
+
+            /**
+             * Loopar går 4 gånger och lägger in i guianswers arrayen
+             * guianswers är de frågor som skall visas för användaren
+             */
+
             String itemAnswer = answers.get(i);
             guiAnswers.add(itemAnswer);
 
         }
 
-        countDownText = (TextView) findViewById(R.id.editText4);
+        countDownText = (TextView) findViewById(R.id.editText4); // Kopplar countdowntext till en resurs
 
-        final  ListView answersList = (ListView) findViewById(R.id.answersList);
-        final ArrayAdapter<String> answersAdapter = new ArrayAdapter<String>
+        final  ListView answersList = (ListView) findViewById(R.id.answersList); // Skapar en listview
+        final ArrayAdapter<String> answersAdapter = new ArrayAdapter<String> // Skapar en adapter
                 (this, android.R.layout.simple_list_item_1, guiAnswers){
-            @Override
+
+            @Override // overridar den befintliga getView metoden för att modifiera den
             public View getView(int position, View convertView, ViewGroup parent){
+
                 View view = super.getView(position,convertView,parent);
+                /**
+                 * Sätter höjden på varje listobjekt beroend på hur hög listview är
+                 * eftersom det skall visas 4 objekt delas höjden på 4.
+                 * -3 görs för att synliggöra sista objektet mer då listview har
+                 * en shape background med padding som annars täcker lite av sista objektet
+                 */
                 view.setMinimumHeight(((parent.getMeasuredHeight()) / 4) - 3);
 
+                // Sätter backgrundfärgen på listviewobjekten beroend på plats
+                // blir varannan i respektive färg
                 if(position %2 == 1)
                 {
                     view.setBackgroundColor(Color.parseColor("#FCF4D9"));
@@ -167,27 +196,48 @@ public class play extends AppCompatActivity {
                 return view;
             }
         };
-        answersList.setAdapter(answersAdapter);
 
-        CountDown = new CountDownTimer(80000, 100) {
+        answersList.setAdapter(answersAdapter); // kopplar listview till adapter
+
+        CountDown = new CountDownTimer(8000, 100) { // ny timer på 8 sek
 
 
-            public void onTick(long ms) {
+            public void onTick(long ms) { // ontick som sätter ett textfält med tid kvar varje sekund
                 if (Math.round((float) ms / 1000.0f) != secondsLeft) {
                     secondsLeft = Math.round((float) ms / 1000.0f);
-                    countDownText.setText("Time left: " + secondsLeft);
+                    countDownText.setText("Time left: " + secondsLeft); // ändrar textfält med aktuell sekund
 
                 }
             }
 
-            public void onFinish() {
+            public void onFinish() {    // Om inget svar ges från användaren går tiden ut, då utförs följande
+
+
                 if (questionNr >= (numberOfQuestions -1)){
+
+                    /**
+                     * Om aktuellt frågenummer är lika stor eller större än totalt antal frågor
+                     * (-1 pga frågenummer börjar på 0) då skall den anropa metoden changepage som utför visa operationer
+                     * som är nödvändiga för att gå vidare tilll nästa aktivitet, resultat.
+                     * T.ex. räkna ihop poäng.
+                     */
+
                     this.cancel();
                     changePage();
                 }
-                else {
-                    countDownText.setText("Time left: 0");
+                else { // tiden gått ut
+
+                    /**
+                     * anropar metoden nextquestion som utför nödvändiga operationer som behövs när
+                     * användaren har svarat på en fråga(eller i detta fall, tiden gått ut för frågan)
+                     * Metoden tar vad man har svarat på frågan som argument, då tiden har gått ut blir
+                     * svarat en tom sträng. I metoden fyller man answerslist med nya frågor
+                     * därför tar vi bort och sätter answersadaptern igen för att uppdatera frågorna som visas.
+                     * Sen startar vi timern igen
+                     */
+
                     nextQuestion("");
+                    countDownText.setText("Time left: 0");
                     answersList.setAdapter(null);
                     answersList.setAdapter(answersAdapter);
                     this.start();
@@ -196,24 +246,35 @@ public class play extends AppCompatActivity {
 
         }.start();
 
-        answersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        answersList.setOnItemClickListener(new AdapterView.OnItemClickListener() { // sätter en klick lyssnare till svarslistan
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
                 if(questionNr >= (numberOfQuestions-1)) {
+
+                    /**
+                     * Om aktuellt frågenummer är lika stor eller större än totalt antal frågor
+                     * (-1 pga frågenummer börjar på 0) då skall den anropa metoden changepage som utför visa operationer
+                     * som är nödvändiga för att gå vidare tilll nästa aktivitet, resultat.
+                     * T.ex. räkna ihop poäng.
+                     */
+
                     CountDown.cancel();
                     changePage();
                 } else {
+
                     String choosenAnswer = String.valueOf(parent.getItemAtPosition(position));
+                    // Spara strängen som det listview-objektet användaren tryckt på innehöll
 
-                    nextQuestion(choosenAnswer);
+                    nextQuestion(choosenAnswer); // Lägger in föregående sträng i nextquestion metoden
 
-                    answersList.setAdapter(null);
-                    answersList.setAdapter(answersAdapter);
+                    answersList.setAdapter(null);   // Sätter adaptern till null
+                    answersList.setAdapter(answersAdapter); // Sätter den till answersadapter igen, så den visar uppdaterad data
 
-                    CountDown.cancel();
-                    CountDown.start();
+                    CountDown.cancel(); // Stänger av countdown
+                    CountDown.start();  // Sätter på countdown
                 }
 
             }
@@ -221,13 +282,13 @@ public class play extends AppCompatActivity {
 
     }
 
-    public void nextQuestion(String questionAnswer) {
-        Log.d("nextQueston", "10");
-        userAnswers.add(questionAnswer);
+    public void nextQuestion(String questionAnswer) { // Metoden används när användaren svarat på fråga eller tiden gått ut
+
+        userAnswers.add(questionAnswer); // Lägger in vad användaren avarat i en array
 
         /**
-         * for loopen kollar på platsen(nummer) efter den sista frågan i föregånde quiz, därför
-         * adderas det en 1:a på första platsen i loopen, och eftersom det är fyra frågor som skall
+         *  följande for loop kollar på platsen(nummer) efter det sista svarsalternativet i föregånde quiz, därför
+         * adderas det en 1:a på första platsen i loopen, och eftersom det är fyra svarlternativ som skall
          * visas varje gång ökas int nrOfAnswers med answersnumber
          * (platsen på sista svarsalternativet i föregående fråga) + 5
          */
@@ -235,25 +296,25 @@ public class play extends AppCompatActivity {
         int nrOfAnswers = answerNumber + 5;
         guiAnswers.clear();
         for(int i = (answerNumber +1) ; i < nrOfAnswers ; i++) {
-            Log.d("innan get", "1");
-            String guiAnswer = answers.get(i);
-            Log.d("Efter get", "2");
-            guiAnswers.add(guiAnswer);
-            Log.d("efter add", "3");
+
+            String guiAnswer = answers.get(i); // hämtar ett svarsalternativ från svarsalternativ-arrayen
+
+            guiAnswers.add(guiAnswer);  // Lägger in den i array med svarsalternativ som skall visas för användaren
+
         }
-        answerNumber = answerNumber + 4;
+        answerNumber = answerNumber + 4; // Ökar värdet på answernumber med fyra, då det är fyra frågor
 
-        questionNr++;
+        questionNr++; // plussar på frågenummer
 
-        String questionText = questionsArr.get(questionNr);
-        ((TextView) findViewById(R.id.editText3)).setText(questionText);
-        ((ProgressBar)findViewById(R.id.progressBar)).setProgress(questionNr +1);
-        ((TextView) findViewById(R.id.editText5)).setText((questionNr +1) + "/" + numberOfQuestions);
+        String questionText = questionsArr.get(questionNr); // Hämtar den aktuella frågan från frågearrayen
+        ((TextView) findViewById(R.id.editText3)).setText(questionText); // Skriver den nya frågan i en textview
+        ((ProgressBar) findViewById(R.id.progressBar)).setProgress(questionNr +1); // Ökar progressbaren med 1
+        ((TextView) findViewById(R.id.editText5)).setText((questionNr +1) + "/" + numberOfQuestions); // Uppdaterar med nya värden
 
     }
 
-    public void changePage() {
-        Log.d("changePage", "1");
+    public void changePage() { // Används när sista frågan är besvarard eller när dess tid gått ut
+
         if(isVisible){
             userAnswers.add("");
 
@@ -263,7 +324,6 @@ public class play extends AppCompatActivity {
             }
         }
 
-            Log.d("changePage", "2");
             double scorePercentage = correctAnswers / (double) numberOfQuestions;
 
             Bundle b = new Bundle();
@@ -282,7 +342,7 @@ public class play extends AppCompatActivity {
             startActivity(myIntent);
             finish();
             overridePendingTransition(0, 0);
-            Log.d("changePage", "3");
+
         }
     }
 
