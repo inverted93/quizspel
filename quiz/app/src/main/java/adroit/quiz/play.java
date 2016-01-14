@@ -223,7 +223,7 @@ public class play extends AppCompatActivity {
                      */
 
                     this.cancel();
-                    changePage();
+                    changePage("");
                 }
                 else { // tiden gått ut
 
@@ -261,8 +261,10 @@ public class play extends AppCompatActivity {
                      * T.ex. räkna ihop poäng.
                      */
 
+                    String choosenAnswer = String.valueOf(parent.getItemAtPosition(position));
+
                     CountDown.cancel();
-                    changePage();
+                    changePage(choosenAnswer);
                 } else {
 
                     String choosenAnswer = String.valueOf(parent.getItemAtPosition(position));
@@ -313,18 +315,23 @@ public class play extends AppCompatActivity {
 
     }
 
-    public void changePage() { // Används när sista frågan är besvarard eller när dess tid gått ut
+    public void changePage(String questionAnswer) { // Används när sista frågan är besvarard eller när dess tid gått ut
 
-        if(isVisible){
-            userAnswers.add("");
+        if(isVisible){  // Görs bara om isVisible är true, vilket den är om appen inte är i backgrounden
 
-        for(int i = 0; i < numberOfQuestions; i++) {
-            if ((userAnswers.get(i)).equals(rightAnswers.get(i))){ // kanske bara byta plats på dessa?
-                correctAnswers++;
+            userAnswers.add(questionAnswer);  // lägger in sista svaret i array med användarsvar
+
+        for(int i = 0; i < numberOfQuestions; i++) { // jämför användarsvaren med de rätta svaren
+            if ((userAnswers.get(i)).equals(rightAnswers.get(i))){ //
+                correctAnswers++; // plussas på om användarens svar stämmer överns med det rätta svaret
             }
         }
 
-            double scorePercentage = correctAnswers / (double) numberOfQuestions;
+            double scorePercentage = correctAnswers / (double) numberOfQuestions; // räknar ut procent rätta svar
+
+            /**
+             * Koden nedan skickar vidare bundels till nästa aktivitet och startar den
+             */
 
             Bundle b = new Bundle();
             b.putDouble("Score", scorePercentage);
@@ -347,14 +354,18 @@ public class play extends AppCompatActivity {
     }
 
    @Override
-   public void onBackPressed()
-   {
+   public void onBackPressed() {
+
+       // Overridar onBackpressed skapar en dialogruta som frågar användaren som denne vill avlsuta aktiviteten
+
        AlertDialog.Builder abuilder = new AlertDialog.Builder(play.this);
        abuilder.setMessage("Do you want to end this quiz?");
        abuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
            public void onClick(DialogInterface dialog, int which) {
-               CountDown.cancel();
+               CountDown.cancel(); // avlutar coundown
+               // skickar vidare bundles så att informationen i quizinfo skall vara korrekt
+               // dvs det skall vara information om aktuella quizet
                Bundle b = new Bundle();
                b.putString("QuizTitle", quizTitle);
                b.putString("QuizDesc", quizDesc);
@@ -384,11 +395,25 @@ public class play extends AppCompatActivity {
     @Override
     public void onResume()
     {
+
+        /**
+         * När användaren använder appen sätts isVisible true
+         * om den är false så görs inget i changepage() och då
+         * byts inte aktivitet, detta för att nästa aktivitet inte skall
+         * skall starta upp appen för en användare som inte är inne i den
+         * för tillfället. Vilket annars hade skett om tiden hade gått ut för
+         * quizet.
+         *
+         * Om tiden har gått ut för alla frågor när användare
+         * öppnar appen igen kommer nästa aktivitet starta direkt
+         * pga av if statementet
+         */
+
         super.onResume();
         isVisible = true;
 
         if(questionNr >= (numberOfQuestions-1)) {
-            changePage();
+            changePage(""); // Sätter sista svaret tomt
         }
     }
 
@@ -396,6 +421,10 @@ public class play extends AppCompatActivity {
     @Override
     public void onPause()
     {
+        /**
+         * Sätter isVisible false när användaren är utanför appen
+         * se förklaring onResume
+         */
         super.onPause();
         isVisible = false;
     }
