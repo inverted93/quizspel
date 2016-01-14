@@ -92,7 +92,6 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:id="@+id/editText9"
-        android:textColor="@color/textviewBG"
         android:textStyle="bold"
         android:layout_below="@+id/editText8"
         android:layout_alignParentLeft="true"
@@ -134,6 +133,7 @@
         android:text="Previous Question"
         android:onClick="prev"
         android:id="@+id/button8"
+        android:background="@drawable/bgbutton"
         android:layout_above="@+id/button5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -180,11 +180,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Use buttons next to answer to set witch one is the correct one"
+        android:text="Use buttons next to answer to set which one is the correct one"
         android:id="@+id/textView9"
         android:layout_below="@+id/editText9"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -192,11 +193,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="A Quiz must have atleast two questions"
         android:id="@+id/textView10"
-        android:layout_above="@+id/button4"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:textColor="#ff0000"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_below="@+id/textView9"
+        android:layout_toLeftOf="@+id/button4"
+        android:layout_toStartOf="@+id/button4" />
 
 
 </RelativeLayout>

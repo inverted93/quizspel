@@ -151,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
          så att användaren har med ett @ i sin mailadress.*/
         Boolean b = true;
 
-        b = checkIfEmpty();
-
         if(!email.contains("@")){
             //Kollar så att det finns ett @, sätter variabeln till false om det inte finns.
             b = false;
@@ -186,42 +184,42 @@ public class MainActivity extends AppCompatActivity {
 
             e.printStackTrace();
         }
-        return b;
-        //Returnerar boolean till anropande rad där de kan användas för varna användare
-    }
-
-
-    public boolean checkIfEmpty(){
-
-        boolean b =true;
 
         EditText emailField = (EditText) findViewById(R.id.email);
         EditText userNameField = (EditText) findViewById(R.id.usernameInput);
         EditText passwordField = (EditText) findViewById(R.id.password);
 
         String emailFieldString = emailField.getText().toString();
-        String userNameFieldString = emailField.getText().toString();
-        String passwordFieldString = emailField.getText().toString();
+        String userNameFieldString = userNameField.getText().toString();
+        String passwordFieldString = passwordField.getText().toString();
 
         if(emailFieldString.equals("")){
             b = false;
-            emailField.setHint("Fill this out");
+            emailField.setHint("Fill this out - Email");
+            toastText="You must fill out all forms";
         }
         if(userNameFieldString.equals("")){
             b = false;
-            userNameField.setHint("Fill this out");
+            userNameField.setHint("Fill this out - Username");
+            toastText="You must fill out all forms";
         }
         if(passwordFieldString.equals("")){
             b = false;
-            passwordField.setHint("Fill this out");
+            passwordField.setHint("Fill this out - Password");
+            toastText="You must fill out all forms";
         }
         if(passwordFieldString.length()<4){
             b = false;
-            toastText="Password must be atleast 4 character";
+            toastText="Password must be atleast 5 character";
         }
 
+        Log.d("BOLEAN ", "MJ" + b);
         return b;
+        //Returnerar boolean till anropande rad där de kan användas för varna användare
     }
+
+
+
 
 
     public void buttonSwitcher(View view) {

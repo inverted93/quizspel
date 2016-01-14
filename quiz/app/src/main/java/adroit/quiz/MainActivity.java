@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                     updateMember.put("UserID", length);
                     updateMember.put("Email", stringEmail);
                     updateMember.put("Password", stringPassword);
-                    updateMember.put("Username", stringUsername);
+                    updateMember.put("UserName", stringUsername);
                     updateMember.put("QuestionsAnswered", "0");
                     updateMember.put("RightAnswers", "0");
                 } catch (JSONException e) {
@@ -330,7 +330,7 @@ class retrieveData extends AsyncTask<String, String, String> {
     protected String doInBackground(String... arg0){
 
         try{
-            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/1kfd1");
+            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/4xf5d");
 
         }catch(JSONException e){
             e.printStackTrace();

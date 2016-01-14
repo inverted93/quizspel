@@ -2,6 +2,7 @@ package adroit.backend;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.ParcelFileDescriptor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -257,35 +258,52 @@ public class createQuestion extends AppCompatActivity {
 
     }
 
-    public Boolean checkIfEmpty(){
+    TextView radioInfo;
+    public Boolean checkIfEmpty() {
 
 
         getStrings();
-        Boolean answer = false;
+        Boolean answer = true;
 
-        if(questionString.equals("")||ans1String.equals("")||ans2String.equals("")||ans3String.equals("")||ans4String.equals("")){
+
 
             Log.d("Fyll i alla ", "falt");
 
-            if(questionString.equals("")){
+            if (questionString.equals("")) {
                 question.setHint("Fill this out");
+                answer = false;
             }
-            if(ans1String.equals("")){
+            if (ans1String.equals("")) {
                 ans1.setHint("Fill this out");
+                answer = false;
             }
-            if(ans2String.equals("")){
+            if (ans2String.equals("")) {
                 ans2.setHint("Fill this out");
+                answer = false;
             }
-            if(ans3String.equals("")){
+            if (ans3String.equals("")) {
                 ans3.setHint("Fill this out");
+                answer = false;
             }
-            if(ans4String.equals("")){
+            if (ans4String.equals("")) {
                 ans4.setHint("Fill this out");
+                answer = false;
             }
 
-        }else {
-            answer = true;
-        }
+            if(!r1.isChecked()&&!r2.isChecked()&&!r3.isChecked()&&!r4.isChecked()){
+                answer = false;
+                radioInfo = (TextView) findViewById(R.id.textView9);
+                radioInfo.setTextColor(Color.RED);
+
+            }else{
+                radioInfo = (TextView) findViewById(R.id.textView9);
+                radioInfo.setTextColor(Color.BLACK);
+            }
+
+
+
+
+
         return answer;
     }
 
@@ -303,17 +321,26 @@ public class createQuestion extends AppCompatActivity {
             getText();
             pc=pc+1;//Addar 1 till pagecount
             fillFields();
+            radioInfo = (TextView) findViewById(R.id.textView9);
+            radioInfo.setTextColor(Color.BLACK);
             Button prevButton = (Button) findViewById(R.id.button8);
             prevButton.setVisibility(View.VISIBLE);
         }
     }
 
     public void prev(View v){
-        clearHint();
-        getStrings();
-        getText();
-        pc = pc - 1; //tar bort 1 fran pagecount
-        fillFields();
+
+        Boolean ok = checkIfEmpty();
+
+        if(ok==true){
+            clearHint();
+            getStrings();
+            getText();
+            pc = pc - 1; //tar bort 1 fran pagecount
+            fillFields();
+            radioInfo = (TextView) findViewById(R.id.textView9);
+            radioInfo.setTextColor(Color.BLACK);
+        }
 
 
         if(pc==1){

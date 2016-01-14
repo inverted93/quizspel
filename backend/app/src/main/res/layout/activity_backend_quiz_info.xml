@@ -15,6 +15,7 @@
         android:background="@drawable/bghubuserstats"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
+        android:clickable="false"
         android:paddingBottom="100dp"
         android:textColor="#FF000000"
         android:focusableInTouchMode="false"
