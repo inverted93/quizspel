@@ -33,17 +33,17 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Jonas 130-131, 188-190. Plus import på alla paket från Mainactivity och retrievedata klasserna i backend.
+
 
     static JSONObject jobj;
-    static String id;
+    static String id; // Id som finns i användarens konto
 
     EditText editUsername;
     EditText editPassword;
     EditText editEmail;
 
 
-    public static void setJson(JSONObject j){
+    public static void setJson(JSONObject j){ //metod för att uppdatera jsonobjektet
 
         jobj =j;
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String getId(){
         return id;
-    }
+    } //metod för returnera variabeln id
 
 
 
@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         EditText userName = (EditText) findViewById(R.id.usernameInput);
         Button newUser = (Button) findViewById(R.id.newUserButton);
         Button login = (Button) findViewById(R.id.loginButton);
-        login.getBackground().setColorFilter(Color.parseColor("#FCF4D9"), PorterDuff.Mode.MULTIPLY);
 
 
         if (switcher == false) {

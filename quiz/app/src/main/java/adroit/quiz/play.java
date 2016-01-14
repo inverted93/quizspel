@@ -34,15 +34,10 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * Skriv allmäna grejer som att användare skall se 4 frågor.
- *
- *
- *
- *
- *
- *
- *
- *
+ * Denna aktivitet innehåller speldelen av appen.
+ * Användaren har ett textfält med en fråga, en progressbar som ökas när
+ * en fråga besvaras/tiden går ut, en nedräknare, textfält med aktuellt frågenummer
+ * och totala antalet frågor och en listview som alltid visar fyra stycken svarsalternativ.
  */
 
 public class play extends AppCompatActivity {

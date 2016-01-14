@@ -22,21 +22,21 @@ public class hub extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
-        fillStats();
-        ((TextView) findViewById(R.id.textView7)).setVisibility(View.INVISIBLE);
+        fillStats(); // metod som hämtar statistik om användaren och presenterar denna i ett texfält
+        ((TextView) findViewById(R.id.textView7)).setVisibility(View.INVISIBLE); // Felmeddelande som görs osynligt varje gång aktiviten startar
 
     }
 
-    String id = MainActivity.getId();
+    String id = MainActivity.getId(); // Hämtar användarens id från förta aktiviteten
 
-    static JSONObject jobj = new JSONObject();
+    static JSONObject jobj = new JSONObject(); // gör ett nytt jsonobjekt
 
-    public static void setJson(JSONObject j){
+    public static void setJson(JSONObject j){ //metod för att uppdatera jsonobjektet
         jobj= j;
     }
 
 
-    public void changePage(View view){
+    public void changePage(View view){ // Byter till aktivitet quizMain
 
         Intent myIntent = new Intent(this, quizMain.class);
         startActivity(myIntent);
@@ -60,7 +60,7 @@ public class hub extends AppCompatActivity {
 
 
 
-    public void changePageToMain(View view){
+    public void changePageToMain(View view){ // Byter till aktivitet mainActivity
 
         Intent myIntent = new Intent(this, MainActivity.class);
         startActivity(myIntent);
@@ -106,7 +106,7 @@ public class hub extends AppCompatActivity {
         }
     }
 
-    public void onBackPressed()
+    public void onBackPressed() // Vid backPressed kommer en dialogruta som frågar om användaren vill logga ut
     {
 
         AlertDialog.Builder adbuilder = new AlertDialog.Builder(hub.this);
@@ -115,6 +115,7 @@ public class hub extends AppCompatActivity {
 
             public void onClick(DialogInterface dialog, int which) {
 
+                // Om användaren tryck "yes" skickas denne vidare till aktivitet MainActivity
                 Intent i = new Intent(hub.this, MainActivity.class);
                 startActivity(i);
                 finish();
