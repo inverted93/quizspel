@@ -325,6 +325,7 @@ public class quizMain extends AppCompatActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
 
+
             ViewHolder holder = null;
 
             if (convertView == null) {

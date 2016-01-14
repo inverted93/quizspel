@@ -133,7 +133,7 @@ public class play extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 View view = super.getView(position,convertView,parent);
-                view.setMinimumHeight((parent.getMeasuredHeight()) / 4);
+                view.setMinimumHeight(((parent.getMeasuredHeight()) / 4) - 3);
 
                 if(position %2 == 1)
                 {

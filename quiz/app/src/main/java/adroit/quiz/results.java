@@ -1,6 +1,7 @@
 package adroit.quiz;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,12 +34,12 @@ public class results extends AppCompatActivity {
 
         double score = getIntent().getExtras().getDouble("Score");
 
-
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMinimumFractionDigits(0);
 
         TextView scoreView = (TextView) findViewById(R.id.editText2);
         scoreView.setText(nf.format(score));
+        setScoreColor(score);
 
         Log.d("Today", "Is shit create");
         updateStats();
@@ -238,6 +239,16 @@ public class results extends AppCompatActivity {
         }catch(JSONException e){
             e.printStackTrace();
         }
+    }
+
+    public void setScoreColor (double score){
+        if(score >= 90) {
+            ((TextView) findViewById(R.id.editText2)).setTextColor(Color.GREEN);
+        }
+        if (score <= 30){
+            ((TextView) findViewById(R.id.editText2)).setTextColor(Color.RED);
+        }
+
     }
 
 
