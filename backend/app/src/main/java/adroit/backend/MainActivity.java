@@ -234,7 +234,6 @@ public class MainActivity extends AppCompatActivity {
         EditText userName = (EditText) findViewById(R.id.usernameInput);
         Button newUser = (Button) findViewById(R.id.createUser);
         Button login = (Button) findViewById(R.id.loginButton);
-        login.getBackground().setColorFilter(Color.parseColor("#FCF4D9"), PorterDuff.Mode.MULTIPLY);
 
 
         if (switcher == false) {

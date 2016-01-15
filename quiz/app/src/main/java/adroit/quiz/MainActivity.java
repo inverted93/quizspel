@@ -51,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static String getId(){
         return id;
-    } //metod för returnera variabeln id
+    }
+    // metod för returnera variabeln id används i andra
+    // klasser för att ta reda på vilken användare som använder appen
 
 
 
@@ -86,21 +88,17 @@ public class MainActivity extends AppCompatActivity {
     boolean checkErrorMsg; //Används för att felmeddelandet inte ska skrivas ut för tidigt.
 
 
-    //ArrayList<String> userList = new ArrayList<String>();
-    //ArrayList<String> passList = new ArrayList<String>();
-
-
-
     public void buttonSwitcher(View view) {
+        // Metod för att ändra text på två knappar (och i förlängningen dess funktionalitet)
+        // Görs även ett textfält synligt när användaren trycker på "Create User"
 
-
-        EditText userName = (EditText) findViewById(R.id.usernameInput);
-        Button newUser = (Button) findViewById(R.id.newUserButton);
-        Button login = (Button) findViewById(R.id.loginButton);
+        EditText userName = (EditText) findViewById(R.id.usernameInput); // Textfält för inmatning av användarnamn
+        Button newUser = (Button) findViewById(R.id.newUserButton);// Knapp för att skapa ny anvndare
+        Button login = (Button) findViewById(R.id.loginButton); // Knapp för att logga in
 
 
         if (switcher == false) {
-
+            // Om användaren tryckt på
             userName.setVisibility(View.VISIBLE);
             newUser.setText(R.string.loginButtonString);
             login.setText(R.string.userCreate);
@@ -346,9 +344,9 @@ class retrieveData extends AsyncTask<String, String, String> {
     }
 
     protected void onPostExecute(String ab){
-        quizMain.setJson(jobj);//Jonas
-        play.setJson(jobj);//Jonas
-        MainActivity.setJson(jobj);//Jonas
+        quizMain.setJson(jobj);
+        play.setJson(jobj);
+        MainActivity.setJson(jobj);
         results.setJson(jobj);
         GameAdapter.setJson(jobj);
         hub.setJson(jobj);
