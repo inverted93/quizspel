@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Bakgrund för textfält som visar användares stats i hubben och  -->
+<!-- fältet som beskriver vad ett quiz handlar om i aktivitet Quizinfo  -->
+
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item >
         <shape android:shape="rectangle">
