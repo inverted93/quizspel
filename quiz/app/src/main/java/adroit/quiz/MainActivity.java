@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static void setJson(JSONObject j){ //metod för att uppdatera jsonobjektet
-
+        //Anropas av retreiveData för att uppdatera json i klassen
         jobj =j;
 
     }
@@ -61,29 +61,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //new retrieveData().execute();
+        //JSON hämtas ner ifrån hosten
         runRetrieve();
 
     }
 
     public static void runRetrieve(){
-
+        //En metod som används för att hämta ner en ny version av json ifrån hosten.
         new retrieveData().execute();
 
     }
 
     public static void runUpdate(){
         new updateData().execute();
+        //En metod som används för att göra en update
+
     }
 
 
     EditText anvText;
     EditText passText;
     TextView felMed;
-    EditText extraText;
-    Button loginButton;
-    EditText userName;
 
+    //Ska användas för att man ska kunna skapa konto och logga in med samma knapp.
+    //Beroende på switcher så kommer koden för att logga in eller skapa medlem köras.
     boolean switcher;
     boolean checkErrorMsg; //Används för att felmeddelandet inte ska skrivas ut för tidigt.
 
@@ -114,20 +115,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void createJson(JSONArray memberArr){
+        //Klassen tar emot en JSONArray som innehåller alla medlemmar inklusive den nyligen skapade medlemmen.
+        //Skapar ett jsonobjekt där arrayerna ska placeras (det slutgiltiga jsonobjektet)
 
         JSONObject jsonFinal = new JSONObject();
 
         try{
-
+            //Hämtar alla arrayer som inte har uppdaterats
             JSONArray quizArr = jobj.getJSONArray("Quiz");
             JSONArray questArr = jobj.getJSONArray("Question");
             JSONArray ansArr = jobj.getJSONArray("Answer");
 
+            //Lägger till alla fyra arrayerna
             jsonFinal.put("Quiz", quizArr);
             jsonFinal.put("Question", questArr);
             jsonFinal.put("Answer", ansArr);
             jsonFinal.put("Members", memberArr);
 
+            //Uppdaterar i klassen updateData, som sedan använder den nya json när den kommmunicerar med hosten.
             updateData.setJson(jsonFinal);
             MainActivity.runUpdate();
             MainActivity.runRetrieve();
@@ -157,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 String anvTmp = anvText.getText().toString();
                 String passTmp = passText.getText().toString();
 
-                felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
+                felMed.setVisibility(View.INVISIBLE);
 
                 JSONArray memberArr = jobj.getJSONArray("Members");
                 String uName;
@@ -173,15 +178,15 @@ public class MainActivity extends AppCompatActivity {
                     uName = tmpJ.getString("UserName");
                     password = tmpJ.getString("Password");
 
-                    if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
+                    if (anvTmp.equals(uName) && passTmp.equals(password)) {    //Jamfor ett namn och lösenord i listan med
 
                         id = tmpJ.getString("UserID");
 
                         Intent myIntent = new Intent(this, hub.class);
                         startActivity(myIntent);
                         finish(); //Jonas
-                        overridePendingTransition(0, 0); //Jonas
-                        checkErrorMsg = true; //!!!
+                        overridePendingTransition(0, 0);
+                        checkErrorMsg = true;
                         break;
 
                     } else {
@@ -215,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Password", stringPassword);
             Log.d("Username", stringUsername);
 
-            //if axels metod stämmer
 
             boolean b = getBool(stringUsername, stringEmail, stringPassword);
             if (b == true) {
@@ -270,7 +274,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean getBool(String userName, String email, String password){
-        /*metoden används för attt se så att användarnamnet eller
+        /*Nedan är vår testkod för att användaren matar in korrekt information när en ny medlem ska skapas.
+        metoden används för att se så att användarnamnet eller
         emailen inte redan finns i databasen. Den kollar också
          så att användaren har med ett @ i sin mailadress.*/
         Boolean b = true;
@@ -278,24 +283,76 @@ public class MainActivity extends AppCompatActivity {
         if(!email.contains("@")){
             //Kollar så att det finns ett @, sätter variabeln till false om det inte finns.
             b = false;
-            toastText = "Incorrect Email";
+            toastText="Not a valid Email";
         }
+        if(email.length()<5){
+            //Kollar så att mailen är tillräckligt lång
+            b=false;
+            toastText ="The Email is to short";
+        }
+
+
+        EditText emailField = (EditText) findViewById(R.id.email);
+        EditText userNameField = (EditText) findViewById(R.id.usernameInput);
+        EditText passwordField = (EditText) findViewById(R.id.password);
+
+
+        if(email.equals("")){
+            b = false;
+            emailField.setHint("Fill this out - Email");
+            toastText="You must fill out all forms";
+        }
+        if(userName.equals("")){
+            b = false;
+            userNameField.setHint("Fill this out - Username");
+            toastText="You must fill out all forms";
+        }
+        if(password.equals("")){
+            b = false;
+            passwordField.setHint("Fill this out - Password");
+            toastText="You must fill out all forms";
+        }
+        if(password.length()<4){
+            b = false;
+            toastText="Password must be atleast 5 character";
+        }
+        //Skapar två regex
+        String numb   = ".*[0-9].*";
+        String alphaLower = ".*[a-z].*";
+        String alphaUpper = ".*[A-Z].*";
+
+        if(!password.matches(numb)){
+            //Om inte lösenordet innehåller minst ett nummer så kommer ett felmeddelande visas
+            b = false;
+            toastText="Password must contain atleast one number";
+        }
+        if(!password.matches(alphaLower)||!password.matches(alphaUpper)){
+            //Om inte lösenordet innehåller minst en bokstav så kommer ett felmeddelande visas
+            b = false;
+            toastText="Password must contain atleast one letter";
+        }
+
 
         try{
             JSONArray membArr = jobj.getJSONArray("Members");
             /*hämtar ett Json objekt som används för att hämta användarnamn och email.
              * Loopen jobbar igenom alla objekt och ser om användarnamnet eller emailen
-              finns på något mer ställe */
+             * finns på något mer ställe */
             for(int i=0; i<membArr.length();i++){
                 JSONObject tmp = membArr.getJSONObject(i);
+                Log.d("Pop", "Andre" + tmp.toString());
                 String uNameFromJson = tmp.getString("UserName");
                 String emailFromJson = tmp.getString("Email");
 
-                if(userName.equals(uNameFromJson)||email.equals(emailFromJson)){
-
+                if(userName.equals(uNameFromJson)){
+                    toastText ="Username is taken! ";
                     b= false;
                     //Sätter variabeln till false om det redan finns ett
                     // konto med det här användarnamnet eller emailen.
+                }
+                if(email.equals(emailFromJson)){
+                    b= false;
+                    toastText ="This Email already has an account";
                 }
             }
 
@@ -303,6 +360,8 @@ public class MainActivity extends AppCompatActivity {
 
             e.printStackTrace();
         }
+
+
         return b;
         //Returnerar boolean till anropande rad där de kan användas för varna användare
     }

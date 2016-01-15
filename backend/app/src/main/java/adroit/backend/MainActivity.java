@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static void setJson(JSONObject j){
-        //Anropas av retreiveData för att uppdater json i klassen
+        //Anropas av retreiveData för att uppdatera json i klassen
         jobj =j;
 
     }
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //JSON hämtas ner ifrån hosten,
+        //JSON hämtas ner ifrån hosten
         runRetrieve();
 
     }
@@ -219,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         return b;
         //Returnerar boolean till anropande rad där de kan användas för varna användare
     }
@@ -229,11 +228,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void buttonSwitcher(View view) {
+        // Metod för att ändra text på två knappar (och i förlängningen dess funktionalitet)
+        // Görs även ett textfält synligt när användaren trycker på "Create User"
 
 
-        EditText userName = (EditText) findViewById(R.id.usernameInput);
-        Button newUser = (Button) findViewById(R.id.createUser);
-        Button login = (Button) findViewById(R.id.loginButton);
+        EditText userName = (EditText) findViewById(R.id.usernameInput); // Textfält för inmatning av användarnamn
+        Button newUser = (Button) findViewById(R.id.createUser);// Knapp för att skapa ny anvndare
+        Button login = (Button) findViewById(R.id.loginButton); // Knapp för att logga in
 
 
         if (switcher == false) {
@@ -260,9 +261,6 @@ public class MainActivity extends AppCompatActivity {
         if(errorOccured==true){
             runRetrieve();
         }
-
-
-
             if (switcher == false) {
 
                 try {
@@ -281,7 +279,6 @@ public class MainActivity extends AppCompatActivity {
                     String password;
 
                     Log.d("1. ", "2" + memberArr.length());
-
 
                     for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
 
