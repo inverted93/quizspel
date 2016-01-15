@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     static JSONObject jobj;
     static String id; // Id som finns i användarens konto
+    static boolean errorOccured = false;
 
     EditText editUsername;
     EditText editPassword;
@@ -148,11 +149,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void networkCheck(){
+        /*Metoden anropas för att verifiera att ett jsonobjekt har hämtats ifrån hosten.
+        * Om så inte är fallet kommer användaren att få ett toastmeddelande som informerar
+        * något är fel med nätverket.*/
+        if(jobj==null){
+            //En klass variabel sätts som true, när ett fel har inträffat
+            errorOccured =true;
+            Context context = getApplicationContext();
+            CharSequence msg = "Network Error";
+            int duration = Toast.LENGTH_SHORT;
+            //Toasten visas
+            Toast toast = Toast.makeText(context, msg, duration);
+            toast.show();
+        }else{
+            errorOccured =false;
+        }
+
+    }
+
     private CharSequence toastText;
 
     public void login(View view)throws JSONException {
 
         Context context = getApplicationContext();
+        networkCheck();
+        if(errorOccured==true){
+            runRetrieve();
+        }
 
         if (switcher == false) {
 
