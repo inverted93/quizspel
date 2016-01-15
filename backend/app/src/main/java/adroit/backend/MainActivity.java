@@ -34,12 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static void setJson(JSONObject j){
-
+        //Anropas av retreiveData för att uppdater json i klassen
         jobj =j;
 
     }
 
     public static String getId(){
+        //Används av andra klasser för att de ska få de id:t som är inloggad.
         return id;
     }
 
@@ -49,20 +50,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //JSON hämtas ner ifrån hosten,
         runRetrieve();
-
 
     }
 
     public void networkCheck(){
-
-
+        /*Metoden anropas för att verifiera att ett jsonobjekt har hämtats ifrån hosten.
+        * Om så inte är fallet kommer användaren att få ett toastmeddelande som informerar
+        * något är fel med nätverket.*/
         if(jobj==null){
+            //En klass variabel sätts som true, när ett fel har inträffat
             errorOccured =true;
             Context context = getApplicationContext();
             CharSequence msg = "Network Error";
             int duration = Toast.LENGTH_SHORT;
-
+            //Toasten visas
             Toast toast = Toast.makeText(context, msg, duration);
             toast.show();
         }else{
@@ -71,35 +74,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public static void runRetrieve(){
-        new retrieveData().execute();  // VIktig rad
+        //En metod som används för att hämta ner en ny version av json ifrån hosten.
+        new retrieveData().execute();
     }
 
     public static void runUpdate(){
-
+        //En metod som används för att göra en update
         new updateData().execute();
     }
-
-
-
-
 
     EditText anvText;
     EditText passText;
     TextView felMed;
-    EditText extraText;
-    Button loginButton;
 
+    //Ska användas för att man ska kunna skapa konto och logga in med samma knapp.
+    //Beroende på switcher så kommer koden för att logga in eller skapa medlem köras.
     boolean switcher;
-    boolean checkErrorMsg; //Används för att fel meddelandet inte ska skrivas ut för tidigt.
-
-
-    ArrayList<String> userList = new ArrayList<String>();
-    ArrayList<String> passList = new ArrayList<String>();
-
-
-
+    //Används för att fel meddelandet inte ska skrivas ut för tidigt.
+    boolean checkErrorMsg;
 
     /*Deklaration av edittexterna(TExtfälten) till create user*/
     EditText editUsername;
@@ -108,37 +101,39 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void createJson(JSONArray memberArr){
-
+        //Klassen tar emot en JSONArray som innehåller alla medlemmar inklusive den nyligen skapade medlemmen.
+        //Skapar ett jsonobjekt där arrayerna ska placeras (det slutgiltiga jsonobjektet)
         JSONObject jsonFinal = new JSONObject();
 
         try{
-
+            //Hämtar alla arrayer som inte har uppdaterats
             JSONArray quizArr = jobj.getJSONArray("Quiz");
             JSONArray questArr = jobj.getJSONArray("Question");
             JSONArray ansArr = jobj.getJSONArray("Answer");
 
+            //Lägger till alla fyra arrayerna
             jsonFinal.put("Quiz", quizArr);
             jsonFinal.put("Question", questArr);
             jsonFinal.put("Answer", ansArr);
             jsonFinal.put("Members", memberArr);
 
+            //Uppdaterar i klassen updateData, som sedan använder den nya json när den kommmunicerar med hosten. 
             updateData.setJSON(jsonFinal);
-            MainActivity.runUpdate();
-            MainActivity.runRetrieve();
-
+            runUpdate();
+            runRetrieve();
 
         }catch(JSONException e){
 
             e.printStackTrace();
 
         }
-
     }
 
 
 
     public boolean getBool(String userName, String email, String password){
-        /*metoden används för attt se så att användarnamnet eller
+        /*Nedan är vår testkod för att användaren matar in korrekt information när en ny medlem ska skapas.
+        metoden används för att se så att användarnamnet eller
         emailen inte redan finns i databasen. Den kollar också
          så att användaren har med ett @ i sin mailadress.*/
         Boolean b = true;
@@ -181,15 +176,18 @@ public class MainActivity extends AppCompatActivity {
         }
         //Skapar två regex 
         String numb   = ".*[0-9].*";
-        String alpha = ".*[A-Z].*";
+        String alphaLower = ".*[a-z].*";
+        String alphaUpper = ".*[A-Z].*";
 
         if(!password.matches(numb)){
+            //Om inte lösenordet innehåller minst ett nummer så kommer ett felmeddelande visas
             b = false;
             toastText="Password must contain atleast one number";
         }
-        if(!password.matches(alpha)){
+        if(!password.matches(alphaLower)||!password.matches(alphaUpper)){
+            //Om inte lösenordet innehåller minst en bokstav så kommer ett felmeddelande visas
             b = false;
-            toastText="Password must contain atleast one character";
+            toastText="Password must contain atleast one letter";
         }
 
 
