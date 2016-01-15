@@ -98,14 +98,16 @@ public class hub extends AppCompatActivity{
         //Byter aktivitet till createQuiz
         Intent myIntent = new Intent(this, createQuiz.class);
         startActivity(myIntent);
-
+        finish();
+        overridePendingTransition(0, 0);
     }
 
     public void changePageMyQuiz(View v) {
         //Byter aktivitet till myQuiz
         Intent myIntent = new Intent(this, myQuiz.class);
         startActivity(myIntent);
-
+        finish();
+        overridePendingTransition(0, 0);
     }
 
 
