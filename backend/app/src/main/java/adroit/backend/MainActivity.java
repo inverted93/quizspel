@@ -233,18 +233,21 @@ public class MainActivity extends AppCompatActivity {
 
 
         EditText userName = (EditText) findViewById(R.id.usernameInput); // Textfält för inmatning av användarnamn
-        Button newUser = (Button) findViewById(R.id.createUser);// Knapp för att skapa ny anvndare
+        Button newUser = (Button) findViewById(R.id.createUser); // Knapp för att skapa ny användare
         Button login = (Button) findViewById(R.id.loginButton); // Knapp för att logga in
 
 
         if (switcher == false) {
-
+            // Om användaren tryckt på "create user" knappen synliggörs ett texfält
+            // där ombeds användaren skriva in önkskat användarnamn
             userName.setVisibility(View.VISIBLE);
             newUser.setText(R.string.loginButtonString);
             login.setText(R.string.userCreate);
             switcher = true;
 
         }else{
+            // Om användaren senare trycker på knappen "log in" igen så
+            // görs textfälltet med användarnamn osynligt och knapparna får ursprunglig text
             userName.setVisibility(View.INVISIBLE);
             newUser.setText(R.string.createButtonString);
             login.setText(R.string.loginButtonString);

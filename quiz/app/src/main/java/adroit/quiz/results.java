@@ -244,10 +244,10 @@ public class results extends AppCompatActivity {
 
     public void setScoreColor (double score){ // Metod som ändrar färg på textfältet beroende på resultat (score)
 
-        if(score >= 0.9) {
+        if(score >= 0.9) { // Om resultatet är (score är 90% eller högre görs färgen grön
             ((TextView) findViewById(R.id.editText2)).setTextColor(Color.GREEN);
         }
-        else if (score <= 0.3){
+        else if (score <= 0.3){ // Om resultatet är (score är 90% eller högre görs färgen grön
             ((TextView) findViewById(R.id.editText2)).setTextColor(Color.RED);
         }
 
@@ -256,6 +256,12 @@ public class results extends AppCompatActivity {
 
 
     public void changePageToQuizInfo(View view){
+
+        /**
+         * Ändrar aktivitet till quizinfo och skickar med en
+         * bundle med string för att informationen i quizinfo ska vara för samma
+         * quiz som användaren precis har spelat
+         */
 
         quizTitle = getIntent().getExtras().getString("QuizTitle");
         quizDesc = getIntent().getExtras().getString("QuizDesc");
@@ -284,6 +290,11 @@ public class results extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
+        /**
+         * Ändrar aktivitet till quizinfo och skickar med en
+         * bundle med string för att informationen i quizinfo ska vara för samma
+         * quiz som användaren precis har spelat
+         */
 
         quizTitle = getIntent().getExtras().getString("QuizTitle");
         quizDesc = getIntent().getExtras().getString("QuizDesc");
@@ -310,6 +321,9 @@ public class results extends AppCompatActivity {
     }
 
     public void backToHub(View v){
+
+        // Skickar användaren tillbaka till hubben
+        // används då användaren har gett Quizet ett betyg (rating)
 
         Intent i = new Intent(this, hub.class);
         startActivity(i);
