@@ -63,10 +63,14 @@ public class myQuiz extends AppCompatActivity {
 
 
         gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games){
+
             @Override
             public View getView(int position, View convertView, ViewGroup parent){
                 View view = super.getView(position,convertView,parent);
 
+
+                // Sätter backgrundfärgen på listviewobjekten beroend på plats
+                // blir varannan i respektive färg
                 if(position %2 == 1)
                 {
                     view.setBackgroundColor(getResources().getColor(R.color.textviewBG));
@@ -78,8 +82,8 @@ public class myQuiz extends AppCompatActivity {
                 return view;
             }
         };
-        ListView gameList = (ListView) findViewById(R.id.gameList);
-        gameList.setAdapter(gameAdapter);
+        ListView gameList = (ListView) findViewById(R.id.gameList); // Skapar en listview
+        gameList.setAdapter(gameAdapter); // kopplar listview till adapter
 
 
         gameList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -133,6 +137,8 @@ public class myQuiz extends AppCompatActivity {
                 Intent myIntent = new Intent(view.getContext(), backendQuizInfo.class);
                 myIntent.putExtras(b);
                 startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
             }
 
 
