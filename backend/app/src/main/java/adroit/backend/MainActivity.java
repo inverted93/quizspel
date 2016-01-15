@@ -56,11 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void networkCheck(){
 
-        /*
-        Boolean b1 = getBool("", "fadsgfa", "gsdfg");
-        Boolean b2 = getBool("sgf", "gfdg", "");
-        Boolean b3 = getBool("@gsdfgkmdsf", "sdfg", "");
-        Log.d("Matilda", "hej" + b1 + b2 + b3);*/
 
         if(jobj==null){
             errorOccured =true;
@@ -141,9 +136,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    String tText="";
-
-
 
     public boolean getBool(String userName, String email, String password){
         /*metoden används för attt se så att användarnamnet eller
@@ -156,6 +148,50 @@ public class MainActivity extends AppCompatActivity {
             b = false;
             toastText="Not a valid Email";
         }
+        if(email.length()<5){
+            //Kollar så att mailen är tillräckligt lång
+            b=false;
+            toastText ="The Email is to short";
+        }
+
+
+        EditText emailField = (EditText) findViewById(R.id.email);
+        EditText userNameField = (EditText) findViewById(R.id.usernameInput);
+        EditText passwordField = (EditText) findViewById(R.id.password);
+
+
+        if(email.equals("")){
+            b = false;
+            emailField.setHint("Fill this out - Email");
+            toastText="You must fill out all forms";
+        }
+        if(userName.equals("")){
+            b = false;
+            userNameField.setHint("Fill this out - Username");
+            toastText="You must fill out all forms";
+        }
+        if(password.equals("")){
+            b = false;
+            passwordField.setHint("Fill this out - Password");
+            toastText="You must fill out all forms";
+        }
+        if(password.length()<4){
+            b = false;
+            toastText="Password must be atleast 5 character";
+        }
+        //Skapar två regex 
+        String numb   = ".*[0-9].*";
+        String alpha = ".*[A-Z].*";
+
+        if(!password.matches(numb)){
+            b = false;
+            toastText="Password must contain atleast one number";
+        }
+        if(!password.matches(alpha)){
+            b = false;
+            toastText="Password must contain atleast one character";
+        }
+
 
         try{
             JSONArray membArr = jobj.getJSONArray("Members");
@@ -185,35 +221,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        EditText emailField = (EditText) findViewById(R.id.email);
-        EditText userNameField = (EditText) findViewById(R.id.usernameInput);
-        EditText passwordField = (EditText) findViewById(R.id.password);
 
-        String emailFieldString = emailField.getText().toString();
-        String userNameFieldString = userNameField.getText().toString();
-        String passwordFieldString = passwordField.getText().toString();
-
-        if(emailFieldString.equals("")){
-            b = false;
-            emailField.setHint("Fill this out - Email");
-            toastText="You must fill out all forms";
-        }
-        if(userNameFieldString.equals("")){
-            b = false;
-            userNameField.setHint("Fill this out - Username");
-            toastText="You must fill out all forms";
-        }
-        if(passwordFieldString.equals("")){
-            b = false;
-            passwordField.setHint("Fill this out - Password");
-            toastText="You must fill out all forms";
-        }
-        if(passwordFieldString.length()<4){
-            b = false;
-            toastText="Password must be atleast 5 character";
-        }
-
-        Log.d("BOLEAN ", "MJ" + b);
         return b;
         //Returnerar boolean till anropande rad där de kan användas för varna användare
     }
@@ -285,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
                         uName = tmpJ.getString("UserName");
                         password = tmpJ.getString("Password");
 
-                        if (anvTmp.equals(uName) && passTmp.equals(password) || i == 0) {    //Jamfor ett namn och lösenord i listan med  TEMPFIX FOR ATT SLIPPA LOGGA IN
+                        if (anvTmp.equals(uName) && passTmp.equals(password)) {
 
                             id = tmpJ.getString("UserID");
 
