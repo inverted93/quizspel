@@ -229,21 +229,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void buttonSwitcher(View view) {
+        // Metod för att ändra text på två knappar (och i förlängningen dess funktionalitet)
+        // Görs även ett textfält synligt när användaren trycker på "Create User"
 
-
-        EditText userName = (EditText) findViewById(R.id.usernameInput);
-        Button newUser = (Button) findViewById(R.id.createUser);
-        Button login = (Button) findViewById(R.id.loginButton);
+        EditText userName = (EditText) findViewById(R.id.usernameInput); // Textfält för inmatning av användarnamn
+        Button newUser = (Button) findViewById(R.id.createUser); // Knapp för att skapa ny användare
+        Button login = (Button) findViewById(R.id.loginButton); // Knapp för att logga in
 
 
         if (switcher == false) {
-
+            // Om användaren tryckt på "create user" knappen synliggörs ett texfält
+            // där ombeds användaren skriva in önkskat användarnamn
             userName.setVisibility(View.VISIBLE);
             newUser.setText(R.string.loginButtonString);
             login.setText(R.string.userCreate);
             switcher = true;
 
         }else{
+            // Om användaren senare trycker på knappen "log in" igen så
+            // görs textfälltet med användarnamn osynligt och knapparna får ursprunglig text
             userName.setVisibility(View.INVISIBLE);
             newUser.setText(R.string.createButtonString);
             login.setText(R.string.loginButtonString);
