@@ -385,15 +385,16 @@ public class createQuestion extends AppCompatActivity {
             //QuizIDt skapas genom att ta längden på arrayen (redan befintliga konton)
             // och lägga till +1
             int quizId = oldQuizArray.length()+1;
+            String quizIdString = ""+quizId;
             //Ett nytt jsonobjekt skapas
             JSONObject nyQuiz = new JSONObject();
             //I det läggs all den data som quiz behöver, skapas efter json-syntaxen
-            nyQuiz.put("QID", quizId);
+            nyQuiz.put("QID", ""+quizIdString);
             nyQuiz.put("Name", quizTitle);
             nyQuiz.put("Description", quizDesc);
-            nyQuiz.put("Rating", "0");
-            nyQuiz.put("Rated", "0");
-            nyQuiz.put("Played", "0");
+            nyQuiz.put("Rating", "2.5");
+            nyQuiz.put("Rated", "1");
+            nyQuiz.put("Played", "1");
             //Hämtar idt på den som är inloggad ifrån MainActivity
             nyQuiz.put("UserID", MainActivity.getId());
             nyQuiz.put("Creationdate", date);
@@ -417,8 +418,8 @@ public class createQuestion extends AppCompatActivity {
                 //Ett nytt json objekt skapas, används för att kunna spara ner frågan i samma syntax
                 //som används hos jsonobjektet som finns hos hosten.
                 JSONObject nyQuesJson = new JSONObject();
-                nyQuesJson.put("QueID", quesId);
-                nyQuesJson.put("QID", quizId);
+                nyQuesJson.put("QueID", ""+quesId);
+                nyQuesJson.put("QID", ""+quizId);
                 nyQuesJson.put("qText", temporaryQuest.getString("question"));
                 //Lägger till de nyligen skapade objektet längst ner i arrayen
                 oldQuestArr.put(nyQuesJson);
@@ -455,11 +456,13 @@ public class createQuestion extends AppCompatActivity {
                     }else{
                         rightAnswerString ="false";
                     }
+                    int answerId = oldAnsArr.length()+1;
+
 
                     //Ett nytt jsonobjekt skapas för att spara svar efter korrekt syntax
                     JSONObject nyAnsJson = new JSONObject();
-                    nyAnsJson.put("AID", oldAnsArr.length()+1);
-                    nyAnsJson.put("QueID", quesId);
+                    nyAnsJson.put("AID", ""+answerId);
+                    nyAnsJson.put("QueID", ""+quesId);
                     nyAnsJson.put("aText", ansList.get(j));
                     nyAnsJson.put("rightAnswer", rightAnswerString);
                     //Läggs i slutet av den gamla arrayen.
