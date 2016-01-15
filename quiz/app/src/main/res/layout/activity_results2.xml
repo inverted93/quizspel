@@ -57,7 +57,7 @@
         android:text="@string/Score_text"
         android:background="@drawable/bgpercentage"
         android:textSize="50dp"
-        android:textColor="@color/textviewBG"
+        android:textColor="@color/textviewBorderFocused"
         android:gravity="center"
         android:layout_marginTop="-3dp"
         android:layout_below="@+id/textView"

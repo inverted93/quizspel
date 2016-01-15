@@ -1,6 +1,10 @@
 package adroit.quiz;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -74,7 +78,7 @@ public class quizInfo extends AppCompatActivity {
     }
 
 
-    public void onBackPressed()
+    public void onBackPressed() // Skickar en vidare till föregående aktivitet
     {
         super.onBackPressed();
 

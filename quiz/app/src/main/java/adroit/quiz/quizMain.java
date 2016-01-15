@@ -287,8 +287,6 @@ public class quizMain extends AppCompatActivity {
             jsonResponse = json;
         }
 
-        //http://stackoverflow.com/questions/14118309/how-to-use-search-functionality-in-custom-list-view-in-android
-        //Källan för den här skiten
 
         private ArrayList<SingleRow> OriginalValues; // Originala värden
         private ArrayList<SingleRow> DisplayedValues;    // Värden som visas när man söker
