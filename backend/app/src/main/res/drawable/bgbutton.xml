@@ -10,11 +10,18 @@
         android:angle="90">
     </gradient>
 
+    <padding android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp"/>
+
     <corners android:radius="10dp" />
 
     <stroke
         android:width="2dp"
         android:color="@color/textviewBG" />
 </shape>
+
+
 
 

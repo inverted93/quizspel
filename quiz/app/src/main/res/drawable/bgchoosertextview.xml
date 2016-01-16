@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Bakgrundsväljare för textfält i appen, när användaren har markerat eller -->
+    <!-- skriver i ett textfält så ändras textfältets bakgrund till en med bredare borders  -->
+    <!-- och annan färg för att göra det tydligt vilket textfält som används -->
+
     <item android:state_pressed="true" android:drawable="@drawable/bgtextviewfocused" />
     <item android:state_focused="true" android:drawable="@drawable/bgtextviewfocused" />
     <item android:drawable="@drawable/bgtextview" />
