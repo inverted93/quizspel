@@ -142,9 +142,10 @@ public class quizMain extends AppCompatActivity {
                 NumberFormat formatter = new DecimalFormat("#0.0");
                 String ratingDone = formatter.format(ratingDouble);
                 String userID = qInfo.getString("UserID");
+                String QuizID = qInfo.getString("QID"); // JonasL lade till denna för att hämta QID
                 games.add(name);
                 ratings.add(ratingDone);
-                IDs.add(userID);
+                IDs.add(QuizID); // JonasL ersatte userID med QuizID som argument
                 for (int x = 0; x < member.length(); x++){
 
                     JSONObject mInfo = member.getJSONObject(x);
