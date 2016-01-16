@@ -170,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
 
     private CharSequence toastText;
 
+    //Metoden är kopplad till den högra knappen i startrutan och loggar antingen in eller
+    //skapar ett nytt konto baserat på switchern som har sats till true eller false när den vänstra knappen trycks på
     public void login(View view)throws JSONException {
 
         Context context = getApplicationContext();
@@ -177,12 +179,12 @@ public class MainActivity extends AppCompatActivity {
         if(errorOccured==true){
             runRetrieve();
         }
-
+        //logga in
         if (switcher == false) {
 
             try {
 
-                checkErrorMsg = false; //!!!!
+                checkErrorMsg = false;
                 anvText = (EditText) findViewById(R.id.email);
                 passText = (EditText) findViewById(R.id.password);
                 felMed = (TextView) findViewById(R.id.textView5);
@@ -205,13 +207,15 @@ public class MainActivity extends AppCompatActivity {
                     uName = tmpJ.getString("UserName");
                     password = tmpJ.getString("Password");
 
-                    if (anvTmp.equals(uName) && passTmp.equals(password)) {    //Jamfor ett namn och lösenord i listan med
+                    //Jamfor ett namn och lösenord i listan med respektive värde i databasen.
+                    //om det stämmer så skickas användaren vidare till nästa aktivitet, annars visas ett errormeddelande
+                    if (anvTmp.equals(uName) && passTmp.equals(password)) {
 
                         id = tmpJ.getString("UserID");
 
                         Intent myIntent = new Intent(this, hub.class);
                         startActivity(myIntent);
-                        finish(); //Jonas
+                        finish();
                         overridePendingTransition(0, 0);
                         checkErrorMsg = true;
                         break;
@@ -249,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             boolean b = getBool(stringUsername, stringEmail, stringPassword);
+            //Om getBool returnerar true, så skapas en ny användare
             if (b == true) {
                 //Skapar JSONObjektet som alla put kommer att laggas i.
                 JSONObject updateMember = new JSONObject();
