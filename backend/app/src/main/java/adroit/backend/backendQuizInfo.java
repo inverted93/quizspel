@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class backendQuizInfo extends Activity {
 
    // @Override
@@ -42,12 +45,17 @@ public class backendQuizInfo extends Activity {
         quizPlayed = getIntent().getExtras().getString("QuizPlayed");
         quizID = getIntent().getExtras().getString("QuizID");
 
+        double quizRatedDouble = Double.parseDouble(quizRating);
+        NumberFormat formatter = new DecimalFormat("#0");
+        String quizRatedFinal = formatter.format(quizRatedDouble);
+
+
         //Sätter texten i elementen
         quizTitle.setText(quizHeader);
         description.setText(quizDesc);
         ratingBar.setRating(Float.parseFloat(quizRating));
         playedNumber.setText(quizPlayed);
-        votedNumber.setText(quizRated);
+        votedNumber.setText(quizRatedFinal);
 
 
     }

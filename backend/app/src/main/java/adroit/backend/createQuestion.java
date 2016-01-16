@@ -392,9 +392,9 @@ public class createQuestion extends AppCompatActivity {
             nyQuiz.put("QID", ""+quizIdString);
             nyQuiz.put("Name", quizTitle);
             nyQuiz.put("Description", quizDesc);
-            nyQuiz.put("Rating", "2.5");
-            nyQuiz.put("Rated", "1");
-            nyQuiz.put("Played", "1");
+            nyQuiz.put("Rating", "0");
+            nyQuiz.put("Rated", "0");
+            nyQuiz.put("Played", "0");
             //Hämtar idt på den som är inloggad ifrån MainActivity
             nyQuiz.put("UserID", MainActivity.getId());
             nyQuiz.put("Creationdate", date);
