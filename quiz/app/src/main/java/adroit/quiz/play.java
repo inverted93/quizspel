@@ -198,7 +198,7 @@ public class play extends AppCompatActivity {
 
         answersList.setAdapter(answersAdapter); // kopplar listview till adapter
 
-        CountDown = new CountDownTimer(8000, 100) { // ny timer på 8 sek
+        CountDown = new CountDownTimer(20000, 100) { // ny timer på 8 sek
 
 
             public void onTick(long ms) { // ontick som sätter ett textfält med tid kvar varje sekund
