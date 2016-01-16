@@ -228,15 +228,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //Här är kod för att skapa användare
 
+            //Edittexter knyts till var sitt täxtfält i gränssnittet
             editUsername = (EditText) findViewById(R.id.usernameInput);
             editPassword = (EditText) findViewById(R.id.password);
             editEmail = (EditText) findViewById(R.id.email);
 
-
+            //Här deklareras Stringar som får det värde som användaren har skrivit i textfälten
             String stringUsername = editUsername.getText().toString();
             String stringPassword = editPassword.getText().toString();
             String stringEmail = editEmail.getText().toString();
 
+            //Log som gör att utvecklaren kan se indatan lagras rätt i rätt String
             Log.d("Email", stringEmail);
             Log.d("Password", stringPassword);
             Log.d("Username", stringUsername);
@@ -251,9 +253,11 @@ public class MainActivity extends AppCompatActivity {
                 try {
 
                     JSONArray memberArr = jobj.getJSONArray("Members");
-
+                    //Denna int genererar vilkwr ID den nya användaren ska få
                     int length = memberArr.length() + 1;
 
+                    
+                    //Under läggs all indata som användaren har genererat in i JSON filen.
                     updateMember.put("UserID",""+ length);
                     updateMember.put("Email", stringEmail);
                     updateMember.put("Password", stringPassword);

@@ -80,17 +80,17 @@ public class updateData extends AsyncTask<String, String, String>{
                 writer.flush();
                 writer.close();
 
-                Log.d("1121423432" + conn.getRequestMethod(), "HEj");
+                Log.d("1121423432" + conn.getRequestMethod(), j.toString());
                 String response =conn.getInputStream().toString();
                 Log.d("Svar: "+ response, "Okej");
 
             }catch(MalformedURLException e){
 
-                System.out.println("Fuck");
+                System.out.println("Det blev fel, Malformed URL");
                 e.printStackTrace();
 
             }catch(IOException e){
-                System.out.println("Fuck2");
+                System.out.println("IOException i updateData");
                 e.printStackTrace();
             }
 
