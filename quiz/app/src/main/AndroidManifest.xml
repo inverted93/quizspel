@@ -35,6 +35,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".play"
+            android:theme="@style/AppTheme2"
             android:screenOrientation="portrait">
         </activity>
     </application>

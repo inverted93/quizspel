@@ -169,6 +169,8 @@ public class play extends AppCompatActivity {
             @Override // overridar den befintliga getView metoden för att modifiera den
             public View getView(int position, View convertView, ViewGroup parent){
 
+
+
                 View view = super.getView(position,convertView,parent);
                 /**
                  * Sätter höjden på varje listobjekt beroend på hur hög listview är
@@ -176,17 +178,19 @@ public class play extends AppCompatActivity {
                  * -3 görs för att synliggöra sista objektet mer då listview har
                  * en shape background med padding som annars täcker lite av sista objektet
                  */
-                view.setMinimumHeight(((parent.getMeasuredHeight()) / 4) - 3);
+                view.setMinimumHeight(((parent.getMeasuredHeight()) / 4));
 
                 // Sätter backgrundfärgen på listviewobjekten beroend på plats
                 // blir varannan i respektive färg
                 if(position %2 == 1)
                 {
-                    view.setBackgroundColor(Color.parseColor("#FCF4D9"));
+                    view.setBackgroundResource(R.drawable.listviewplay);
+                    //view.setBackgroundColor(Color.parseColor("#FCF4D9"));
                 }
                 else
                 {
-                    view.setBackgroundColor(Color.parseColor("#8ED2C9"));
+                    view.setBackgroundResource(R.drawable.listview);
+                    //view.setBackgroundColor(Color.parseColor("#8ED2C9"));
                 }
                 return view;
             }

@@ -8,6 +8,9 @@
     <color name="white">#ffffff</color>
     <color name="test">#a5a5b6</color>
     <color name="red">#ff0900</color>
+    <color name="green">#e7483f</color>
+    <color name="cool">#3f48e7</color>
+
 
     <!-- bgtextview -->
     <color name="textviewBG">#FCF4D9</color>
@@ -35,5 +38,13 @@
     <color name="buttonresstartcolor">#09b9dc</color>
     <color name="buttonresendcolor">#09AECF</color>
     <color name="buttonresbordercolor">#089bb9</color>
+
+    <!-- bgbuttonresults -->
+    <color name="listviewPlay">#cf4f4b</color>
+    <color name="listviewPlayBorder">#b13b37</color>
+
+    <!-- bgbuttonresults -->
+    <color name="listviewPlay2">#4ba4cf</color>
+    <color name="listviewPlayBorder2">#3f8cb1</color>
 
 </resources>
