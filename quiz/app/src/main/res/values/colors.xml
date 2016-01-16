@@ -8,6 +8,9 @@
     <color name="white">#ffffff</color>
     <color name="test">#a5a5b6</color>
     <color name="red">#ff0900</color>
+    <color name="green">#e7483f</color>
+    <color name="cool">#3f48e7</color>
+
 
     <!-- bgtextview -->
     <color name="textviewBG">#FCF4D9</color>
@@ -22,10 +25,26 @@
     <!-- bghubuserstatus -->
     <color name="hubuserstatusBorder">#FF6D31</color>
 
-    <!-- bghubuserstatus -->
-    <color name="buttonstartcolor">#318cec</color>
-    <color name="buttonendcolor">#2466ac</color>
-    <color name="buttonbordercolor">#2a7ace</color>
+    <!-- bgbutton -->
+    <color name="buttonstartcolor">#f5f1e4</color>
+    <color name="buttonendcolor">#FCF4D9</color>
+    <color name="buttonbordercolor">#faf0cf</color>
 
+    <!-- bgbuttonhub -->
+    <color name="buttonhubstartcolor">#e4622d</color>
+    <color name="buttonhubBorder">#d65c2b</color>
+
+    <!-- bgbuttonresults -->
+    <color name="buttonresstartcolor">#09b9dc</color>
+    <color name="buttonresendcolor">#09AECF</color>
+    <color name="buttonresbordercolor">#089bb9</color>
+
+    <!-- bgbuttonresults -->
+    <color name="listviewPlay">#cf4f4b</color>
+    <color name="listviewPlayBorder">#b13b37</color>
+
+    <!-- bgbuttonresults -->
+    <color name="listviewPlay2">#4ba4cf</color>
+    <color name="listviewPlayBorder2">#3f8cb1</color>
 
 </resources>

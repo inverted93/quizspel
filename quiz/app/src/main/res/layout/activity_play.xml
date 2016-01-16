@@ -34,6 +34,7 @@
         android:ems="10"
         android:id="@+id/quizname"
         android:text="Quiznamn"
+        android:textStyle="bold"
         android:gravity="center"
         android:background="@drawable/bgtiteltextview"
         android:textColor="@color/textviewBG"
@@ -78,7 +79,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/listview"
         />
 
     <ProgressBar

@@ -58,6 +58,7 @@
         android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Användarnamn"
+        android:textStyle="bold"
         android:textColor="@color/textviewBG"
         android:gravity="center"
         android:background="@drawable/bghubusername"
@@ -84,7 +85,7 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:text="@string/backendButton"
         android:textColor="@color/textviewBG"
         android:background="@drawable/bgbuttonhub"
@@ -107,7 +108,7 @@
         android:background="@drawable/bghubuserstats"
         android:id="@+id/textView8"
         android:layout_alignBottom="@+id/button2"
-        android:layout_marginBottom="-15dp"
+        android:layout_marginBottom="-22dp"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

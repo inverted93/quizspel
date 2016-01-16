@@ -1,10 +1,12 @@
 package adroit.backend;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -60,9 +62,28 @@ public class myQuiz extends AppCompatActivity {
 
 
 
-        gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
-        ListView gameList = (ListView) findViewById(R.id.gameList);
-        gameList.setAdapter(gameAdapter);
+        gameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games){
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent){
+                View view = super.getView(position,convertView,parent);
+
+
+                // Sätter backgrundfärgen på listviewobjekten beroend på plats
+                // blir varannan i respektive färg
+                if(position %2 == 1)
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.textviewBG));
+                }
+                else
+                {
+                    view.setBackgroundColor(getResources().getColor(R.color.hubuserstatusBorder));
+                }
+                return view;
+            }
+        };
+        ListView gameList = (ListView) findViewById(R.id.gameList); // Skapar en listview
+        gameList.setAdapter(gameAdapter); // kopplar listview till adapter
 
 
         gameList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -116,6 +137,8 @@ public class myQuiz extends AppCompatActivity {
                 Intent myIntent = new Intent(view.getContext(), backendQuizInfo.class);
                 myIntent.putExtras(b);
                 startActivity(myIntent);
+                finish();
+                overridePendingTransition(0, 0);
             }
 
 
@@ -131,4 +154,17 @@ public class myQuiz extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+
+        Intent i = new Intent(this, hub.class);
+        startActivity(i);
+        finish();
+        overridePendingTransition(0, 0);
+
+    }
+
 }

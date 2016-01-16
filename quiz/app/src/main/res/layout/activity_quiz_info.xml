@@ -25,6 +25,7 @@
         android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Awesome Quiz"
+        android:textStyle="bold"
         android:textColor="@color/textviewBG"
         android:gravity="center"
         android:background="@drawable/bghubusername"

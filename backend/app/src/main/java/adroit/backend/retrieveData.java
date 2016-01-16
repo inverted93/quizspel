@@ -1,5 +1,6 @@
 package adroit.backend;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
@@ -33,15 +34,15 @@ public class retrieveData extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... arg0){
 
-
         try{
 
-            jobjResp= requestJson("https://api.myjson.com/bins/40ht5");
-
+            jobjResp= requestJson("https://api.myjson.com/bins/491zl");
 
         }catch(JSONException e){
+            Log.d("Inget internet", "1337");
             e.printStackTrace();
-        }catch (IOException e){
+        }catch (IOException e) {
+            Log.d("Inget internet", "794");
             e.printStackTrace();
         }
 
@@ -54,30 +55,15 @@ public class retrieveData extends AsyncTask<String, String, String> {
 
         stream = new URL(url).openStream();
 
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream, Charset.forName("UTF-8")));
         json = readAll(reader);   //anropar metoden neranför som bugger en string av BufferedReadern
         jobj = new JSONObject(json); //skapar ett nytt JSON-objekt av stringen.
 
         Log.d("Vi kom in i metoden", "1" + json.toString());
 
-
-
-       /* JSONObject jo4 = new JSONObject();
-        jo4.put("Test1", "Dennis");
-
-        jobj.put("Question",jo4);
-
-        Log.d("TestPut", jobj.toString());*/
-
         return jobj;
 
     }
-
-
-
-
-
 
     private static String readAll(Reader rd)throws IOException{
         StringBuilder sb = new StringBuilder();
@@ -86,24 +72,10 @@ public class retrieveData extends AsyncTask<String, String, String> {
             sb.append((char) count);
         }
 
-
-
-
         return sb.toString();
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
         protected void onPostExecute(String ab){
             MainActivity.setJson(jobj);

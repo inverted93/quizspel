@@ -17,8 +17,6 @@
         android:hint="Email"
         android:padding="6dp"
         android:background="@drawable/bgchoosertextview"
-        android:textColor= "@color/textviewColor"
-        android:textColorHint="@color/textviewHintColor"
         android:singleLine="true"
         android:textCursorDrawable="@null"
         android:layout_centerVertical="true"

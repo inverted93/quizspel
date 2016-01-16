@@ -1,6 +1,7 @@
 package adroit.quiz;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,18 +32,19 @@ public class results extends AppCompatActivity {
         //moveTaskToBack(true);
         setContentView(R.layout.activity_results2);
 
-        double score = getIntent().getExtras().getDouble("Score");
+        double score = getIntent().getExtras().getDouble("Score"); // Hämtar användarens resultat på quizet
 
 
+        // Gör om resultat double formatet och skriver ut det till en textview
+        // anropar sedan metoden setScore() som sätter textfärgen beroende på resultat
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMinimumFractionDigits(0);
-
         TextView scoreView = (TextView) findViewById(R.id.editText2);
         scoreView.setText(nf.format(score));
+        setScoreColor(score);
 
         Log.d("Today", "Is shit create");
         updateStats();
-        //Lägg in rating här, skall endast gå att rate:a en gång per användare.
 
     }
 
@@ -240,12 +242,41 @@ public class results extends AppCompatActivity {
         }
     }
 
+    public void setScoreColor (double score){ // Metod som ändrar färg på textfältet beroende på resultat (score)
+
+        if(score >= 0.9) { // Om resultatet är (score är 90% eller högre görs färgen grön
+            ((TextView) findViewById(R.id.editText2)).setTextColor(Color.GREEN);
+        }
+        else if (score <= 0.3){ // Om resultatet är (score är 90% eller högre görs färgen grön
+            ((TextView) findViewById(R.id.editText2)).setTextColor(Color.RED);
+        }
+
+    }
+
 
 
     public void changePageToQuizInfo(View view){
 
+        /**
+         * Ändrar aktivitet till quizinfo och skickar med en
+         * bundle med string för att informationen i quizinfo ska vara för samma
+         * quiz som användaren precis har spelat
+         */
+
+        quizTitle = getIntent().getExtras().getString("QuizTitle");
+        quizDesc = getIntent().getExtras().getString("QuizDesc");
+        quizRating = getIntent().getExtras().getString("QuizRating");
+        quizRated = getIntent().getExtras().getString("QuizRated");
+        quizPlayed = getIntent().getExtras().getString("QuizPlayed");
+        quizID = getIntent().getExtras().getString("QuizID");
+
         Bundle b = new Bundle();
         b.putString("QuizTitle", quizTitle);
+        b.putString("QuizDesc", quizDesc);
+        b.putString("QuizRating", quizRating);
+        b.putString("QuizRated", quizRated);
+        b.putString("QuizPlayed", quizPlayed);
+        b.putString("QuizID", quizID);
 
         Intent i = new Intent(this, quizInfo.class);
         i.putExtras(b);
@@ -259,6 +290,11 @@ public class results extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
+        /**
+         * Ändrar aktivitet till quizinfo och skickar med en
+         * bundle med string för att informationen i quizinfo ska vara för samma
+         * quiz som användaren precis har spelat
+         */
 
         quizTitle = getIntent().getExtras().getString("QuizTitle");
         quizDesc = getIntent().getExtras().getString("QuizDesc");
@@ -285,6 +321,9 @@ public class results extends AppCompatActivity {
     }
 
     public void backToHub(View v){
+
+        // Skickar användaren tillbaka till hubben
+        // används då användaren har gett Quizet ett betyg (rating)
 
         Intent i = new Intent(this, hub.class);
         startActivity(i);

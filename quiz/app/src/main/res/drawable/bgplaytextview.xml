@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- Bakgrund för textfält som används för att visa frågan i aktiviteten play-->
+
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" >
 
     <solid
         android:color="@color/textviewBG" >
     </solid>
+
+    <padding android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp"/>
 
     <stroke
         android:width="3dp"

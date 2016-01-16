@@ -22,21 +22,21 @@ public class hub extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub);
-        fillStats();
-        ((TextView) findViewById(R.id.textView7)).setVisibility(View.INVISIBLE);
+        fillStats(); // metod som hämtar statistik om användaren och presenterar denna i ett texfält
+        ((TextView) findViewById(R.id.textView7)).setVisibility(View.INVISIBLE); // Felmeddelande som görs osynligt varje gång aktiviten startar
 
     }
 
-    String id = MainActivity.getId();
+    String id = MainActivity.getId(); // Hämtar användarens id från förta aktiviteten
 
-    static JSONObject jobj = new JSONObject();
+    static JSONObject jobj = new JSONObject(); // gör ett nytt jsonobjekt
 
-    public static void setJson(JSONObject j){
+    public static void setJson(JSONObject j){ //metod för att uppdatera jsonobjektet
         jobj= j;
     }
 
 
-    public void changePage(View view){
+    public void changePage(View view){ // Byter till aktivitet quizMain
 
         Intent myIntent = new Intent(this, quizMain.class);
         startActivity(myIntent);
@@ -53,6 +53,7 @@ public class hub extends AppCompatActivity {
             startActivity(startBackend);
         }
         catch (Exception e) {
+            //Felmeddelande visas för användaren
             ((TextView) findViewById(R.id.textView7)).setText(getString(R.string.errorMessageHub));
             ((TextView) findViewById(R.id.textView7)).setVisibility(View.VISIBLE);
         }
@@ -60,7 +61,7 @@ public class hub extends AppCompatActivity {
 
 
 
-    public void changePageToMain(View view){
+    public void changePageToMain(View view){ // Byter till aktivitet mainActivity
 
         Intent myIntent = new Intent(this, MainActivity.class);
         startActivity(myIntent);
@@ -71,19 +72,25 @@ public class hub extends AppCompatActivity {
 
 
     public void fillStats(){
-
+        /*Statsen som visas fylls på*/
+        //Texview för att visa användarnamnet Identifieras
+        //TextViewn som ska visa statsen identifieras
         TextView userName = (TextView) findViewById(R.id.textView6);
         TextView corrView = (TextView)findViewById(R.id.textView3);
 
         try{
-
+            // Json array med medlemar hämtas
             JSONArray membArr = jobj.getJSONArray("Members");
+            // Temporärar hållare skapas
             String qA ="";
             String cA ="";
 
+            //En loop snurrar igenom memberArr
             for(int i=0; i<membArr.length(); i++){
+                //Json-objektet som ligger på pos i hämtas
 
                 JSONObject tmpObj = membArr.getJSONObject(i);
+                //Hämtar id och kollar om det är rätt id, om så är fallet så hämtas data ifrån det kontot.
                 String userId = tmpObj.getString("UserID");
                 if(userId.equals(id)){
                     userName.setText(tmpObj.getString("UserName"));
@@ -92,13 +99,15 @@ public class hub extends AppCompatActivity {
                 }
             }
 
+            //Statsen parsas om till doubles
             double qADouble = Double.parseDouble(qA);
             double cADouble = Double.parseDouble(cA);
 
+            //Skapar en formaterare som inte visar några decimaler
             NumberFormat formatter = new DecimalFormat("#0");
-
+            //Räknar ut hur många procent rätt användaren har svarat
             String percent = formatter.format((cADouble/qADouble)*100);
-
+            //Sätter texten till det som ska visas
             corrView.setText("Questions answered\n" + qA + "\n\nRight answers percentage\n" + percent + "%");
 
         }catch(JSONException e){
@@ -107,6 +116,7 @@ public class hub extends AppCompatActivity {
     }
 
     public void onBackPressed()
+    // Vid backPressed kommer en dialogruta som frågar om användaren vill logga ut
     {
 
         AlertDialog.Builder adbuilder = new AlertDialog.Builder(hub.this);
@@ -115,6 +125,7 @@ public class hub extends AppCompatActivity {
 
             public void onClick(DialogInterface dialog, int which) {
 
+                // Om användaren trycker "yes" skickas denne vidare till aktivitet MainActivity
                 Intent i = new Intent(hub.this, MainActivity.class);
                 startActivity(i);
                 finish();
@@ -122,6 +133,7 @@ public class hub extends AppCompatActivity {
 
             }
         });
+        //Om användaren säger nej så stängs dialogrutan.
         adbuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {

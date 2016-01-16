@@ -37,7 +37,7 @@
     <string name="intGames">84</string>
     <string name="textGames">has played</string>
     <string name="startQuizButton">Play</string>
-    <string name="ratingText">Average Rating</string>
+    <string name="ratingText">Quiz rating</string>
 
     <!-- quizMain activity -->
     <string name="sortListButton">By Name</string>
