@@ -3,8 +3,6 @@ package adroit.quiz;
 import android.content.Context;
 import android.content.Intent;
 
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,19 +15,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.util.ArrayList;
-import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -358,10 +346,15 @@ public class MainActivity extends AppCompatActivity {
             b = false;
             toastText="Password must contain atleast one number";
         }
-        if(!password.matches(alphaLower)||!password.matches(alphaUpper)){
-            //Om inte lösenordet innehåller minst en bokstav så kommer ett felmeddelande visas
+        if(!password.matches(alphaLower)){
+            //Om inte lösenordet innehåller minst en litenbokstav så kommer ett felmeddelande visas
             b = false;
-            toastText="Password must contain atleast one letter";
+            toastText="Password must contain atleast one lowercase letter";
+        }
+        if(!password.matches(alphaUpper)){
+            //Om inte lösenordet innehåller minst en storbokstav så kommer ett felmeddelande visas
+            b = false;
+            toastText="Password must contain atleast one capital letter";
         }
 
 
