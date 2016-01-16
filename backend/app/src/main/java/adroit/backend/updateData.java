@@ -80,7 +80,7 @@ public class updateData extends AsyncTask<String, String, String>{
                 writer.flush();
                 writer.close();
 
-                Log.d("1121423432" + conn.getRequestMethod(), "HEj");
+                Log.d("1121423432" + conn.getRequestMethod(), j.toString());
                 String response =conn.getInputStream().toString();
                 Log.d("Svar: "+ response, "Okej");
 
