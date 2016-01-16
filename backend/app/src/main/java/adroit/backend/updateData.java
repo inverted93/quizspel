@@ -86,11 +86,11 @@ public class updateData extends AsyncTask<String, String, String>{
 
             }catch(MalformedURLException e){
 
-                System.out.println("Fuck");
+                System.out.println("Det blev fel, Malformed URL");
                 e.printStackTrace();
 
             }catch(IOException e){
-                System.out.println("Fuck2");
+                System.out.println("IOException i updateData");
                 e.printStackTrace();
             }
 
