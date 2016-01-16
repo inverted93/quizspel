@@ -107,6 +107,17 @@ public class hub extends AppCompatActivity {
             NumberFormat formatter = new DecimalFormat("#0");
             //Räknar ut hur många procent rätt användaren har svarat
             String percent = formatter.format((cADouble/qADouble)*100);
+            //I try-satsen nedan försöker vi göra om stringen till en double igen. Detta för att se om
+            //uträkningen bildade ett tal. Om användaren inte har svarat på några frågor så kommer
+            // uträkningen att bli error eftersom man försöker dela 0 med 0.
+            try{
+                double test = Double.parseDouble(percent);
+
+            }catch(NumberFormatException e){
+                //Om catchen fångar erroret så sätts stringen till "0"
+                percent = "0";
+            }
+
             //Sätter texten till det som ska visas
             corrView.setText("Questions answered\n" + qA + "\n\nRight answers percentage\n" + percent + "%");
 

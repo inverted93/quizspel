@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
 
                         int length = memberArr.length() + 1;
 
-                        updateMember.put("UserID", length);
+                        updateMember.put("UserID", ""+length);
                         updateMember.put("Email", stringEmail);
                         updateMember.put("Password", stringPassword);
                         updateMember.put("UserName", stringUsername);

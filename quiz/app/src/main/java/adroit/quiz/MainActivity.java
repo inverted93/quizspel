@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray memberArr = jobj.getJSONArray("Members");
                 String uName;
                 String password;
+                String email;
 
                 Log.d("1. ", "2" + memberArr.length());
 
@@ -194,10 +195,11 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject tmpJ = memberArr.getJSONObject(i);
                     uName = tmpJ.getString("UserName");
                     password = tmpJ.getString("Password");
+                    email = tmpJ.getString("Email");
 
                     //Jamfor ett namn och lösenord i listan med respektive värde i databasen.
                     //om det stämmer så skickas användaren vidare till nästa aktivitet, annars visas ett errormeddelande
-                    if (anvTmp.equals(uName) && passTmp.equals(password)) {
+                    if (anvTmp.equals(uName) && passTmp.equals(password)||anvTmp.equals(email) && passTmp.equals(password)) {
 
                         id = tmpJ.getString("UserID");
 
@@ -252,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
                     int length = memberArr.length() + 1;
 
-                    updateMember.put("UserID", length);
+                    updateMember.put("UserID",""+ length);
                     updateMember.put("Email", stringEmail);
                     updateMember.put("Password", stringPassword);
                     updateMember.put("UserName", stringUsername);
@@ -411,7 +413,7 @@ class retrieveData extends AsyncTask<String, String, String> {
     protected String doInBackground(String... arg0){
 
         try{
-            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/43reh");
+            jobj= jsonConnection.requestJson("https://api.myjson.com/bins/2u5fd");
 
         }catch(JSONException e){
             e.printStackTrace();
