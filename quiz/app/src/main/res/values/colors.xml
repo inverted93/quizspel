@@ -40,11 +40,11 @@
     <color name="buttonresbordercolor">#089bb9</color>
 
     <!-- bgbuttonresults -->
-    <color name="listviewPlay">#cf4f4b</color>
-    <color name="listviewPlayBorder">#b13b37</color>
+    <color name="listviewPlay">#5ab1aa</color>
+    <color name="listviewPlayBorder">#51A39D</color>
 
     <!-- bgbuttonresults -->
-    <color name="listviewPlay2">#4ba4cf</color>
-    <color name="listviewPlayBorder2">#3f8cb1</color>
+    <color name="listviewPlay2">#54a9a2</color>
+    <color name="listviewPlayBorder2">#51A39D</color>
 
 </resources>

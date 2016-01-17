@@ -57,13 +57,18 @@ public class play extends AppCompatActivity {
     static boolean isVisible = false;   // Sätts false om appen är pausad(ej används), annars true
 
     private CountDownTimer CountDown;
+
     double correctAnswers = 0; // Lagrar antal rätta svar
+
     int answerNumber = 3; // Lagrar info om vilken plats i en array med svarsalternativ man skall hämta frågor
     int numberOfQuestions = 0;  // Hur många frågor har quizet
     int questionNr = 0; // Vilken fråga är aktuell för användaren
     int secondsLeft = 0;  // Används i countDownTimern för att lagra aktuell sekund
+
     TextView countDownText; // Visar antal sekunder kvar
+
     ArrayList<String> userAnswers = new ArrayList<>();  // Lagrar de svar användaren valt på frågorna
+
     List<String> questionsArr = new ArrayList<>(); // Lagrar alla svar som tillhör quizet
     List<String> answers = new ArrayList<>();   // Lagrar alla svarsalternativ
     List<String> guiAnswers = new ArrayList<>();    // Lagrar svarsalternativ för aktuell fråga
@@ -115,14 +120,14 @@ public class play extends AppCompatActivity {
                     String QueID = info.getString("QueID"); // lagrar fråge ID "QueID"
                     questionsArr.add(question); // lagrar frågan i en array med frågor
 
-                    for (int i2 = 0; i2 < jAnswers.length(); i2++) // Kollar igenom array med frågor
+                    for (int i2 = 0; i2 < jAnswers.length(); i2++) // Kollar igenom array med svarsalternativ
                     {
                         JSONObject info2 = jAnswers.getJSONObject(i2);
                         String check2 = info2.getString("QueID"); //lagrar fråge ID "QueID"
 
                         if (QueID.equals(check2)) // kolla om check2 är samma som QueID, som kom med bundle från quizinfo
                         {
-                            String answer = info2.getString("aText"); // Hämta ett svarsalternativ
+                            String answer = info2.getString("aText"); // Hämtar ett svarsalternativ
                             answers.add(answer); // lagrar svarsalternativet i en array med svarsalternativ
                             String rAnswer = info2.getString("rightAnswer"); // Hämtar en sträng som visar om svarsalternativet är rätt eller fel
 
@@ -173,24 +178,23 @@ public class play extends AppCompatActivity {
 
                 View view = super.getView(position,convertView,parent);
                 /**
-                 * Sätter höjden på varje listobjekt beroend på hur hög listview är
+                 * Sätter höjden på varje listobjekt beroend på hur hög listviewen är
                  * eftersom det skall visas 4 objekt delas höjden på 4.
-                 * -3 görs för att synliggöra sista objektet mer då listview har
-                 * en shape background med padding som annars täcker lite av sista objektet
+                 * Varanan list
                  */
                 view.setMinimumHeight(((parent.getMeasuredHeight()) / 4));
 
-                // Sätter backgrundfärgen på listviewobjekten beroend på plats
-                // blir varannan i respektive färg
+                // Sätter bakgrundsresurs på listviewobjekten beroend på plats
+                // blir varannat objekt som har respektive resurs.
                 if(position %2 == 1)
                 {
                     view.setBackgroundResource(R.drawable.listviewplay);
-                    //view.setBackgroundColor(Color.parseColor("#FCF4D9"));
+
                 }
                 else
                 {
                     view.setBackgroundResource(R.drawable.listview);
-                    //view.setBackgroundColor(Color.parseColor("#8ED2C9"));
+
                 }
                 return view;
             }
@@ -399,13 +403,13 @@ public class play extends AppCompatActivity {
          * När användaren använder appen sätts isVisible true
          * om den är false så görs inget i changepage() och då
          * byts inte aktivitet, detta för att nästa aktivitet inte skall
-         * skall starta upp appen för en användare som inte är inne i den
+         * skall starta upp appen för en användare som inte är inne i den(appen)
          * för tillfället. Vilket annars hade skett om tiden hade gått ut för
          * quizet.
          *
          * Om tiden har gått ut för alla frågor när användare
          * öppnar appen igen kommer nästa aktivitet starta direkt
-         * pga av if statementet
+         * pga av if statementet questionNr >= numberOfQuestions-1
          */
 
         super.onResume();

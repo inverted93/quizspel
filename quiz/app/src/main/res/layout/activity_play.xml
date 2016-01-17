@@ -28,7 +28,7 @@
         />
 
     <EditText
-        android:layout_width="150dp"
+        android:layout_width="170dp"
         android:layout_height="30dp"
         android:singleLine="true"
         android:ems="10"
