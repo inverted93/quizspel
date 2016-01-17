@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     static JSONObject jobj;
-    static String id;
+    static String id; //Idt som indikerar vilket konto som loggar in.
     static boolean errorOccured = false;
     private CharSequence toastText;
 
@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         //Används av andra klasser för att de ska få de id:t som är inloggad.
         return id;
     }
-
+    // metod för returnera variabeln id används i andra
+    // klasser för att ta reda på vilken användare som använder appen
 
 
     @Override
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     //Ska användas för att man ska kunna skapa konto och logga in med samma knapp.
     //Beroende på switcher så kommer koden för att logga in eller skapa medlem köras.
     boolean switcher;
-    //Används för att fel meddelandet inte ska skrivas ut för tidigt.
+    //Används för att felmeddelandet inte ska skrivas ut för tidigt.
     boolean checkErrorMsg;
 
     /*Deklaration av edittexterna(TExtfälten) till create user*/
@@ -256,14 +257,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //Metoden är kopplad till den högra knappen i startrutan och loggar antingen in eller
+    //skapar ett nytt konto baserat på switchern som har sats till true eller false när den vänstra knappen trycks på
     public void login(View view)throws JSONException {
-
+        //Hämtar kontexten som sedan används för att skapa ett toast meddelande
         Context context = getApplicationContext();
+        //Kör metoden networkCheck, som kollar om jsonobjektet innehåller något.
+        //Om json är tom så kommer errorOccured att ändras till true. Detta kollas längre ner
+        //och skriver ut ett felmeddelande i toasten. Detta kan inte göras i onCreate eftersom
+        //när retrieveData körs så görs det i bakgrunden och det kan ta några sekunder.
+        // När användaren trycker på login så har en tidförflutit, och json har förhoppningsvis fyllts.
         networkCheck();
         if(errorOccured==true){
+            //Om ett error har inträffat så görs ett nytt försök att hämta datan.
             runRetrieve();
         }
+
+            //logga in
             if (switcher == false) {
 
                 try {
@@ -285,7 +295,8 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.d("1. ", "2" + memberArr.length());
 
-                    for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
+                    //For-loop som gar ingenom medlemsarrayen
+                    for (int i = 0; i < memberArr.length(); i++) {
 
 
                         JSONObject tmpJ = memberArr.getJSONObject(i);
@@ -293,6 +304,8 @@ public class MainActivity extends AppCompatActivity {
                         password = tmpJ.getString("Password");
                         email = tmpJ.getString("Email");
 
+                        //Jamfor ett namn och lösenord i listan med respektive värde i databasen.
+                        //om det stämmer så skickas användaren vidare till nästa aktivitet, annars visas ett errormeddelande
                         if (anvTmp.equals(uName) && passTmp.equals(password)||anvTmp.equals(email)&&passTmp.equals(password)) {
 
                             id = tmpJ.getString("UserID");

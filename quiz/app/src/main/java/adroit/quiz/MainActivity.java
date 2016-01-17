@@ -161,8 +161,13 @@ public class MainActivity extends AppCompatActivity {
     //Metoden är kopplad till den högra knappen i startrutan och loggar antingen in eller
     //skapar ett nytt konto baserat på switchern som har sats till true eller false när den vänstra knappen trycks på
     public void login(View view)throws JSONException {
-
+        //Hämtar kontexten som sedan används för att skapa ett toast meddelande
         Context context = getApplicationContext();
+        //Kör metoden networkCheck, som kollar om jsonobjektet innehåller något.
+        //Om json är tom så kommer errorOccured att ändras till true. Detta kollas längre ner
+        //och skriver ut ett felmeddelande i toasten. Detta kan inte göras i onCreate eftersom
+        //när retrieveData körs så görs det i bakgrunden och det kan ta några sekunder.
+        // När användaren trycker på login så har en tidförflutit, och json har förhoppningsvis fyllts.
         networkCheck();
         if(errorOccured==true){
             runRetrieve();
