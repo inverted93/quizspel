@@ -193,21 +193,23 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d("1. ", "2" + memberArr.length());
 
+                //For-loop som gar ingenom medlemsarrayen
+                for (int i = 0; i < memberArr.length(); i++) {
 
-                for (int i = 0; i < memberArr.length(); i++) {    //For-loop som gar ingenom arrayen
-
-
+                    //I varje varv så hämtas ett objekt ut ur arrayen och ur objektet så hämtas
+                    //Username, password och email för att användas längre ner
                     JSONObject tmpJ = memberArr.getJSONObject(i);
                     uName = tmpJ.getString("UserName");
                     password = tmpJ.getString("Password");
                     email = tmpJ.getString("Email");
 
-                    //Jamfor ett namn och lösenord i listan med respektive värde i databasen.
+                    //Jamfor ett namn/email och lösenord i listan med respektive värde i databasen.
                     //om det stämmer så skickas användaren vidare till nästa aktivitet, annars visas ett errormeddelande
                     if (anvTmp.equals(uName) && passTmp.equals(password)||anvTmp.equals(email) && passTmp.equals(password)) {
 
+                        //Om username/email och password stämmer överens så hämtas idt och läggs i id
                         id = tmpJ.getString("UserID");
-
+                        //Användaren skickas till hubben
                         Intent myIntent = new Intent(this, hub.class);
                         startActivity(myIntent);
                         finish();
@@ -258,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
 
                     JSONArray memberArr = jobj.getJSONArray("Members");
-                    //Denna int genererar vilkwr ID den nya användaren ska få
+                    //Denna int genererar vilken ID den nya användaren ska få
                     int length = memberArr.length() + 1;
 
                     
@@ -283,8 +285,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
                     memberArrUpdateMember.put(updateMember);
-                    Log.d("KollarTEst", memberArrUpdateMember.toString());
-                    Log.d("KollarTEst2", jobj.toString());
+
                     createJson(memberArrUpdateMember);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -296,6 +297,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             } else {
+                //Om den här else satsen körs så har skapadet av kontot lyckats, ett meddelande visas
+                //som beskriver vilket problem som har upptäckts, exempelvis att användarnamnet redan finns.
                 int duration = Toast.LENGTH_LONG;
 
                 Toast toast = Toast.makeText(context, toastText, duration);

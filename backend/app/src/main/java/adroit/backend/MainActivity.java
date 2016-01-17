@@ -3,8 +3,6 @@ package adroit.backend;
 import android.content.Context;
 import android.content.Intent;
 
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,10 +15,7 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import java.util.concurrent.ExecutionException;
 
 
 
@@ -286,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                     String passTmp = passText.getText().toString();
 
 
-                    felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
+                    felMed.setVisibility(View.INVISIBLE);
 
                     JSONArray memberArr = jobj.getJSONArray("Members");
                     String uName;
@@ -298,18 +293,20 @@ public class MainActivity extends AppCompatActivity {
                     //For-loop som gar ingenom medlemsarrayen
                     for (int i = 0; i < memberArr.length(); i++) {
 
-
+                        //I varje varv så hämtas ett objekt ut ur arrayen och ur objektet så hämtas
+                        //Username, password och email för att användas längre ner
                         JSONObject tmpJ = memberArr.getJSONObject(i);
                         uName = tmpJ.getString("UserName");
                         password = tmpJ.getString("Password");
                         email = tmpJ.getString("Email");
 
-                        //Jamfor ett namn och lösenord i listan med respektive värde i databasen.
+                        //Jamfor ett namn/email och lösenord i listan med respektive värde i databasen.
                         //om det stämmer så skickas användaren vidare till nästa aktivitet, annars visas ett errormeddelande
                         if (anvTmp.equals(uName) && passTmp.equals(password)||anvTmp.equals(email)&&passTmp.equals(password)) {
 
+                            //Om username/email och password stämmer överens så hämtas idt och läggs i id
                             id = tmpJ.getString("UserID");
-
+                            //Användaren skickas till hubben
                             Intent myIntent = new Intent(this, hub.class);
                             startActivity(myIntent);
                             finish(); //Jonas
@@ -335,23 +332,26 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 //Här är kod för att skapa användare
 
+                //Edittexter knyts till var sitt täxtfält i gränssnittet
                 editUsername = (EditText) findViewById(R.id.usernameInput);
                 editPassword = (EditText) findViewById(R.id.password);
                 editEmail = (EditText) findViewById(R.id.email);
 
-
+                //Här deklareras Stringar som får det värde som användaren har skrivit i textfälten
                 String stringUsername = editUsername.getText().toString();
                 String stringPassword = editPassword.getText().toString();
                 String stringEmail = editEmail.getText().toString();
 
+                //Log som gör att utvecklaren kan se indatan lagras rätt i rätt String
                 Log.d("Email", stringEmail);
                 Log.d("Password", stringPassword);
                 Log.d("Username", stringUsername);
 
-                //if axels metod stämmer
+
 
                 boolean b = getBool(stringUsername, stringEmail, stringPassword);
-                Log.d("BOOLEAN", "Piss" + b);
+                //Om getBool returnerar true, så skapas en ny användare
+
                 if (b == true) {
                     //Skapar JSONObjektet som alla put kommer att laggas i.
                     JSONObject updateMember = new JSONObject();
@@ -359,9 +359,10 @@ public class MainActivity extends AppCompatActivity {
                     try {
 
                         JSONArray memberArr = jobj.getJSONArray("Members");
-
+                        //Denna int genererar vilken ID den nya användaren ska få
                         int length = memberArr.length() + 1;
 
+                        //Under läggs all indata som användaren har genererat in i JSON filen.
                         updateMember.put("UserID", ""+length);
                         updateMember.put("Email", stringEmail);
                         updateMember.put("Password", stringPassword);
@@ -382,19 +383,21 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         JSONArray memberArrUpdateMember = jobj.getJSONArray("Members");
                         memberArrUpdateMember.put(updateMember);
-                        Log.d("KollarTEst", memberArrUpdateMember.toString());
-                        Log.d("KollarTEst2", jobj.toString());
+
                         createJson(memberArrUpdateMember);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
+                    //Ett meddelande till användaren visas där det står att ett konto har skapats
+                    //med ett visst användarnamn.
                     toastText = "The User: " + stringUsername + " was created";
                     int duration = Toast.LENGTH_LONG;
 
                     Toast toast = Toast.makeText(context, toastText, duration);
                     toast.show();
                 } else {
+                    //Om den här else satsen körs så har skapadet av kontot lyckats, ett meddelande visas
+                    //som beskriver vilket problem som har upptäckts, exempelvis att användarnamnet redan finns.
                     int duration = Toast.LENGTH_LONG;
 
                     Toast toast = Toast.makeText(context, toastText, duration);
