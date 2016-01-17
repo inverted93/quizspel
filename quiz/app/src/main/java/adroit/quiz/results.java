@@ -42,13 +42,14 @@ public class results extends AppCompatActivity {
         TextView scoreView = (TextView) findViewById(R.id.editText2);
         scoreView.setText(nf.format(score));
         setScoreColor(score);
-
-        Log.d("Today", "Is shit create");
+        //updateStats en metod som lägger på en etta på värdet i json hos quizen
+        // (antal som spelat quizen)
         updateStats();
 
     }
 
     public static void setJson(JSONObject j){
+        //Används för sätta json i den här klassen
         jobj = j;
 
     }
@@ -60,20 +61,25 @@ public class results extends AppCompatActivity {
 
     public void createJsonMembers(JSONArray membArr){
 
+        //Den här metoden används för att skapa det kompletta JSON obejktet när en medlem har uppdaterats
         try{
-
+            //De orörda delarna av json hämtas.
             JSONArray questArr = jobj.getJSONArray("Question");
             JSONArray answerArr = jobj.getJSONArray("Answer");
             JSONArray quizArr = jobj.getJSONArray("Quiz");
 
+            //Alla jsonarrayer läggs i ett gemensamt objekt
             JSONObject finalObj = new JSONObject();
             finalObj.put("Quiz", quizArr);
             finalObj.put("Question", questArr);
             finalObj.put("Answer", answerArr);
             finalObj.put("Members", membArr);
 
+            //Det slutgiltiga objektet skickas till metoden setJson i updateData
             updateData.setJson(finalObj);
+            //updateData klassen skapas på nytt och uppdateringarna sker
             MainActivity.runUpdate();
+            //retrieveData körs igen för att hämta ner den nya datan och skickar ut den till klasserna
             MainActivity.runRetrieve();
 
         }catch(JSONException e){
@@ -82,78 +88,118 @@ public class results extends AppCompatActivity {
     }
 
     public void updateStats(){
-
+        //Metoden uppdaterar statsen för hur många frågor man svarat på och hur många man har
+        //svarat rätt på.
+        //Id på det inloggade kontot hämtas
         loginId = MainActivity.getId();
+
+        //Används som id längre ner, när quiz ska uppdateras
         String quizId = getIntent().getExtras().getString("QuizID");
+
+        //Antal korrekta svar hämtas ifrån föregående aktivitet och parsas till en int
         correctAnswersStringDouble = getIntent().getExtras().getString("corrA");
         double correctAnswersDouble = Double.parseDouble(correctAnswersStringDouble);
         int correctAnswersInt = (int) correctAnswersDouble;
+
+        //Antal svarade frågor hämtas ifrån föregående aktivitet och parsas till en int
         answeredQuestionsString = getIntent().getExtras().getString("nrOQ");
         int answeredQuestions = Integer.parseInt(answeredQuestionsString);
 
         try{
+            //De två arrayerna som innehåller alla medlemmar och alla quizar hämtas.
             JSONArray membArr = jobj.getJSONArray("Members");
             JSONArray quizArr = jobj.getJSONArray("Quiz");
 
-            Log.d("Today ", "is shit" + correctAnswersInt);
-            Log.d("Today ", "is shit" + answeredQuestions);
+            //Ett nytt medlemsobjekt skapas
             JSONObject newMemberObj = new JSONObject();
 
-            for(int i=0; i < membArr.length(); i++){
+            //En loop snurrar lika många varv som det finns medlemmar
+            for(int i=0; i < membArr.length(); i++) {
 
+                //För varje varv tas ett objekt ut och sparas temporärt i en behållare.
                 JSONObject tmpMembArr = membArr.getJSONObject(i);
+
+                //Idt till den för loop-varvet aktuella medlemen tas ut.
                 String id = tmpMembArr.getString("UserID");
 
-                if(loginId.equals(id)){
-                    Log.d("Miami", "is da shit Stats");
+                //If-satsen slår ut när idt ifrån det just nu inloggade kontot stämmer överrens
+                // med det temporära idt ifrån loopen. När detta sker har man hittat rätt användare.
+                if (loginId.equals(id)) {
 
+                    //Antal frågor och antal korrekta svar som kontot sedan tidigare har presterat hämtas.
+                    //Dessa parsas om från string till int
                     String qAOld = tmpMembArr.getString("QuestionsAnswered");
                     String cAOld = tmpMembArr.getString("RightAnswers");
                     int answeredQuestionOld = Integer.parseInt(qAOld);
                     int correctAnswersOld = Integer.parseInt(cAOld);
 
+                    //De gamla resultaten och de nya läggs ihop för att få det totala statsen efter den nyligen
+                    //besvarade quizen.
                     int qA = answeredQuestionOld + answeredQuestions;
                     int cA = correctAnswersInt + correctAnswersOld;
 
+                    //Alla de attribut som krävs för att skapa en ny medlem läggs i det nya objektet.
                     newMemberObj.put("UserID", id);
                     newMemberObj.put("Email", tmpMembArr.getString("Email"));
                     newMemberObj.put("Password", tmpMembArr.getString("Password"));
                     newMemberObj.put("UserName", tmpMembArr.getString("UserName"));
-                    newMemberObj.put("QuestionsAnswered", ""+qA);
-                    newMemberObj.put("RightAnswers", ""+cA);
+                    newMemberObj.put("QuestionsAnswered", "" + qA);
+                    newMemberObj.put("RightAnswers", "" + cA);
 
+                    //Det nya objektet läggs till på samma plats som det tidigare låg.
+                    //Man skriver alltså över det gamla med det nya.
                     membArr.put(i, newMemberObj);
+                    //Metoden som skapar det slutgiltiga objektet anropas
                     createJsonMembers(membArr);
 
                 }
-                    JSONObject tmpQuizArr = quizArr.getJSONObject(i);
-                    String quizIdFromJson = tmpQuizArr.getString("QID");
 
-                if(quizId.equals(quizIdFromJson)){
-
-                    JSONObject newQuizObj = new JSONObject();
-
-                    String quizPlayed = getIntent().getExtras().getString("QuizPlayed");
-                    int playedInt = Integer.parseInt(quizPlayed);
-                    int playedIntFinal = playedInt +1;
-                    played = ""+playedIntFinal;
-                    Log.d("Miami", "den metoden" + playedIntFinal);
-
-                    newQuizObj.put("QID", quizId);
-                    newQuizObj.put("Name", getIntent().getExtras().getString("QuizTitle"));
-                    newQuizObj.put("Description", getIntent().getExtras().getString("QuizDesc"));
-                    newQuizObj.put("Rating", getIntent().getExtras().getString("QuizRating"));
-                    newQuizObj.put("Rated", getIntent().getExtras().getString("QuizRated"));
-                    newQuizObj.put("Played", ""+playedIntFinal);
-                    newQuizObj.put("UserID", tmpQuizArr.getString("UserID"));
-                    newQuizObj.put("Creationdate", tmpQuizArr.getString("Creationdate"));
-
-                    quizArr.put(i, newQuizObj);
-                    createJson(quizArr);
-
-                    Log.d("Miami", "den metoden" + playedIntFinal + newQuizObj.toString());
-                }
             }
+
+                //När en användare har spelat ska variabeln som innehåller hur många som spelat också uppdateras.
+                //Detta görs nedan.
+               for(int j =0; j<quizArr.length();j++){
+
+                   // En quiz hämtas ner ifrån listan.
+                   JSONObject tmpQuizArr = quizArr.getJSONObject(j);
+                   //Id hämtas ifrån den aktuella quizen
+                   String quizIdFromJson = tmpQuizArr.getString("QID");
+
+                   //Om idt ifråga stämmer överens med det id som
+                   if(quizId.equals(quizIdFromJson)){
+
+                       //Ett nytt quizobjekt skapas
+                       JSONObject newQuizObj = new JSONObject();
+
+                       //Hur många gånger quizet har spelats hämtas ifrån föregående aktivitet.
+                       //Det parsas om till en int
+                       String quizPlayed = getIntent().getExtras().getString("QuizPlayed");
+                       int playedInt = Integer.parseInt(quizPlayed);
+                       //Antalet spelade för quizet adderas med ett
+                       int playedIntFinal = playedInt +1;
+
+                       //Inten görs om till en string och placeras i en behållare
+                       played = ""+playedIntFinal;
+
+                       //Ett nytt quiz objekt skapas Och alla de parametrarna som de hade läggs in
+                       newQuizObj.put("QID", quizId);
+                       newQuizObj.put("Name", getIntent().getExtras().getString("QuizTitle"));
+                       newQuizObj.put("Description", getIntent().getExtras().getString("QuizDesc"));
+                       newQuizObj.put("Rating", getIntent().getExtras().getString("QuizRating"));
+                       newQuizObj.put("Rated", getIntent().getExtras().getString("QuizRated"));
+                       newQuizObj.put("Played", ""+playedIntFinal);
+                       newQuizObj.put("UserID", tmpQuizArr.getString("UserID"));
+                       newQuizObj.put("Creationdate", tmpQuizArr.getString("Creationdate"));
+
+                       //Det nya objektet läggs in på det gamla objektets plats
+                       quizArr.put(j, newQuizObj);
+                       //Objektet skickas till en metod som skapar det slutgiltiga jsonobjektet.
+                       createJson(quizArr);
+
+                   }
+               }
+
+
         }catch(JSONException e){
             e.printStackTrace();
         }
@@ -162,40 +208,51 @@ public class results extends AppCompatActivity {
 
     public void rateQuiz(View view){
 
+        //RateQuiz körs bara när användaren trycker på knappen Rate quiz.
+
+        //Antalet skärnor hämtas ifrån ratingbaren
         RatingBar bar = (RatingBar) findViewById(R.id.ratingBar);
         double usersRate = bar.getRating();
 
+        //Quizens id hämtas.
         String quizId = getIntent().getExtras().getString("QuizID");
 
-        JSONObject tmpObj = new JSONObject();
+        JSONObject tmpObj;
 
         try{
-
+            //Quiz arrayen hämtas
             JSONArray quizArr = jobj.getJSONArray("Quiz");
-            //quizArr
 
+            //Alla quizar söks igenom efter korrekt quiz.
             for(int i=0;i<quizArr.length();i++){
 
+                //En efter en tas objekten ut och idn jämförs för att hitta det korrekta.
                 tmpObj = quizArr.getJSONObject(i);
                 String id = tmpObj.getString("QID");
                 if(id.equals(quizId)){
 
-                    Log.d("Miami", "is da shit Rating");
+                    //Den tidigare ratingen hämtas och parsas
                     String ratingString = tmpObj.getString("Rating");
+                    //Antal ratings hämtas och parsas
                     String numbOfRatingsString = tmpObj.getString("Rated");
                     double rating = Double.parseDouble(ratingString);
                     double numbOfRatings = Double.parseDouble(numbOfRatingsString);
+
+                    //Antalet ratingar adderas med ett
                     double numbOfRatingsFinal = numbOfRatings +1;
                     String numbOfRatingsFinalString = "" +numbOfRatingsFinal;
 
+                    //Den nya ratingen räknas ut genom att ta det tidigare betyget och multiplicera det
+                    // med antal tidigare röster för att sedan addera på betyget som användaren har skickat in.
+                    //Detta delas sedan på antalet röster (ink. den nya rösten).
                     Double sum = (rating * numbOfRatings + usersRate)/numbOfRatingsFinal;
+                    //Parsas om till string
                     String summa = "" + sum;
 
-                    Log.d("Rating", "tja lol" + sum);
-                    Log.d("Rating", "He" + rating + numbOfRatings + usersRate);
-
+                    //Ett nytt jsonobjekt skapas
                     JSONObject newQuizObj = new JSONObject();
 
+                    //Alla variabler läggs in i det nya objektet.
                     newQuizObj.put("QID", id);
                     newQuizObj.put("Name", getIntent().getExtras().getString("QuizTitle"));
                     newQuizObj.put("Description", getIntent().getExtras().getString("QuizDesc"));
@@ -205,10 +262,13 @@ public class results extends AppCompatActivity {
                     newQuizObj.put("UserID", tmpObj.getString("UserID"));
                     newQuizObj.put("Creationdate", tmpObj.getString("Creationdate"));
 
+                    //Det nya objektet sparas över på det gamla objektets plats
                     quizArr.put(i, newQuizObj);
                 }
-                    String playedString = tmpObj.getString("Played");
+
             }
+
+            //Den uppdaterade arrayen skickas till create JSON
             createJson(quizArr);
             backToHub(view);
         }catch(JSONException e){
@@ -218,23 +278,26 @@ public class results extends AppCompatActivity {
 
 
     public void createJson(JSONArray quizArr){
-
+            //Metoden används för att skapa det slutgiltiga objketet när man uppdaterat quiz arrayen
         try{
 
+            //De orörda arrayerna hämtas
             JSONArray questArr = jobj.getJSONArray("Question");
             JSONArray answerArr = jobj.getJSONArray("Answer");
             JSONArray membersArr = jobj.getJSONArray("Members");
 
+            //Ett nytt json objekt skapas där alla arrayer läggs
             JSONObject finalObj = new JSONObject();
             finalObj.put("Quiz", quizArr);
             finalObj.put("Question", questArr);
             finalObj.put("Answer", answerArr);
             finalObj.put("Members", membersArr);
 
-            Log.d("Miami", "Sucks" + finalObj.toString());
-
+            //Json uppdateras i updateData
             updateData.setJson(finalObj);
+            //Uppdatering skeer
             MainActivity.runUpdate();
+            //Hämtar den nya datan
             MainActivity.runRetrieve();
 
         }catch(JSONException e){

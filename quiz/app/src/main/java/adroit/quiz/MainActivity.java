@@ -405,16 +405,12 @@ public class MainActivity extends AppCompatActivity {
         //Returnerar boolean till anropande rad där de kan användas för varna användare
     }
 
-
         }
-
 
 
 class retrieveData extends AsyncTask<String, String, String> {
 
 
-    jsonConnection jsonClass = new jsonConnection();
-    TextView tv;
     String ab;
     JSONObject jobj;
 
@@ -425,6 +421,7 @@ class retrieveData extends AsyncTask<String, String, String> {
     protected String doInBackground(String... arg0){
 
         try{
+            //Metoden requestJson anropas med urln som arguemt
             jobj= jsonConnection.requestJson("https://api.myjson.com/bins/2u5fd");
 
         }catch(JSONException e){
@@ -442,6 +439,7 @@ class retrieveData extends AsyncTask<String, String, String> {
     }
 
     protected void onPostExecute(String ab){
+        //Här skickas den nya json ut till alla klasser som behöver använda det.
         quizMain.setJson(jobj);
         play.setJson(jobj);
         MainActivity.setJson(jobj);

@@ -20,14 +20,14 @@ import java.net.URL;
 
 public class updateData extends AsyncTask<String, String, String>{
 
+    //Klassen används för att uppdatera json hos hosten
 
-
-
+    //Ett nytt jsonobjekt skapas
     static JSONObject jobj = new JSONObject();
 
 
     public static void setJson(JSONObject j){
-
+        //Anropas av klasser som vill uppdatera sina json
         jobj = j;
 
     }
@@ -35,7 +35,7 @@ public class updateData extends AsyncTask<String, String, String>{
 
     @Override
     protected String doInBackground(String... arg0){
-
+        //Metoden update körs i bakgrunden när updateData skapas.
         update(jobj);
         return "";
     }
@@ -46,15 +46,20 @@ public class updateData extends AsyncTask<String, String, String>{
 
 
         try{
+            //Länken till hosten skapas
             URL u = new URL("https://api.myjson.com/bins/2u5fd");
+            //En anslutning upprättas
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+
+            //Argument för anslutningen sätts, bl.a. PUT eftersom vi vill uppdatera json.
             conn.setDoOutput(true);
             conn.setRequestMethod("PUT");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
 
+            //En writer skapas och skrivs till. Här uppdateras datan hos hosten .
+            //Den töms och stängs när den använts
             OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-
             writer.write(j.toString());
             writer.flush();
             writer.close();
@@ -76,40 +81,6 @@ public class updateData extends AsyncTask<String, String, String>{
         MainActivity.runRetrieve();
 
     }
-
-
-
-    public static void createJson(JSONArray quizArr){
-
-
-
-
-
-    }
-
-
-
-
-
-
-   /* private static String readAll(Reader rd)throws IOException{
-        StringBuilder sb = new StringBuilder();
-        int count;
-        while((count = rd.read()) != -1){
-            sb.append((char) count);
-
-        }
-        return sb.toString();
-
-
-    }*/
-
-
-
-
-
-
-
 
 
 }
