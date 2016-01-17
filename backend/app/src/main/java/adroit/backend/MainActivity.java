@@ -275,11 +275,13 @@ public class MainActivity extends AppCompatActivity {
                     String anvTmp = anvText.getText().toString();
                     String passTmp = passText.getText().toString();
 
+
                     felMed.setVisibility(View.INVISIBLE); // Kanske onodig..
 
                     JSONArray memberArr = jobj.getJSONArray("Members");
                     String uName;
                     String password;
+                    String email;
 
                     Log.d("1. ", "2" + memberArr.length());
 
@@ -289,8 +291,9 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject tmpJ = memberArr.getJSONObject(i);
                         uName = tmpJ.getString("UserName");
                         password = tmpJ.getString("Password");
+                        email = tmpJ.getString("Email");
 
-                        if (anvTmp.equals(uName) && passTmp.equals(password)) {
+                        if (anvTmp.equals(uName) && passTmp.equals(password)||anvTmp.equals(email)&&passTmp.equals(password)) {
 
                             id = tmpJ.getString("UserID");
 
